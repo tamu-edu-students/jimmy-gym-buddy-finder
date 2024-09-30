@@ -57,10 +57,10 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 
-  gem 'cucumber-rails', require: false
-  gem 'database_cleaner'
-  gem 'rails-controller-testing'
-  gem 'rspec-rails'
-  gem 'simplecov', require: false
-  gem 'ZenTest'
+  gem "cucumber-rails", require: false
+  gem "database_cleaner"
+  gem "rails-controller-testing"
+  gem "rspec-rails"
+  gem "simplecov", require: false
+  gem "ZenTest"
 end
