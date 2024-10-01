@@ -90,7 +90,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          bundle config set --local path 'vendor/bundle'
           bundle install
 
       - name: Run database migrations
@@ -102,9 +101,6 @@ jobs:
       - name: Debug installed gems
         run: |
           bundle exec gem list
-
-      - name: Debug Ruby load path
-        run: ruby -e 'puts $LOAD_PATH'
 
       - name: Run tests
         env:

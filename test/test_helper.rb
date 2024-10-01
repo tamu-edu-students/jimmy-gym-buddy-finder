@@ -1,4 +1,3 @@
-$LOAD_PATH.unshift(File.expand_path('vendor/bundle/ruby/3.3.0/gems/simplecov-0.13.0/lib'))
 require "simplecov"
 SimpleCov.start
 
