@@ -88,11 +88,16 @@ jobs:
       - name: Run database migrations
         run: bin/rails db:migrate RAILS_ENV=test
 
+      - name: Prepare the test database
+        run: bin/rails db:test:prepare
+
       - name: Run tests
         env:
           RAILS_ENV: test
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test test:system
+        # run: bin/rails db:test:prepare test test:system
+        run: |
+          bundle exec rails test
 
       - name: Check test coverage
         run: |
