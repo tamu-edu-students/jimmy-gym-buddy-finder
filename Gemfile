@@ -67,4 +67,5 @@ group :test do
   gem "rspec-rails"
   gem "simplecov", require: false
   gem "ZenTest"
+  gem "codeclimate-test-reporter", require: nil
 end

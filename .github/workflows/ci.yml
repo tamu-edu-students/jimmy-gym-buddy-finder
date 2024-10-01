@@ -85,10 +85,13 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Run database migrations
+        run: bin/rails db:migrate RAILS_ENV=test
+
       - name: Run tests
         env:
           RAILS_ENV: test
-          REDIS_URL: redis://localhost:6379/0
+          # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test test:system
 
       - name: Check test coverage
