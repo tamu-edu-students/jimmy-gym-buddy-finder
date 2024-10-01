@@ -65,7 +65,7 @@ group :test do
   gem "database_cleaner"
   gem "rails-controller-testing"
   gem "rspec-rails"
-  gem "simplecov"
+  gem "simplecov", require: false
   gem "ZenTest"
   # gem "codeclimate-test-reporter", require: nil
 end
