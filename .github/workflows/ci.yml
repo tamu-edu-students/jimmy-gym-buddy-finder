@@ -96,10 +96,13 @@ jobs:
 
       - name: Check test coverage
         run: |
-          if [ $(ruby -r simplecov -e "puts SimpleCov.result.covered_percent >= 90") == "false" ]; then
-            echo "Insufficient test coverage. Must be at least 90%."
+          covered_percent=$(ruby -r simplecov -e "puts SimpleCov.result.covered_percent")
+          if (( $(echo "$covered_percent < 90" | bc -l) )); then
+            echo "Code coverage is below 90%: $covered_percent%"
             exit 1
-          fi  
+          else
+            echo "Code coverage is sufficient: $covered_percent%"
+          fi
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
