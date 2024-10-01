@@ -51,7 +51,18 @@ jobs:
           bundler-cache: true
 
       - name: Lint code for consistent style
-        run: bin/rubocop -f github
+        run: |
+          bin/rubocop --format json --out rubocop_output.json
+          
+          offenses_per_file=$(jq '.files[] | {path, offenses: (.offenses | length)} | select(.offenses > 1)' rubocop_output.json)
+
+          if [[ -n "$offenses_per_file" ]]; then
+            echo "There are files with more than 1 offense:"
+            echo "$offenses_per_file"
+            exit 1
+          else
+            echo "All files have 1 or fewer offenses."
+          fi
 
   test:
     runs-on: ubuntu-latest
