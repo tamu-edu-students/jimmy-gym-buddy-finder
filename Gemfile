@@ -57,3 +57,15 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+group :test do
+  gem 'cucumber', '~> 9.2.0', require: false
+  gem 'open3'
+  gem 'rspec', '~> 3.13.0', require: false
+  gem 'simplecov'
+end
+
+group :development do
+  gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
+end
