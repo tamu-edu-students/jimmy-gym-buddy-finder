@@ -1,0 +1,96 @@
+/* General styles for the page and container */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+/* Style the container to be phone-sized */
+.container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+}
+
+/* Style the main heading */
+.main-heading {
+    font-size: 32px; /* Larger font size */
+    font-weight: bold; /* Bold font */
+    color: #007bff; /* Blue color */
+    margin: 0; /* Remove default margins */
+    padding: 10px 0; /* Add some padding */
+    letter-spacing: 2px; /* Increase letter spacing */
+    text-transform: uppercase; /* Uppercase text */
+}
+
+/* Style the subtitle */
+.subtitle {
+    font-size: 18px; /* Medium font size */
+    color: #555555; /* Gray color */
+    margin: 0;
+    padding: 10px 0; /* Add some padding */
+    font-style: italic; /* Italic font */
+}
+
+/* Style the image */
+.login-image {
+    width: 150px; /* Set image width */
+    height: auto;
+    margin: 20px 0; /* Add space above and below the image */
+    border-radius: 8px; /* Optional: round the corners */
+}
+
+/* Style the button produced by the Rails button_to helper */
+.container form {
+    display: inline-block; /* Display form inline to fit in container */
+    margin-top: 20px;
+}
+
+.container form input[type="submit"] {
+    font-size: 18px;
+    padding: 15px 30px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%; /* Full width button for mobile */
+    max-width: 200px; /* Limit width on larger screens */
+    box-sizing: border-box;
+}
+
+/* Change background color on hover */
+.container form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Additional styles for responsiveness */
+@media (max-width: 600px) {
+    .main-heading {
+        font-size: 28px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .container form input[type="submit"] {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
+}
