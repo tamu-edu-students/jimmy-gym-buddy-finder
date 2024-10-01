@@ -87,7 +87,7 @@ jobs:
 
       - name: Install bundler
         run: gem install bundler
-        
+
       - name: Install dependencies
         run: bundle install
 
@@ -96,6 +96,10 @@ jobs:
 
       - name: Prepare the test database
         run: bin/rails db:test:prepare
+
+      - name: Debug installed gems
+        run: |
+          bundle exec gem list
 
       - name: Run tests
         env:
