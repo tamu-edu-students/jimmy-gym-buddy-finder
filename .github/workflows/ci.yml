@@ -101,6 +101,9 @@ jobs:
         run: |
           bundle exec gem list
 
+      - name: Debug Ruby load path
+        run: ruby -e 'puts $LOAD_PATH'
+
       - name: Run tests
         env:
           RAILS_ENV: test
