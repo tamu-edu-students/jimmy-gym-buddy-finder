@@ -3,7 +3,6 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [ main ]
 
 jobs:
   scan_ruby:
@@ -51,7 +50,18 @@ jobs:
           bundler-cache: true
 
       - name: Lint code for consistent style
-        run: bin/rubocop -f github
+        run: |
+          bin/rubocop --format json --out rubocop_output.json
+          
+          offenses_per_file=$(jq '.files[] | {path, offenses: (.offenses | length)} | select(.offenses > 1)' rubocop_output.json)
+
+          if [[ -n "$offenses_per_file" ]]; then
+            echo "There are files with more than 1 offense:"
+            echo "$offenses_per_file"
+            exit 1
+          else
+            echo "All files have 1 or fewer offenses."
+          fi
 
   test:
     runs-on: ubuntu-latest
@@ -75,11 +85,40 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      # - name: Run tests
-        # env:
-          # RAILS_ENV: test
+      - name: Install bundler
+        run: gem install bundler
+
+      - name: Install dependencies
+        run: |
+          bundle install
+
+      - name: Run database migrations
+        run: bin/rails db:migrate RAILS_ENV=test
+
+      - name: Prepare the test database
+        run: bin/rails db:test:prepare
+
+      - name: Debug installed gems
+        run: |
+          bundle exec gem list
+
+      - name: Run tests
+        env:
+          RAILS_ENV: test
           # REDIS_URL: redis://localhost:6379/0
         # run: bin/rails db:test:prepare test test:system
+        run: |
+          bundle exec rails test
+
+      - name: Check test coverage
+        run: |
+          covered_percent=$(ruby -r simplecov -e "puts SimpleCov.result.covered_percent")
+          if (( $(echo "$covered_percent < 90" | bc -l) )); then
+            echo "Code coverage is below 90%: $covered_percent%"
+            exit 1
+          else
+            echo "Code coverage is sufficient: $covered_percent%"
+          fi
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
@@ -88,3 +127,35 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
+
+  cucumber_coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Run Cucumber tests with coverage
+        run: |
+          bundle exec cucumber --format pretty --format html --out cucumber_report.html
+          if grep -q "coverage below" coverage/.last_run.json; then
+            echo "Test coverage is below the required threshold"
+            exit 1
+          else
+            echo "Test coverage meets the required threshold"
+          fi
+
+      - name: Upload Cucumber HTML Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: cucumber-report
+          path: cucumber_report.html

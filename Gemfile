@@ -52,17 +52,22 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "rubocop", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rspec", require: false
+  gem "rubycritic", require: false
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-
   gem "cucumber-rails", require: false
   gem "database_cleaner"
   gem "rails-controller-testing"
   gem "rspec-rails"
   gem "simplecov", require: false
   gem "ZenTest"
+  # gem "codeclimate-test-reporter", require: nil
 end

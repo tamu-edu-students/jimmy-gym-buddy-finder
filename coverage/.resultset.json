@@ -1,0 +1,54 @@
+{
+  "Cucumber Features": {
+    "coverage": {
+      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/channels/application_cable/channel.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/channels/application_cable/connection.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/controllers/application_controller.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/helpers/application_helper.rb": [
+        0,
+        0
+      ],
+      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/jobs/application_job.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/mailers/application_mailer.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/models/application_record.rb": [
+        0,
+        0,
+        0
+      ]
+    },
+    "timestamp": 1727803016
+  },
+  "RSpec": {
+    "coverage": {
+    },
+    "timestamp": 1727802887
+  }
+}

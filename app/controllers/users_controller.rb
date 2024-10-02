@@ -3,19 +3,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def new
-    @user = User.new
-  end
-
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      redirect_to @user, notice: "User successfully registered!"
-    else
-      render :new
-    end
-  end
-
   def edit
     @user = User.find(params[:id])
   end
@@ -33,4 +20,22 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :age, :gender, :school, :major, :about_me)
   end
+  
+  def new
+    @user = User.new # Initializes a new user instance for the form
+  end
+
+  def create
+    @user = User.new(user_params) # Create a new user with the submitted params
+
+    if @user.save
+      flash[:notice] = "User registered successfully."
+      redirect_to new_user_path
+    else
+      flash.now[:alert] = "There were errors while saving the user."
+      render :new # This re-renders the new form
+    end
+  end
+
+  private
 end
