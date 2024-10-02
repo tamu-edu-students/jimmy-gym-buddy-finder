@@ -1,2 +1,31 @@
 <h1>User Profile</h1>
-<p>This is the user profile page.</p>
+
+<table class="table table-bordered">
+  <tr>
+    <th>Name</th>
+    <td><%= @user.name %></td>
+  </tr>
+  <tr>
+    <th>Age</th>
+    <td><%= @user.age %></td>
+  </tr>
+  <tr>
+    <th>Gender</th>
+    <td><%= @user.gender %></td>
+  </tr>
+  <tr>
+    <th>School</th>
+    <td><%= @user.school %></td>
+  </tr>
+  <tr>
+    <th>Major</th>
+    <td><%= @user.major %></td>
+  </tr>
+  <tr>
+    <th>About Me</th>
+    <td><%= @user.about_me %></td>
+  </tr>
+</table>
+
+
+<%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-primary" %>

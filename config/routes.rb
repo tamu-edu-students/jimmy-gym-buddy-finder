@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get "users/new"
-  get "users/create"
+  post "users/create"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -11,11 +11,14 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  resources :users, only: [ :new, :create ]
+  resources :users, only: [:new, :create, :show, :edit, :update] do
+    member do
+      get 'dashboard', to: 'dashboard#show'
+      get 'profile', to: 'profiles#show'
+    end
+  end
 
   # Defines the root path route ("/")
   # root "posts#index"
 
-  get "/dashboard", to: "dashboard#show"
-  get "/profile", to: "profiles#show"
 end
