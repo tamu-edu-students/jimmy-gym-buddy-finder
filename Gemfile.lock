@@ -146,9 +146,6 @@ GEM
     docile (1.4.1)
     drb (2.2.1)
     erubi (1.13.0)
-<<<<<<< HEAD
-    ffi (1.17.0-arm64-darwin)
-=======
     ffi (1.17.0-aarch64-linux-gnu)
     ffi (1.17.0-aarch64-linux-musl)
     ffi (1.17.0-arm-linux-gnu)
@@ -159,7 +156,6 @@ GEM
     ffi (1.17.0-x86_64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
     ffi (1.17.0-x86_64-linux-musl)
->>>>>>> David-Frontend
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.6)
@@ -407,10 +403,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   capybara
-<<<<<<< HEAD
-=======
   carrierwave (~> 2.0)
->>>>>>> David-Frontend
   cucumber-rails
   database_cleaner
   debug
@@ -435,3 +428,5 @@ RUBY VERSION
 
 BUNDLED WITH
    2.5.18
+
+# test
