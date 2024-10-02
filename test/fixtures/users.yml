@@ -4,8 +4,10 @@ one:
   name: MyString
   age: 1
   gender: MyString
+  photo: MyString
 
 two:
   name: MyString
   age: 1
   gender: MyString
+  photo: MyString
