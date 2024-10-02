@@ -11,14 +11,13 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  resources :users, only: [:new, :create, :show, :edit, :update] do
+  resources :users, only: [ :new, :create, :show, :edit, :update ] do
     member do
-      get 'dashboard', to: 'dashboard#show'
-      get 'profile', to: 'profiles#show'
+      get "dashboard", to: "dashboard#show"
+      get "profile", to: "profiles#show"
     end
   end
 
   # Defines the root path route ("/")
   # root "posts#index"
-
 end
