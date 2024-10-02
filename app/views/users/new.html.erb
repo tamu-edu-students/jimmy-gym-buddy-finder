@@ -1,0 +1,30 @@
+<h1>JIMMY - GYM BUDDY FINDER</h1>
+<h2>User Registration Form</h2>
+
+<%= form_with model: @user, local: true do |form| %>
+  <%# <div class="avatar-upload"> %>
+    <%# <%= form.file_field :photo, id: 'photo-upload', class: 'hidden-file-input' %>
+    <%# <label for="photo-upload" class="avatar-circle"> %>
+      <%# <span class="plus-icon">+</span> %>
+    <%# </label> %>
+  <%# </div> %>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :age %>
+    <%= form.number_field :age %>
+  </div>
+
+  <div>
+    <%= form.label :gender %>
+    <%= form.select :gender, ['Male', 'Female', 'Other'] %>
+  </div>
+
+  <div>
+    <%= form.submit 'Register' %>
+  </div>
+<% end %>
