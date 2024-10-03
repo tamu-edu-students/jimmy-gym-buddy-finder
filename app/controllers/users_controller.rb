@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-  
+
   def new
     @user = User.new # Initializes a new user instance for the form
   end
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     @user = User.new(create_user_params) # Create a new user with the submitted params
     if @user.save
       flash[:notice] = "User registered successfully."
-      redirect_to dashboard_user_path(@user) 
+      redirect_to dashboard_user_path(@user)
     else
       flash.now[:alert] = "There were errors while saving the user."
       render :new, status: :unprocessable_entity  # Important: this tells Turbo the form is invalid
@@ -40,5 +40,4 @@ class UsersController < ApplicationController
   def update_user_params
     params.require(:user).permit(:name, :age, :gender, :school, :major, :about_me)
   end
-
 end
