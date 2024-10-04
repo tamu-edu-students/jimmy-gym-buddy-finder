@@ -1,41 +1,171 @@
-<h1>JIMMY - GYM BUDDY FINDER</h1>
-<h2>User Registration Form</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jimmy - Gym Buddy Finder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 2px;
+    }
 
+    .form-container {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 100%;
+      max-width: 400px;
+    }
 
-<%= form_with model: @user, local: true do |form| %>
-  <%# <div class="avatar-upload"> %>
-    <%# <%= form.file_field :photo, id: 'photo-upload', class: 'hidden-file-input' %>
-    <%# <label for="photo-upload" class="avatar-circle"> %>
-      <%# <span class="plus-icon">+</span> %>
-    <%# </label> %>
-  <%# </div> %>
-   <% if @user.errors.any? %>
-    <div class="error-messages">
-      <h3>There were errors while saving the user:</h3>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+    h1, h2 {
+      text-align: center;
+      color: #333;
+    }
 
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    .form-container div {
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    .error-messages {
+      color: red;
+      background-color: #f8d7da;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #f5c6cb;
+    }
+
+    .error-messages h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .error-messages ul {
+      padding-left: 20px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #45a049;
+    }
+
+    .hidden-file-input {
+      display: none;
+    }
+
+    .avatar-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 20px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .plus-icon {
+      font-size: 40px;
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 15px;
+      }
+
+      input[type="text"], input[type="number"], select, .submit-btn {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h1>JIMMY - GYM BUDDY FINDER</h1>
+    <h2>User Registration</h2>
+
+    <%= form_with model: @user, local: true do |form| %>
+
+      <% if @user.errors.any? %>
+        <div class="error-messages">
+          <h3>There were errors while saving the user:</h3>
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <!-- Uncomment for image upload -->
+      <!-- 
+      <div class="avatar-upload">
+        <%= form.file_field :photo, id: 'photo-upload', class: 'hidden-file-input' %>
+        <label for="photo-upload" class="avatar-circle">
+          <span class="plus-icon">+</span>
+        </label>
+      </div> 
+      -->
+
+      <div>
+        <%= form.label :name %>
+        <%= form.text_field :name %>
+      </div>
+
+      <div>
+        <%= form.label :age %>
+        <%= form.number_field :age %>
+      </div>
+
+      <div>
+        <%= form.label :gender %>
+        <%= form.select :gender, ['Male', 'Female', 'Other'] %>
+      </div>
+
+      <div>
+        <%= form.submit 'Register', class: 'submit-btn' %>
+      </div>
+
+    <% end %>
   </div>
 
-  <div>
-    <%= form.label :age %>
-    <%= form.number_field :age %>
-  </div>
-
-  <div>
-    <%= form.label :gender %>
-    <%= form.select :gender, ['Male', 'Female', 'Other'] %>
-  </div>
-
-  <div>
-    <%= form.submit 'Register' %>
-  </div>
-<% end %>
+</body>
+</html>
