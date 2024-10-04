@@ -82,3 +82,7 @@ group :test do
   gem "devise"
   # gem "codeclimate-test-reporter", require: nil
 end
+
+group :production do
+  gem "pg" # for Heroku deployment
+end
