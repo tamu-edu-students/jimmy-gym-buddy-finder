@@ -1,0 +1,73 @@
+/* Styling for the main heading */
+.main-heading {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  /* Styling for flash alert messages */
+  .flash-alert {
+    color: white;
+    background-color: red;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+
+  /* Styling for error messages */
+  .error-messages {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+
+  /* Styling for the list of error messages */
+  .error-messages ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .error-messages li {
+    margin-bottom: 5px;
+  }
+
+  /* Styling for the form and its elements */
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  /* Styling for form labels */
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  /* Styling for form inputs and textarea */
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  /* Styling for the form submit button */
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }

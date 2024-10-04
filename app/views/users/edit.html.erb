@@ -1,6 +1,24 @@
 <h1 class="main-heading">Edit Profile</h1>
+<%= stylesheet_link_tag 'edit', media: 'all' %>
+
+<% if flash[:alert] %>
+  <div class="flash-alert">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
 
 <%= form_with model: @user, local: true do |form| %>
+  <% if @user.errors.any? %>
+    <div class="error-messages">
+      <h3>There were errors while saving the user:</h3>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="form-group">
     <%= form.label :photo %>
     <%= form.file_field :photo, id: 'photo-upload', class: "form-control" %>
