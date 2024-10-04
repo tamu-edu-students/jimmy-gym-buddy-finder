@@ -1,24 +1,53 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-<<<<<<< HEAD
-  name: MyString
-  age: 1
-  gender: MyString
-  photo: MyString
+  email: user_one@example.com
+  username: user_one
+  first_name: John
+  last_name: Doe
+  age: 25
+  gender: male
+  school: Texas A&M University
+  major: Computer Science
+  about_me: "A passionate learner and technology enthusiast."
+  uid: "123456"
+  provider: "github"
 
 two:
-  name: MyString
-  age: 1
-  gender: MyString
-  photo: MyString
-=======
-  email: MyString
-  first_name: MyString
-  last_name: MyString
+  email: user_two@example.com
+  username: user_two
+  first_name: Jane
+  last_name: Smith
+  age: 30
+  gender: female
+  school: Harvard University
+  major: Data Science
+  about_me: "I love data and turning it into actionable insights."
+  uid: "654321"
+  provider: "google"
 
-two:
-  email: MyString
-  first_name: MyString
-  last_name: MyString
->>>>>>> Randy-dev
+three:
+  email: user_three@example.com
+  username: user_three
+  first_name: Alice
+  last_name: Johnson
+  age: 28
+  gender: non-binary
+  school: Stanford University
+  major: Software Engineering
+  about_me: "I enjoy working on innovative tech solutions."
+  uid: "789012"
+  provider: "linkedin"
+
+four:
+  email: user_four@example.com
+  username: user_four
+  first_name: Bob
+  last_name: Brown
+  age: 22
+  gender: male
+  school: MIT
+  major: Robotics
+  about_me: "Robotics enthusiast with a passion for AI."
+  uid: "345678"
+  provider: "facebook"
