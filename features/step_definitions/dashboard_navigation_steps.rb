@@ -1,7 +1,7 @@
 # features/step_definitions/dashboard_navigation_steps.rb
 
 Given("I am on the dashboard page") do
-    visit dashboard_path
+    visit dashboard_user_path
   end
 
   When("I enter the dashboard for the first time") do

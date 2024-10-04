@@ -1,4 +1,4 @@
-<h1>User Profile</h1>
+<h1 class="main-heading">User Profile</h1>
 
 <table class="table table-bordered">
   <tr>
@@ -12,8 +12,8 @@
     </td>
   </tr>
   <tr>
-    <th>Name</th>
-    <td><%= @user.name %></td>
+    <th>Username</th>
+    <td><%= @user.username %></td>
   </tr>
   <tr>
     <th>Age</th>
@@ -36,6 +36,5 @@
     <td><%= @user.about_me %></td>
   </tr>
 </table>
-
 
 <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-primary" %>
