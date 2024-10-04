@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   def check_profile_completion
     if logged_in? && !@user.valid?(:profile_update)
-      redirect_to edit_user_path(@user), alert: 'Please complete your profile information before accessing other sections.'
+      redirect_to edit_user_path(@user), alert: "Please complete your profile information before accessing other sections."
     end
   end
 
