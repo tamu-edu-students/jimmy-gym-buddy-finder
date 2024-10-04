@@ -1,9 +1,19 @@
-<h1>User Profile</h1>
+<h1 class="main-heading">User Profile</h1>
 
 <table class="table table-bordered">
   <tr>
-    <th>Name</th>
-    <td><%= @user.name %></td>
+    <th>Photo</th>
+    <td>
+      <% if @user.photo.attached? %>
+        <%= image_tag @user.photo, size: "150x150", alt: "User Photo" %>
+      <% else %>
+        No photo available
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th>Username</th>
+    <td><%= @user.username %></td>
   </tr>
   <tr>
     <th>Age</th>
@@ -26,6 +36,5 @@
     <td><%= @user.about_me %></td>
   </tr>
 </table>
-
 
 <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-primary" %>
