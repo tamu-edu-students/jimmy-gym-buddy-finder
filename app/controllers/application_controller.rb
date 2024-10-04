@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :require_login
+  # before_action :require_login
   before_action :check_profile_completion
 
   private
@@ -23,10 +23,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def require_login
-    # redirect to the welcome page unless user is logged in
-    unless logged_in?
-      redirect_to welcome_path, alert: 'You must be logged in to access this section.'
-    end
-  end
+  # def require_login
+  #   # redirect to the welcome page unless user is logged in
+  #   unless logged_in?
+  #     redirect_to welcome_path, alert: 'You must be logged in to access this section.'
+  #   end
+  # end
 end
