@@ -14,7 +14,7 @@ RSpec.describe 'Login Page Test' do
 
   it 'displays the main heading' do
     heading = @driver.find_element(:tag_name, 'h1')
-    expect(heading.text).to eq('JIMMY')
+    expect(heading.text).to eq('Jimmy')
   end
 
   it 'displays the subtitle' do

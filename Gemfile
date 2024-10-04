@@ -54,6 +54,8 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   gem "carrierwave", "~> 2.0"
+
+  gem "factory_bot_rails"
 end
 
 group :development do

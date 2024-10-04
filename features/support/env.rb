@@ -11,6 +11,27 @@
 # files.
 
 require 'cucumber/rails'
+# features/support/env.rb
+require 'capybara/cucumber'
+require 'factory_bot_rails'
+require 'warden'
+
+# Configure Capybara to use the appropriate driver
+Capybara.default_driver = :selenium_chrome  # Or use :selenium_chrome_headless for headless mode
+
+# Include FactoryBot methods
+World(FactoryBot::Syntax::Methods)
+
+# Configure Warden for Devise login
+Warden.test_mode!
+
+# Clean up the database before each scenario
+Before do
+  Warden.test_reset!
+end
+
+# Ensure the test database is set up correctly
+DatabaseCleaner.strategy = :transaction
 
 # frozen_string_literal: true
 
