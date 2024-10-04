@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :check_profile_completion, only: [:edit, :update]
-  
+  skip_before_action :check_profile_completion, only: [ :edit, :update ]
+
   def show
     @user = User.find(params[:id])
   end
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    
+
     if @user.update(update_user_params)
       if @user.valid?(:profile_update)
         redirect_to profile_user_path(@user), notice: "Profile successfully updated and is complete!"
