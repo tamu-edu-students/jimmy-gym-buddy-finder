@@ -1,6 +1,10 @@
-<div class="container">
-  <h1 class="main-heading">Jimmy</h1>
+<div class="container text-center">
+  <h1 class="main-heading">
+    <%= link_to "Jimmy", root_path, style: "text-decoration: none; color: #007bff;" %>
+  </h1>
   <p class="subtitle">Your Gym Buddies Finder</p>
-  <%= image_tag 'login.jpg', alt: 'Jimmy Logo', class: 'login-image' %>
-  <p><%= button_to "Login with Google", "/auth/google_oauth2", data: { turbo: "false" } %></p>
+  <div class="image-container">
+    <%= image_tag 'login.jpg', alt: 'Jimmy Logo', class: 'login-image' %>
+  </div>
+  <p><%= button_to "Login with Google", "/auth/google_oauth2", data: { turbo: "false" }, class: "btn btn-primary" %></p>
 </div>

@@ -10,3 +10,9 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       image_size: 50, # Sets the profile picture size to 50x50 pixels.
     }
 end
+
+OmniAuth.config.failure_raise_out_environments = []
+OmniAuth.config.on_failure = Proc.new do |env|
+  Rails.logger.debug "OmniAuth Failure Endpoint: #{env['omniauth.error.type']}, #{env['omniauth.error']}"
+  OmniAuth::FailureEndpoint.new(env).redirect_to_failure
+end

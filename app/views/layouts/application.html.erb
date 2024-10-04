@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= content_for(:title) || "Jimmy Gym Buddy Finder" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title><%= content_for(:title) || "Jimmy Gym Buddy Finder" %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= yield :head %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= yield :head %>
+</head>
 
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <%= link_to "Jimmy", root_path, class: 'main-heading'%>
+      <div class="nav-links">
+        <%= link_to "Dashboard", dashboard_user_path, class: "btn" if session[:user_id] %>
+        <%= link_to "Profile", profile_user_path(@user), class: "btn" if session[:user_id] %>
+        <%= link_to "Log Out", logout_path, method: :delete, class: "btn btn-danger" if session[:user_id] %>
+      </div>
+    </div>
+  </nav>
 
-  <body>
-    <%= render partial: 'shared/display_flash' if not flash.empty? %>
+  <%= render partial: 'shared/display_flash' if flash.any? %>
+
+  <div class="container">
     <%= yield %>
-  </body>
+  </div>
+</body>
 </html>

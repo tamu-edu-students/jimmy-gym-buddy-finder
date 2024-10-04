@@ -1,4 +1,4 @@
-<h1>User Profile</h1>
+<h1 class="main-heading">User Profile</h1>
 
 <table class="table table-bordered">
   <tr>
@@ -27,22 +27,4 @@
   </tr>
 </table>
 
-<a href="<%= edit_user_path(@user) %>" class="icon-button">
-  <span>Edit Profile</span>
-</a>
-
-<div class="bottom-bar">
-  <a href="<%= dashboard_user_path(@user) %>" class="icon-button">
-    <span>Dashboard</span>
-  </a> 
-  <a href="/chat" class="icon-button">
-    <span>Chat</span>
-  </a>
-  <a href="/match" class="icon-button">
-    <span>Match</span>
-  </a>
-  <a href="/fitness" class="icon-button">
-    <span>Fitness</span>
-  </a>
-  <%= link_to "log out", logout_path %>
-</div>
+<%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-primary" %>

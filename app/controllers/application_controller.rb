@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :require_login
+  before_action :check_profile_completion
 
   private
 
@@ -13,7 +14,13 @@ class ApplicationController < ActionController::Base
   def logged_in?
     # user returns @user,
     #   which is not nil (truthy) only if session[:user_id] is a valid user id
-    user
+    user.present?
+  end
+
+  def check_profile_completion
+    if logged_in? && !@user.valid?(:profile_update)
+      redirect_to edit_user_path(@user), alert: 'Please complete your profile information before accessing other sections.'
+    end
   end
 
   def require_login
