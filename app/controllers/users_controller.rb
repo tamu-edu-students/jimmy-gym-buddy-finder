@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :check_profile_completion, only: [:edit, :update]
+  
   def show
     @user = User.find(params[:id])
   end
@@ -9,10 +11,17 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    
     if @user.update(update_user_params)
-      redirect_to profile_user_path(@user), notice: "Profile successfully updated!"
+      if @user.valid?(:profile_update)
+        redirect_to profile_user_path(@user), notice: "Profile successfully updated and is complete!"
+      else
+        flash.now[:alert] = "Profile is incomplete. Please fill in all required fields."
+        render :edit, status: :unprocessable_entity
+      end
     else
-      render :edit
+      flash.now[:alert] = "There were errors while updating the profile. Please check the fields and try again."
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -32,12 +41,11 @@ class UsersController < ApplicationController
   end
 
   private
-
   def create_user_params
-    params.require(:user).permit(:name, :age, :gender)
+    params.require(:user).permit(:first_name, :last_name, :age, :gender)
   end
 
   def update_user_params
-    params.require(:user).permit(:name, :age, :gender, :school, :major, :about_me)
+    params.require(:user).permit(:username, :age, :gender, :school, :major, :about_me)
   end
 end

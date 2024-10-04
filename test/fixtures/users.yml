@@ -1,6 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+<<<<<<< HEAD
   name: MyString
   age: 1
   gender: MyString
@@ -11,3 +12,13 @@ two:
   age: 1
   gender: MyString
   photo: MyString
+=======
+  email: MyString
+  first_name: MyString
+  last_name: MyString
+
+two:
+  email: MyString
+  first_name: MyString
+  last_name: MyString
+>>>>>>> Randy-dev
