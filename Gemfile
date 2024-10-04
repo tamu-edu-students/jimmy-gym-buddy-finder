@@ -54,6 +54,8 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   gem "carrierwave", "~> 2.0"
+
+  gem "factory_bot_rails"
 end
 
 group :development do
@@ -76,5 +78,7 @@ group :test do
   gem "rspec-rails"
   gem "simplecov", require: false
   gem "ZenTest"
+  gem "warden"
+  gem "devise"
   # gem "codeclimate-test-reporter", require: nil
 end

@@ -40,17 +40,17 @@
           null,
           null,
           null,
-          2,
+          1,
           null,
           null,
           1,
           null,
           null,
-          2,
+          1,
           null,
           null,
           1,
-          2,
+          1,
           0,
           null,
           null,
@@ -88,11 +88,15 @@
           null
         ]
       },
-      "/Users/flora/graduate_school/CSCE606/Project_Jimmy/jimmy-gym-buddy-finder/app/controllers/profiles_controller.rb": {
+      "/Users/flora/graduate_school/CSCE606/Project_Jimmy/jimmy-gym-buddy-finder/app/controllers/welcome_controller.rb": {
         "lines": [
           1,
           1,
-          1,
+          null,
+          0,
+          0,
+          0,
+          null,
           null,
           null
         ]
@@ -111,27 +115,8 @@
           null,
           null,
           1,
-          1,
-          null,
-          1,
-          1,
           0,
           null,
-          1,
-          1,
-          null,
-          null,
-          0,
-          0,
-          null,
-          null,
-          null,
-          1,
-          0,
-          null,
-          null,
-          1,
-          0,
           0,
           0,
           0,
@@ -140,6 +125,25 @@
           0,
           null,
           null,
+          0,
+          0,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          null,
           null,
           1,
           1,
@@ -147,7 +151,7 @@
           null,
           null,
           1,
-          1,
+          0,
           null,
           null
         ]
@@ -164,6 +168,17 @@
       },
       "/Users/flora/graduate_school/CSCE606/Project_Jimmy/jimmy-gym-buddy-finder/app/channels/application_cable/connection.rb": {
         "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/flora/graduate_school/CSCE606/Project_Jimmy/jimmy-gym-buddy-finder/app/controllers/profiles_controller.rb": {
+        "lines": [
+          0,
           0,
           0,
           0,
@@ -212,21 +227,6 @@
           0,
           0,
           null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/flora/graduate_school/CSCE606/Project_Jimmy/jimmy-gym-buddy-finder/app/controllers/welcome_controller.rb": {
-        "lines": [
-          0,
-          0,
-          null,
-          0,
-          0,
           0,
           0,
           0,
@@ -312,11 +312,6 @@
         }
       }
     },
-    "timestamp": 1728077496
-  },
-  "RSpec": {
-    "coverage": {
-    },
-    "timestamp": 1727802887
+    "timestamp": 1728077941
   }
 }

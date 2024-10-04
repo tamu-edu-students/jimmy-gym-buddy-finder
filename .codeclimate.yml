@@ -1,0 +1,5 @@
+version: 2
+engines:
+  rubocop:
+    enabled: true
+    channel: rubygems
