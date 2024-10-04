@@ -2,6 +2,16 @@
 
 <table class="table table-bordered">
   <tr>
+    <th>Photo</th>
+    <td>
+      <% if @user.photo.attached? %>
+        <%= image_tag @user.photo, size: "150x150", alt: "User Photo" %>
+      <% else %>
+        No photo available
+      <% end %>
+    </td>
+  </tr>
+  <tr>
     <th>Username</th>
     <td><%= @user.username %></td>
   </tr>
