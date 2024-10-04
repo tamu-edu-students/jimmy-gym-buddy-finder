@@ -1,5 +1,5 @@
 require 'selenium-webdriver'
-require 'rspec'
+require 'rails_helper'
 
 RSpec.describe 'Login Page Test' do
   before(:all) do

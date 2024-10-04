@@ -81,5 +81,11 @@ group :test do
   gem "rspec-rails"
   gem "simplecov", require: false
   gem "ZenTest"
+  gem "warden"
+  gem "devise"
   # gem "codeclimate-test-reporter", require: nil
+end
+
+group :production do
+  gem "pg" # for Heroku deployment
 end
