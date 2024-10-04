@@ -1,50 +1,339 @@
 {
   "Cucumber Features": {
     "coverage": {
-      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/channels/application_cable/channel.rb": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/channels/application_cable/connection.rb": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/controllers/application_controller.rb": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/helpers/application_helper.rb": [
-        0,
-        0
-      ],
-      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/jobs/application_job.rb": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/mailers/application_mailer.rb": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "/Users/kushal/Documents/TAMU/SEM1/606-SoftwareEngineering/Jimmy/jimmy-gym-buddy-finder/app/models/application_record.rb": [
-        0,
-        0,
-        0
-      ]
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/channels/application_cable/channel.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/channels/application_cable/connection.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/controllers/application_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          0,
+          0,
+          null,
+          0,
+          null,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/controllers/dashboard_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/controllers/profiles_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/controllers/sessions_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/controllers/users_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/controllers/welcome_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/helpers/application_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/helpers/dashboard_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/helpers/profiles_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/helpers/users_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/jobs/application_job.rb": {
+        "lines": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/mailers/application_mailer.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/models/application_record.rb": {
+        "lines": [
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/models/user.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/d/Code/TAMU/Jimmy/jimmy-gym-buddy-finder/app/uploaders/photo_uploader.rb": {
+        "lines": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0
+        ],
+        "branches": {
+        }
+      }
     },
-    "timestamp": 1727803016
+    "timestamp": 1728066548
   },
   "RSpec": {
     "coverage": {
