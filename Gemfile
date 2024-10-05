@@ -80,7 +80,7 @@ group :test do
   gem "rspec-rails"
   gem "simplecov", require: false
   gem "ZenTest"
-  gem 'database_cleaner'
+  gem "database_cleaner"
   # gem "codeclimate-test-reporter", require: nil
 end
 

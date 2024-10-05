@@ -22,11 +22,11 @@ Given("a user exists with the following details:") do |table|
 end
 
   Given("I am on the dashboard page") do
-    @user = User.find_by(first_name: "TestUser") 
+    @user = User.find_by(first_name: "TestUser")
     if @user.nil?
       raise "User not found"
     end
-    visit dashboard_user_path(@user) 
+    visit dashboard_user_path(@user)
   end
 
   When("I enter the dashboard for the first time") do
