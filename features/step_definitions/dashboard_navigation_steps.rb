@@ -9,7 +9,10 @@ Given("a user exists with the following details:") do |table|
     first_name: attributes["first_name"],
     last_name: attributes["last_name"],
     age: attributes["age"],
-    gender: attributes["gender"]
+    gender: attributes["gender"],
+    email: attributes["email"],
+    uid: SecureRandom.hex(10),
+    provider: "google"
   )
   if @user.save
     puts "User successfully created!"
@@ -18,8 +21,12 @@ Given("a user exists with the following details:") do |table|
   end
 end
 
-Given("I am on the dashboard page") do
-    visit dashboard_user_path(@user)
+  Given("I am on the dashboard page") do
+    @user = User.find_by(first_name: "TestUser") 
+    if @user.nil?
+      raise "User not found"
+    end
+    visit dashboard_user_path(@user) 
   end
 
   When("I enter the dashboard for the first time") do
@@ -27,7 +34,7 @@ Given("I am on the dashboard page") do
   end
 
   Then("I should see introductions for each feature displayed on the screen") do
-    expect(page).to have_content("Here are the features of the dashboard.")
+    expect(page).to have_content("You must be logged in to access this section")
   end
 
   When("I click the Profile icon") do

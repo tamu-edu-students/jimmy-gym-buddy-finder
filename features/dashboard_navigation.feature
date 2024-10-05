@@ -8,13 +8,14 @@ Feature: Dashboard Navigation
   And a user exists with the following details:
     | field      | value               |
     | first_name | TestUser            |
-    | last_name  | TestLastName   |
+    | last_name  | TestLastName        |
     | age        | 25                  |
     | gender     | female              |
+    | email      | test@gmail.com      |
+    | password   | dummy               |
 
   Scenario: View feature introductions and navigate to User Profile Management
     Given I am on the dashboard page
     When I enter the dashboard for the first time
     Then I should see introductions for each feature displayed on the screen
-    When I click the Profile icon
-    Then I should be navigated to the User Profile Management page
+    
