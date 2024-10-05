@@ -27,11 +27,11 @@ When("I want to update my profile") do
 end
 
 Then("I should be able to upload and change my profile photo") do
-  attach_file('photo-upload', Rails.root.join('test_image', 'user_profile.png'))
+  attach_file('photo', Rails.root.join('test_image', 'user_profile.png'))
 end
 
-Then("I should be able to modify my name") do
-  fill_in 'name', with: 'user_name'
+Then("I should see following introductions on the screen") do
+  expect(page).to have_content("You must be logged in to access this section")
 end
 
 Then("I should be able to modify my gender") do

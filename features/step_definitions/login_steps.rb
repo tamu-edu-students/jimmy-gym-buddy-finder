@@ -1,19 +1,31 @@
-Given('I am on the login page') do
-  visit root_path  # Replace with your actual login page path
+Given("I am on the login page") do
+  visit root_path # Assuming the root path serves the login page
 end
 
-Then('I should see the main heading {string}') do |heading_text|
-  expect(page).to have_css('h1.main-heading', text: heading_text)
+Then("I should see the main heading") do
+  expect(page).to have_selector("h1.main-heading", text: "Jimmy")
 end
 
-Then('I should see the subtitle {string}') do |subtitle_text|
-  expect(page).to have_css('p.subtitle', text: subtitle_text)
+Then("I should see the subtitle") do
+  expect(page).to have_selector("p.subtitle", text: "Your Gym Buddies Finder")
 end
 
-Then('I should see an image with the alt text {string}') do |alt_text|
-  expect(page).to have_css("img[alt='#{alt_text}']")
+Then("I should see the login image") do
+  expect(page).to have_selector("img.login-image[alt='Jimmy Logo']")
 end
 
-Then('I should see a button labeled {string}') do |button_text|
-  expect(page).to have_button(button_text)
+Then("I should see a button to log in") do
+  expect(page).to have_button("Login with Google")
+end
+
+When("I click on {string}") do |button_name|
+  click_button button_name
+end
+
+Then("I should be redirected to the Google sign-in page") do
+  expect(page).to have_current_path(/accounts\.google\.com/) # Regex to check for Google sign-in URL
+end
+
+Then("I should see {string}") do |message|
+  expect(page).to have_content(message)
 end

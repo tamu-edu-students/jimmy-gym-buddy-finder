@@ -1,24 +1,6 @@
-# README
+# Jimmy-Gym-Buddy-Finder-App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Deployed application URL - https://jimmy-buddy-finder-f97708d96ef8.herokuapp.com/
 
-Things you may want to cover:
+* Code Climate URL - https://codeclimate.com/github/tamu-edu-students/jimmy-gym-buddy-finder
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
