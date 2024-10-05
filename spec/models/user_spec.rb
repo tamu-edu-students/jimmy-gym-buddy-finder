@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { 
+  let(:user) {
     User.new(
       email: "test@example.com",
       username: "testuser",
@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
       about_me: "I love coding.",
       uid: "12345", # For OAuth
       provider: "google" # For OAuth
-    ) 
+    )
   }
 
   it "is valid with valid attributes" do
