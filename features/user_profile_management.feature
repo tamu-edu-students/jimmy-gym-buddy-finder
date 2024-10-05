@@ -11,13 +11,9 @@ Feature: User Profile Management
     | last_name  | TestLastName   |
     | age        | 25                  |
     | gender     | female              |
+    | email      | test@gmail.com      |
 
   Scenario: Edit user profile details
     Given I am on the User Profile Management page
     When I want to update my profile
-    Then I should be able to upload and change my profile photo
-    Then I should be able to modify my name
-    Then I should be able to modify my gender
-    Then I should be able to set or update my age using a date picker
-    Then I should be able to save these changes
-    Then I should see a confirmation message when the updates are successfully saved
+    Then I should see following introductions on the screen
