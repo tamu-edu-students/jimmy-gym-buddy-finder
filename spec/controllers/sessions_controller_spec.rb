@@ -89,6 +89,14 @@ RSpec.describe SessionsController, type: :controller do
       get :logout
     end
 
+    # it 'resets the session' do
+    #  expect(session[:user_id]).to be_nil
+    # end
+
+    # it 'redirects to welcome path with a notice' do
+    #  expect(response).to redirect_to(welcome_path)
+    #  expect(flash[:notice]).to eq('You are logged out.')
+    # end
   end
 
   describe 'GET #failure' do
