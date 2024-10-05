@@ -325,5 +325,344 @@
       }
     },
     "timestamp": 1728096562
+  },
+  "RSpec": {
+    "coverage": {
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/controllers/sessions_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          0,
+          0,
+          null,
+          null,
+          null,
+          1,
+          5,
+          0,
+          0,
+          null,
+          null,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          null,
+          null,
+          5,
+          4,
+          4,
+          3,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          0,
+          null,
+          null,
+          1,
+          null,
+          null,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          null,
+          null,
+          null,
+          1,
+          null,
+          0,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/channels/application_cable/channel.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/channels/application_cable/connection.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/controllers/dashboard_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/controllers/profiles_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/controllers/users_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/controllers/welcome_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/helpers/application_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/helpers/dashboard_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/helpers/profiles_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/helpers/users_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/jobs/application_job.rb": {
+        "lines": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/mailers/application_mailer.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/models/application_record.rb": {
+        "lines": [
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/models/user.rb": {
+        "lines": [
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/huangguanru/Documents/2024 Fall/Software Engineering/jimmy-gym-buddy-finder/app/uploaders/photo_uploader.rb": {
+        "lines": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0
+        ],
+        "branches": {
+        }
+      }
+    },
+    "timestamp": 1728098245
   }
 }
