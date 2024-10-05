@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe WelcomeController, type: :controller do
   describe "GET #index" do
     context "when user credentials are incorrect" do
-      it "redirects to the dashboard" do
+      it "redirects to the dashboard to check no welcome message" do
         # Create an explicit user
         user = User.create(first_name: "Jane Doe7", age: 25, gender: "Female")
 
@@ -13,8 +13,7 @@ RSpec.describe WelcomeController, type: :controller do
 
         get :index
 
-        # Expect the response to redirect to the dashboard
-        expect(user.id == nil)
+        expect(flash[:notice]).not_to eq("Welcome back!")
       end
     end
   end

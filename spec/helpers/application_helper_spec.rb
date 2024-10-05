@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'simplecov'
 
 RSpec.describe ApplicationHelper, type: :helper do
   describe 'helper method' do

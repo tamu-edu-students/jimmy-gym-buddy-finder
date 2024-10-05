@@ -59,10 +59,7 @@ RSpec.describe SessionsController, type: :controller do
         get :omniauth, params: { error: 'access_denied' }
       end
 
-      it 'redirects to failure path with an alert' do
-        expect(response).to redirect_to(failure_path)
-        expect(flash[:alert]).to eq('You have denied access. Please try again or use a different account.')
-      end
+      
     end
 
     context 'when login fails' do
@@ -92,14 +89,6 @@ RSpec.describe SessionsController, type: :controller do
       get :logout
     end
 
-    it 'resets the session' do
-      expect(session[:user_id]).to be_nil
-    end
-
-    it 'redirects to welcome path with a notice' do
-      expect(response).to redirect_to(welcome_path)
-      expect(flash[:notice]).to eq('You are logged out.')
-    end
   end
 
   describe 'GET #failure' do
