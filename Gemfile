@@ -80,5 +80,7 @@ group :test do
   gem "simplecov", require: false
   gem "ZenTest"
   gem 'database_cleaner-active_record'
+  gem 'rack_session_access'
+
   # gem "codeclimate-test-reporter", require: nil
 end

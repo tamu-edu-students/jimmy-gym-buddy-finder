@@ -2,8 +2,6 @@ class SessionsController < ApplicationController
   skip_before_action :require_login, only: [:omniauth, :failure]
   skip_before_action :check_profile_completion
 
-
-
   def logout
     reset_session
     redirect_to welcome_path, notice: 'You are logged out.'
