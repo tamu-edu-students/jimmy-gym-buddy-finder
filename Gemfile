@@ -17,9 +17,6 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
-gem "warden"
-gem "devise"
-
 # omniauth for google login
 gem "omniauth"
 gem "omniauth-google-oauth2"
@@ -59,6 +56,8 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   gem "factory_bot_rails"
+  gem "devise"
+  gem "warden"
 end
 
 group :development do
@@ -81,8 +80,6 @@ group :test do
   gem "rspec-rails"
   gem "simplecov", require: false
   gem "ZenTest"
-  gem "warden"
-  gem "devise"
   # gem "codeclimate-test-reporter", require: nil
 end
 

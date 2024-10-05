@@ -13,7 +13,24 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require 'omniauth'
+
 RSpec.configure do |config|
+
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+    provider: 'google_oauth2',
+    uid: '123456789',
+    info: {
+      email: 'test@example.com',
+      first_name: 'Test',
+      last_name: 'User'
+    }
+  })
+
+
+  # config.include Devise::Test::ControllerHelpers, type: :controller
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
