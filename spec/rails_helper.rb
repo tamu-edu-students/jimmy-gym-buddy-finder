@@ -1,6 +1,5 @@
 require 'simplecov'
 SimpleCov.start 'rails' do
-  add_filter '/spec/'  # Exclude spec files from coverage
   add_group 'Helpers', 'app/helpers'
   track_files 'app/helpers/*/.rb'  # Ensure helpers are tracked
 end

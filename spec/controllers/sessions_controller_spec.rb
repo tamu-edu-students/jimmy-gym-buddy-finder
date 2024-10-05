@@ -58,8 +58,6 @@ RSpec.describe SessionsController, type: :controller do
         request.env['omniauth.auth'] = nil
         get :omniauth, params: { error: 'access_denied' }
       end
-
-      
     end
 
     context 'when login fails' do
