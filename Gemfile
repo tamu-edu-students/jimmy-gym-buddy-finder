@@ -40,7 +40,7 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-gem "carrierwave", "~> 2.0"
+gem "carrierwave", "~> 3.0"
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
