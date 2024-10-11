@@ -7,7 +7,6 @@ Given("I am logged in") do
   page.set_rack_session(user_id: @user.id)
 end
 
-
 When("I visit the login page") do
   visit welcome_path
 end

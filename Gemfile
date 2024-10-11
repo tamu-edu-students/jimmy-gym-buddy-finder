@@ -81,6 +81,7 @@ group :test do
   gem "ZenTest"
   gem 'database_cleaner-active_record'
   gem 'rack_session_access'
+  gem 'omniauth-test'
 
   # gem "codeclimate-test-reporter", require: nil
 end
