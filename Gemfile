@@ -85,5 +85,5 @@ end
 
 group :production do
   gem "pg" # for Heroku deployment
-  gem 'aws-sdk-s3', require: false
+  gem "aws-sdk-s3", require: false
 end

@@ -15,14 +15,14 @@ class User < ApplicationRecord
   end
 
   def photo_type
-    if photo.attached? && !photo.content_type.in?(%w(image/jpeg image/jpg image/png image/gif))
-      errors.add(:photo, 'must be a JPEG, JPG, GIF, or PNG.')
+    if photo.attached? && !photo.content_type.in?(%w[image/jpeg image/jpg image/png image/gif])
+      errors.add(:photo, "must be a JPEG, JPG, GIF, or PNG.")
     end
   end
 
   def photo_size
     if photo.attached? && photo.blob.byte_size > 500.kilobytes
-      errors.add(:photo, 'must be less than 500KB in size.')
+      errors.add(:photo, "must be less than 500KB in size.")
     end
   end
 end
