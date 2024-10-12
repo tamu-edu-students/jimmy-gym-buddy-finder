@@ -41,7 +41,6 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 gem "carrierwave", "~> 2.0"
-gem 'aws-sdk-s3', require: false
 gem "devise"
 
 group :development, :test do
@@ -86,4 +85,5 @@ end
 
 group :production do
   gem "pg" # for Heroku deployment
+  gem 'aws-sdk-s3', require: false
 end
