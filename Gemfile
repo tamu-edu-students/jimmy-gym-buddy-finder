@@ -42,6 +42,7 @@ gem "bootsnap", require: false
 
 gem "carrierwave", "~> 2.0"
 gem 'aws-sdk-s3', require: false
+gem "devise"
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
@@ -57,7 +58,6 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   gem "factory_bot_rails"
-  gem "devise"
   gem "warden"
 end
 
