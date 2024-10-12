@@ -7,7 +7,7 @@ Then("I should see the main heading") do
 end
 
 Then("I should see the subtitle") do
-  expect(page).to have_selector("p.subtitle", text: "Your Gym Buddies Finder")
+  expect(page).to have_selector("p.subtitle", text: "Find Your Gym Buddies Here!")
 end
 
 Then("I should see the login image") do
