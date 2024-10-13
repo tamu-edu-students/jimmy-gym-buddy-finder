@@ -1,0 +1,27 @@
+<%= form_with model: @fitness_profile do |form| %>
+  <div>
+    <%= form.label :fitness_goals %>
+    <%= form.text_field :fitness_goals %>
+  </div>
+
+  <div>
+    <%= form.label :workout_types %>
+    <%= form.text_field :workout_types %>
+  </div>
+
+  <div>
+    <%= form.label :gender %>
+    <%= form.select :gender, options_for_select(['Male', 'Female', 'Any']) %>
+  </div>
+
+  <div>
+    <%= form.label :age_range_start, "Age Range" %>
+    <%= form.select :age_range_start, options_for_select((18..60).to_a, @fitness_profile.age_range_start) %>
+    -
+    <%= form.select :age_range_end, options_for_select((18..60).to_a, @fitness_profile.age_range_end) %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

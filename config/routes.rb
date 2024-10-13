@@ -19,4 +19,5 @@ Rails.application.routes.draw do
       get "profile", to: "profiles#show"
     end
   end
+  resources :fitness_profiles, only: [ :new, :create, :show, :edit, :update ]
 end
