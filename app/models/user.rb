@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates :age, presence: true, numericality: { only_integer: true, greater_than: 16 }, on: :profile_update
   validates :gender, presence: true, on: :profile_update
   has_one_attached :photo
-  has_one :fitness_profile
+  has_one :fitness_profile, dependent: :destroy
   after_create :build_default_fitness_profile
 
   def build_default_fitness_profile
