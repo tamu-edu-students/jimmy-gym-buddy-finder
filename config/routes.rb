@@ -18,6 +18,6 @@ Rails.application.routes.draw do
       get "dashboard", to: "dashboard#show"
       get "profile", to: "profiles#show"
     end
-    resources :fitness_profiles, only: [ :new, :create, :show, :edit, :update ]
+    resource :fitness_profile, only: [ :new, :create, :show, :edit, :update ]
   end
 end

@@ -8,13 +8,13 @@
   <a class="icon-button">
     <span>Match</span>
   </a>
-  <% if current_user && current_user.fitness_profile %>
-    <a href="<%= user_fitness_profile_path(current_user.fitness_profile) %>" class="icon-button">
+  <% if @user.fitness_profile %>
+    <a href="<%= user_fitness_profile_path(@user, @user.fitness_profile) %>" class="icon-button">
       <span>Fitness</span>
     </a>
   <% else %>
     <a href="<%= new_user_fitness_profile_path(@user) %>" class="icon-button">
-      <span>Fitness</span>
+      <span>Create Fitness Profile</span>
     </a>
   <% end %>
   <a href="<%= profile_user_path(@user) %>" class="icon-button">
