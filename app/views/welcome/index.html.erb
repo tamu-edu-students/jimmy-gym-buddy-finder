@@ -1,15 +1,21 @@
-
-<div class="container d-flex flex-column align-items-center justify-content-center vh-100">
-  <h1 class="main-heading mb-3">
-    <%= link_to "Jimmy", root_path, style: "text-decoration: none; color: #007bff;" %>
+<div class="container d-flex flex-column align-items-center justify-content-center vh-100 text-center">
+  <!-- Main Heading -->
+  <h1 class="display-3 text-white mb-3 font-weight-bold">
+    Welcome to <%= link_to "Jimmy", root_path, style: "text-decoration: none; color: #a3bb33;" %>
   </h1>
-  <p class="subtitle mb-4">Find Your Gym Buddies Here!</p>
-  
-  <div class="image-container mb-4">
-    <%= image_tag 'login.jpg', alt: 'Jimmy Logo', class: 'login-image img-fluid' %>
-  </div>
-  
-  <p>
-    <%= button_to "Login with Google", "/auth/google_oauth2", data: { turbo: "false" }, class: "btn btn-primary btn-lg w-100" %>
+
+  <!-- Subtitle -->
+  <p class="lead text-white mb-4">
+    Find Your Fitness Buddies Here!
   </p>
+
+  <!-- Login Button with Google Logo -->
+  <div>
+    <%= button_to "/auth/google_oauth2", data: { turbo: "false" }, class: "btn btn-google py-3 px-4" do %>
+      <span class="d-flex align-items-center justify-content-center">
+        <img src="/assets/google_logo.svg" alt="Google logo" class="google-logo mr-2" />
+        <span>Login with Google</span>
+      </span>
+    <% end %>
+  </div>
 </div>

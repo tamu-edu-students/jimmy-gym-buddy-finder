@@ -1,110 +1,230 @@
 @import "bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  background-image: url('https://img.freepik.com/free-photo/happy-woman-man-keep-hands-together-dressed-sportwear-hold-fitness-mats_273609-33183.jpg?w=1800&t=st=1728853534~exp=1728854134~hmac=a6333615e906fffee2c292742fed661c33c0d193ee8fe560cdc46c3782cb0c07');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed; /* Keep the background fixed */
+  min-height: 100vh; /* Ensure it takes the full height of the viewport */
+  position: relative; /* Maintain positioning for the overlay */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(150, 0, 0, 0.2));
+  z-index: 1;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+h1.display-3 {
+  font-size: 3rem;
+  font-family: 'Poppins', sans-serif; /* Custom font */
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+h1 {
+  color: #a3bb33; /* Bright color for visibility */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Optional text shadow */
+}
+
+/* Subtitle Styling */
+.lead {
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  font-weight: 400;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* Google Login Button */
+.btn-google {
+  background-color: #a3bb33; /* Custom color */
+  color: #fff;
+  font-size: 1.2rem;
+  font-family: 'Poppins', sans-serif; /* Improved font */
+  font-weight: 600;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.google-logo {
+  height: 20px;
+  margin-right: 8px;
+}
+
+/* Hover Effect */
+.btn-google:hover {
+  background-color: #8aa92c; /* Slightly darker shade on hover */
+  color: #fff;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .btn-google {
+      font-size: 1rem;
+      padding: 10px 14px;
+  }
+
+  .google-logo {
+      height: 18px; /* Smaller logo for mobile */
+  }
+
+  h1.display-3 {
+      font-size: 3rem; /* Responsive heading size */
+  }
+
+  .lead {
+      font-size: 1.2rem;
+  }
+
+  .w-50 {
+      width: 90%; /* Full-width button on mobile */
+  }
+}
 
 body, html {
   font-family: Arial, sans-serif;
   background-color: #ffffe0; /* Light yellow background */
 }
 
-.main-heading {
-  color: #ffeb3b; /* Bright yellow color for headings */
-  text-decoration: none;
+.navbar {
+  background: transparent; /* Keep the background transparent */
+  z-index: 10; /* Ensure it's above the background image */
 }
 
-.subtitle {
-  font-size: 18px;
-  color: #555; /* Keep subtitle gray for contrast */
-  text-align: center;
-  margin-bottom: 30px;
+.navbar-brand {
+  font-size: 1.8rem;
+  font-family: 'Poppins', sans-serif;
+  color: #a3bb33 !important; /* Custom color for the brand */
 }
 
-.form-control {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ffd700; /* Yellow border for form controls */
-  border-radius: 5px;
-  box-sizing: border-box;
+.navbar-toggler-icon {
+  color: #fff;
 }
 
-.form-control:focus {
-  border-color: #ffc107; /* Slightly darker yellow when focused */
-  outline: none;
-}
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #333; /* Dark text for button contrast */
-  background-color: #ffeb3b; /* Bright yellow background */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  margin-right: 10px;
+.nav-link {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  color: #fff !important; /* White text for links */
+  padding: 10px 15px;
   transition: background-color 0.3s ease;
 }
 
-.btn:hover {
-  background-color: #ffc107; /* Darker yellow on hover */
+.btn-outline-light {
+  border-color: #a3bb33 !important; /* Custom color for outline */
+  color: #a3bb33 !important;
 }
 
-.table th {
-  width: 20%;
-  background-color: #ffeb3b; /* Bright yellow header background */
-  color: #333; /* Dark text for contrast */
-  white-space: nowrap;
-  text-align: center;
+.btn-outline-light:hover {
+  background-color: #a3bb33 !important; /* Background fill on hover */
+  color: #fff !important;
 }
 
-.table td {
-  width: 80%;
-  background-color: #fff9c4; /* Light yellow for table rows */
-  text-align: left;
-  word-wrap: break-word;
-  word-break: break-all;
+.btn-outline-danger {
+  border-color: #dc3545 !important;
+  color: #dc3545 !important;
 }
 
-.table {
-  max-width: 800px;
-  margin: 0 auto;
-  border-collapse: collapse;
+.btn-outline-danger:hover {
+  background-color: #dc3545 !important;
+  color: #fff !important;
 }
 
-.table th, .table td {
-  padding: 12px 15px;
-  border: 1px solid #ffd700; /* Yellow border */
+/* Custom Button */
+.custom-btn {
+  background-color: #a3bb33; /* Use your specified color */
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s;
 }
 
-.bottom-bar {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px;
-  background-color: #ffeb3b; /* Bright yellow background */
+.custom-btn:hover {
+  background-color: #92c74f; /* Slightly lighter on hover */
+  transform: scale(1.05);
 }
 
-.icon-button {
-  color: #333; /* Dark text for contrast */
-  text-decoration: none;
-  font-size: 16px;
-  padding: 10px 15px;
-  border-radius: 5px;
+/* Profile Card */
+.profile-card {
+  border: none;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.8); /* Transparent white */
 }
 
-.icon-button:hover {
-  background-color: #ffc107; /* Darker yellow on hover */
+/* Profile Image Styling */
+.square-img {
+  width: 100%; /* Fill the available width */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 100%; /* Ensure it fits in the card */
+  border: 4px solid #a3bb33; /* Border color */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.container.text-center {
-  text-align: center;
-  margin-top: 50px;
+/* Card Body Styling */
+.card-body {
+  padding: 2rem;
+  border-radius: 0 15px 15px 0;
 }
 
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
+.card-title {
+  font-size: 2rem; /* Increased size */
+  color: #85a10a; /* Bright pink */
+}
+
+.list-group-item {
+  font-size: 1rem;
+  color: #ff4081; /* Bright pink for list items */
+  background-color: transparent; /* Make list items transparent */
+}
+
+.list-group-item i {
+  margin-right: 8px;
+  font-size: 1.2rem;
+  color: #ff4081; /* Bright pink for icons */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .profile-card {
+      max-width: 100%;
+  }
+
+  .card-body {
+      padding: 1.5rem;
+  }
+
+  .card-title {
+      font-size: 1.8rem;
+  }
+
+  .square-img {
+      width: 100%; /* Adjust to fill the space */
+      height: auto; /* Maintain aspect ratio */
+  }
+
+  .custom-btn {
+      font-size: 0.9rem;
+      padding: 0.4rem 0.8rem;
+  }
 }
