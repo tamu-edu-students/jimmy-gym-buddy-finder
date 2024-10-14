@@ -8,8 +8,11 @@ body {
   background-position: center;
   background-attachment: fixed; /* Keep the background fixed */
   min-height: 100vh; /* Ensure it takes the full height of the viewport */
+
+  // opacity: 0.7; /* Adjust the opacity for transparency */
   position: relative; /* Maintain positioning for the overlay */
 }
+
 
 .overlay {
   position: absolute;
@@ -37,8 +40,10 @@ h1.display-3 {
 }
 
 h1 {
-  color: #a3bb33; /* Bright color for visibility */
+  color: #f7fb0a; /* Bright color for visibility */
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Optional text shadow */
+  font-weight: bold; /* Make the text bold */
+
 }
 
 /* Subtitle Styling */
