@@ -41,6 +41,7 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 gem "carrierwave", "~> 2.0"
+gem "devise"
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
@@ -56,7 +57,6 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   gem "factory_bot_rails"
-  gem "devise"
   gem "warden"
 end
 
@@ -85,4 +85,5 @@ end
 
 group :production do
   gem "pg" # for Heroku deployment
+  gem "aws-sdk-s3", require: false
 end
