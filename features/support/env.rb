@@ -5,6 +5,8 @@ require 'cucumber/rails'
 
 require 'rack_session_access/capybara'
 
+Capybara.save_path= "test_view"
+
 ActionController::Base.allow_rescue = false
 
 begin

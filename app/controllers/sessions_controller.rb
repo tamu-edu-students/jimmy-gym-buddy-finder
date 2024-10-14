@@ -9,28 +9,25 @@ class SessionsController < ApplicationController
 
   # GET /auth/google_oauth2/callback
   def omniauth
-    if params[:error]
-      redirect_to failure_path, alert: "You have denied access. Please try again or use a different account."
-      return
-    end
-
     auth = request.env['omniauth.auth']
-    @user = User.find_or_create_by(uid: auth['uid'], provider: auth['provider']) do |u|
-      u.email = auth['info']['email']
+    @user = User.find_by(uid: auth['uid'], provider: auth['provider'])
+    
+    unless @user
       names = auth['info']['name'].split
-      u.first_name = names[0]
-      u.last_name = names[1..].join(' ')
+      @user = User.create(
+        uid: auth['uid'],
+        provider: auth['provider'],
+        email: auth['info']['email'],
+        first_name: names[0],
+        last_name: names[1..].join(' ')
+      )
     end
 
-    if @user.persisted?
-      session[:user_id] = @user.id
-      if @user.valid?(:profile_update)
-        redirect_to dashboard_user_path(@user), notice: 'You are logged in and your profile is complete.'
-      else
-        redirect_to edit_user_path(@user), alert: 'Please complete your profile information.'
-      end
+    session[:user_id] = @user.id
+    if @user.valid?(:profile_update)
+      redirect_to dashboard_user_path(@user), notice: 'You are logged in and your profile is complete.'
     else
-      redirect_to welcome_path, alert: 'Login failed. Please try again.'
+      redirect_to edit_user_path(@user), alert: 'Please complete your profile information.'
     end
   end
 

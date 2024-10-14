@@ -1,55 +1,49 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
-  let(:user) do
-    FactoryBot.create(
-      :user,
-      uid: '12345',
-      provider: 'google_oauth2',
-      email: 'user@example.com',
-      username: 'JohnDoe',
-      age: 25,
-      gender: 'Male'
-    )
-  end
-  
+  let(:user) { FactoryBot.create(:user, :complete_profile) }
+
   describe 'GET #omniauth' do
     context 'when authentication is successful' do
       before do
-        request.env['omniauth.auth'] = OmniAuth::AuthHash.new(
+        request.env['omniauth.auth'] = OmniAuth::AuthHash.new({
           provider: 'google_oauth2',
-          uid: '12345',
+          uid: '123456789',
           info: {
-            email: 'user@example.com',
-            name: 'John Doe'
+            email: 'test@example.com',
+            name: 'Test User',
+          },
+          credentials: {
+            token: 'mock_token',
+            refresh_token: 'mock_refresh_token',
+            expires_at: Time.now + 1.week
           }
-        )
+        })
         allow_any_instance_of(User).to receive(:valid?).with(:profile_update).and_return(true)
         allow_any_instance_of(User).to receive(:valid?).and_return(true)
-
       end
 
       it 'creates or finds a user' do
         get :omniauth
-        expect(User.find_by(uid: '12345', provider: 'google_oauth2')).to be_present
+        expect(User.find_by(uid: '123456789', provider: 'google_oauth2')).to be_present
       end
 
       it 'sets the session user_id' do
         get :omniauth
-        created_user = User.find_by(uid: '12345', provider: 'google_oauth2')
+        created_user = User.find_by(uid: '123456789', provider: 'google_oauth2')
         expect(session[:user_id]).to eq(created_user.id) if created_user
       end
 
       it 'redirects to dashboard if profile is complete' do
         get :omniauth
-        created_user = User.find_by(uid: '12345', provider: 'google_oauth2')
+        created_user = User.find_by(uid: '123456789', provider: 'google_oauth2')
         expect(response).to redirect_to(dashboard_user_path(created_user)) if created_user
       end
 
       it 'redirects to edit user page if profile is incomplete' do
         allow_any_instance_of(User).to receive(:valid?).with(:profile_update).and_return(false)
         get :omniauth
-        created_user = User.find_by(uid: '12345', provider: 'google_oauth2')
+        created_user = User.find_by(uid: '123456789', provider: 'google_oauth2')
         expect(response).to redirect_to(edit_user_path(created_user)) if created_user
       end
     end
@@ -70,10 +64,10 @@ RSpec.describe SessionsController, type: :controller do
       before do
         request.env['omniauth.auth'] = OmniAuth::AuthHash.new(
           provider: 'google_oauth2',
-          uid: '54321',
+          uid: '987654321',
           info: {
             email: 'user@example.com',
-            name: 'John Doe'
+            name: 'User Test'
           }
         )
         allow_any_instance_of(User).to receive(:persisted?).and_return(false)
