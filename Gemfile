@@ -56,6 +56,8 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
+  gem "carrierwave", "~> 2.0"
+
   gem "factory_bot_rails"
   gem "warden"
 end
@@ -80,6 +82,10 @@ group :test do
   gem "rspec-rails"
   gem "simplecov", require: false
   gem "ZenTest"
+  gem "database_cleaner-active_record"
+  gem "rack_session_access"
+  gem "omniauth-test"
+
   # gem "codeclimate-test-reporter", require: nil
 end
 
