@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 body {
-  background-image: url('https://img.freepik.com/free-photo/happy-woman-man-keep-hands-together-dressed-sportwear-hold-fitness-mats_273609-33183.jpg?w=1800&t=st=1728853534~exp=1728854134~hmac=a6333615e906fffee2c292742fed661c33c0d193ee8fe560cdc46c3782cb0c07');
+  background-image: url('./bg-image-gym-buddies.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -40,10 +40,9 @@ h1.display-3 {
 }
 
 h1 {
-  color: #f7fb0a; /* Bright color for visibility */
+  color: #a3bb33;; /* Bright color for visibility */
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Optional text shadow */
   font-weight: bold; /* Make the text bold */
-
 }
 
 /* Subtitle Styling */
