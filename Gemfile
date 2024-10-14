@@ -40,6 +40,9 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+gem "carrierwave", "~> 2.0"
+gem "devise"
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem "sqlite3", ">= 1.4"
@@ -56,6 +59,7 @@ group :development, :test do
   gem "carrierwave", "~> 2.0"
 
   gem "factory_bot_rails"
+  gem "warden"
 end
 
 group :development do
@@ -83,4 +87,9 @@ group :test do
   gem "omniauth-test"
 
   # gem "codeclimate-test-reporter", require: nil
+end
+
+group :production do
+  gem "pg" # for Heroku deployment
+  gem "aws-sdk-s3", require: false
 end
