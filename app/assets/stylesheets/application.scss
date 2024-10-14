@@ -9,7 +9,7 @@ body {
   background-attachment: fixed; /* Keep the background fixed */
   min-height: 100vh; /* Ensure it takes the full height of the viewport */
 
-  opacity: 0.7; /* Adjust the opacity for transparency */
+  // opacity: 0.7; /* Adjust the opacity for transparency */
   position: relative; /* Maintain positioning for the overlay */
 }
 
@@ -114,8 +114,6 @@ body, html {
 .navbar {
   background: transparent; /* Keep the background transparent */
   z-index: 10; /* Ensure it's above the background image */
-  border-bottom: 2px solid #a3bb33; /* Add a bottom border */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for added effect */
 }
 
 .navbar-brand {
