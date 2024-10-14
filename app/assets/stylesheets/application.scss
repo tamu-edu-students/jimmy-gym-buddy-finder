@@ -228,3 +228,16 @@ body, html {
       padding: 0.4rem 0.8rem;
   }
 }
+
+.form-label {
+  font-weight: bold; /* Make form labels bold */
+}
+
+.btn.custom-btn {
+  background-color: #a3bb33; /* Keep your existing button color */
+  border: none; /* Remove border for a cleaner look */
+}
+
+.btn.custom-btn:hover {
+  background-color: #92c03e; /* Slightly lighter color on hover */
+}

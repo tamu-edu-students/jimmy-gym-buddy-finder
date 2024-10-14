@@ -19,35 +19,38 @@
   <% end %>
 
   <div class="container">
-    <div class="card shadow p-4 mb-5">
-      <div class="form-group mb-3">
-        <%= form.label :photo, class: "form-label" %>
-        <%= form.file_field :photo, id: 'photo-upload', class: "form-control" %>
-      </div> 
+    <div class="card shadow mb-5 profile-card" style="max-width: 700px; margin: 0 auto; border-radius: 15px;">
+      <div class="card-body">
+        <div class="form-group mb-3">
+          <%= form.label :photo, class: "form-label" %>
+          <%= form.file_field :photo, id: 'photo-upload', class: "form-control" %>
+        </div>
 
-      <div class="form-group mb-3">
-        <%= form.label :username, class: "form-label" %>
-        <%= form.text_field :username, class: "form-control" %>
-      </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <%= form.label :username, class: "form-label" %>
+            <%= form.text_field :username, class: "form-control" %>
+          </div>
+          <div class="col-md-6">
+            <%= form.label :age, class: "form-label" %>
+            <%= form.number_field :age, class: "form-control" %>
+          </div>
+        </div>
 
-      <div class="form-group mb-3">
-        <%= form.label :age, class: "form-label" %>
-        <%= form.number_field :age, class: "form-control" %>
-      </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <%= form.label :gender, class: "form-label" %>
+            <%= form.select :gender, options_for_select([['Male', 'Male'], ['Female', 'Female'], ['Other', 'Other'], ['Prefer not to disclose', 'Prefer Not To Disclose']], @user.gender), {}, class: "form-control" %>
+          </div>
+          <div class="col-md-6">
+            <%= form.label :school, class: "form-label" %>
+            <%= form.select :school, options_for_select([['Texas A&M University, College Station', 'Texas A&M University, College Station']], @user.school), {}, class: "form-control" %>
+          </div>
+        </div>
 
-      <div class="form-group mb-3">
-        <%= form.label :gender, class: "form-label" %>
-        <%= form.select :gender, options_for_select([['Male', 'Male'], ['Female', 'Female'], ['Other', 'Other'], ['Prefer not to disclose', 'Prefer Not To Disclose']], @user.gender), {}, class: "form-control" %>
-      </div>
-
-      <div class="form-group mb-3">
-        <%= form.label :school, class: "form-label" %>
-        <%= form.select :school, options_for_select([['Texas A&M University, College Station', 'Texas A&M University, College Station']], @user.school), {}, class: "form-control" %>
-      </div>
-
-      <div class="form-group mb-3">
-        <%= form.label :major, class: "form-label" %>
-        <%= form.select :major, options_for_select([
+        <div class="form-group mb-3">
+          <%= form.label :major, class: "form-label" %>
+          <%= form.select :major, options_for_select([
           ['Accounting', 'Accounting'],
           ['Aerospace Engineering', 'Aerospace Engineering'],
           ['Agribusiness', 'Agribusiness'],
@@ -185,15 +188,16 @@
           ['Women\'s & Gender Studies', 'Women\'s & Gender Studies'],
           ['Zoology', 'Zoology']
         ], @user.major), {}, class: "form-control" %>
-      </div>
+        </div>
 
-      <div class="form-group mb-3">
-        <%= form.label :about_me, class: "form-label" %>
-        <%= form.text_area :about_me, class: "form-control", rows: 5 %>
-      </div>
+        <div class="form-group mb-3">
+          <%= form.label :about_me, class: "form-label" %>
+          <%= form.text_area :about_me, class: "form-control", rows: 3 %>
+        </div>
 
-      <div class="form-group mb-3">
-        <%= form.submit "Save Changes", class: "btn btn-primary" %>
+        <div class="mt-4 text-center">
+          <%= form.submit "Update Profile", class: "btn custom-btn text-white" %>
+        </div>
       </div>
     </div>
   </div>
