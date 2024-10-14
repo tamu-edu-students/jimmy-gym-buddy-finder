@@ -1,17 +1,29 @@
-<h1 class="main-heading">Dashboard</h1>
-<p class="subtitle">Here are the features of the dashboard.</p>
+<h1 class="main-heading text-center">Dashboard</h1>
+<p class="subtitle text-center">Here are the features of the dashboard.</p>
 
-<div class="bottom-bar">
-  <a class="icon-button">
-    <span>Chat</span>
-  </a>
-  <a class="icon-button">
-    <span>Match</span>
-  </a>
-  <a class="icon-button">
-    <span>Fitness</span>
-  </a>
-  <a href="<%= profile_user_path(@user) %>" class="icon-button">
-    <span>Profile</span>
-  </a>
+<!-- Bottom bar with icon buttons, using flexbox for responsiveness -->
+<div class="container mt-4">
+  <div class="row">
+    <!-- Each button will take equal space on larger screens and stack on smaller screens -->
+    <div class="col-6 col-md-3 mb-3">
+      <a href="#" class="btn btn-primary w-100 text-center icon-button">
+        <span>Chat</span>
+      </a>
+    </div>
+    <div class="col-6 col-md-3 mb-3">
+      <a href="#" class="btn btn-primary w-100 text-center icon-button">
+        <span>Match</span>
+      </a>
+    </div>
+    <div class="col-6 col-md-3 mb-3">
+      <a href="#" class="btn btn-primary w-100 text-center icon-button">
+        <span>Fitness</span>
+      </a>
+    </div>
+    <div class="col-6 col-md-3 mb-3">
+      <a href="<%= profile_user_path(@user) %>" class="btn btn-primary w-100 text-center icon-button">
+        <span>Profile</span>
+      </a>
+    </div>
+  </div>
 </div>

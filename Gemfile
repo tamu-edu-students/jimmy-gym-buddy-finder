@@ -17,6 +17,9 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem 'bootstrap', '~> 5.3.0'
+gem 'popper_js', '~> 2.11'
+gem 'sassc-rails'
 # omniauth for google login
 gem "omniauth"
 gem "omniauth-google-oauth2"

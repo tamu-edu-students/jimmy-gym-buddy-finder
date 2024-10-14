@@ -1,61 +1,65 @@
-<h1 class="main-heading">Edit Profile</h1>
+<h1 class="main-heading text-center">Edit Profile</h1>
 <%= stylesheet_link_tag 'edit', media: 'all' %>
 
-<% if flash[:alert] %>
-  <div class="flash-alert">
-    <%= flash[:alert] %>
-  </div>
-<% end %>
+<div class="container mt-4">
 
-<%= form_with model: @user, local: true do |form| %>
-  <% if @user.errors.any? %>
-    <div class="error-messages">
-      <h3>There were errors while saving the user:</h3>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+  <% if flash[:alert] %>
+    <div class="alert alert-danger">
+      <%= flash[:alert] %>
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= form.label :photo %>
-    <%= form.file_field :photo, id: 'photo-upload', class: "form-control" %>
-    <%# <label for="photo-upload">
-      <span class="plus-icon">+</span>
-    </label> %>
-  </div> 
+  <%= form_with model: @user, local: true do |form| %>
+    <% if @user.errors.any? %>
+      <div class="alert alert-danger">
+        <h3>There were errors while saving the user:</h3>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <div class="form-group">
-    <%= form.label :username %>
-    <%= form.text_field :username, class: "form-control" %>
-  </div>
+    <div class="row">
+      <div class="col-12 col-md-6 mb-3">
+        <%= form.label :photo %>
+        <%= form.file_field :photo, id: 'photo-upload', class: "form-control" %>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :age %>
-    <%= form.number_field :age, class: "form-control" %>
-  </div>
+      <div class="col-12 col-md-6 mb-3">
+        <%= form.label :username %>
+        <%= form.text_field :username, class: "form-control" %>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :gender %>
-    <%= form.text_field :gender, class: "form-control" %>
-  </div>
+      <div class="col-12 col-md-6 mb-3">
+        <%= form.label :age %>
+        <%= form.number_field :age, class: "form-control" %>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :school %>
-    <%= form.text_field :school, class: "form-control" %>
-  </div>
+      <div class="col-12 col-md-6 mb-3">
+        <%= form.label :gender %>
+        <%= form.text_field :gender, class: "form-control" %>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :major %>
-    <%= form.text_field :major, class: "form-control" %>
-  </div>
+      <div class="col-12 col-md-6 mb-3">
+        <%= form.label :school %>
+        <%= form.text_field :school, class: "form-control" %>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :about_me %>
-    <%= form.text_area :about_me, class: "form-control" %>
-  </div>
+      <div class="col-12 col-md-6 mb-3">
+        <%= form.label :major %>
+        <%= form.text_field :major, class: "form-control" %>
+      </div>
 
-  <%= form.submit "Save Changes", class: "btn btn-primary" %>
-<% end %>
+      <div class="col-12 mb-3">
+        <%= form.label :about_me %>
+        <%= form.text_area :about_me, class: "form-control", rows: 4 %>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <%= form.submit "Save Changes", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
