@@ -1,0 +1,8 @@
+<h1>Fitness Profile</h1>
+
+<p>Age Range: <%= @fitness_profile.age_range_start %> - <%= @fitness_profile.age_range_end %></p>
+<p>Fitness Goals: <%= @fitness_profile.fitness_goals %></p>
+<p>Workout Types: <%= @fitness_profile.workout_types %></p>
+<p>Buddy Gender Preference: <%= @fitness_profile.gender %></p>
+
+<a href="<%= edit_user_fitness_profile_path(@user, @fitness_profile) %>" class="button">Edit</a>

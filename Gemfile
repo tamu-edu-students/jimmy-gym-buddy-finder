@@ -43,6 +43,9 @@ gem "bootsnap", require: false
 gem "carrierwave", "~> 2.0"
 gem "devise"
 
+gem "drb", "~> 2.2.1"
+gem "irb", "~> 1.14.1"
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem "sqlite3", ">= 1.4"
