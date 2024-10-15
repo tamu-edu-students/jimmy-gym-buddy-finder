@@ -19,7 +19,7 @@
 
 #   it 'displays the subtitle' do
 #     subtitle = @driver.find_element(:css, '.subtitle')
-#     expect(subtitle.text).to eq('Your Gym Buddies Finder')
+#     expect(subtitle.text).to eq('Find Your Gym Buddies Here!')
 #   end
 
 #   it 'displays the login image' do

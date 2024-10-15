@@ -1,0 +1,247 @@
+@import "bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  background-image: url('./bg-image-gym-buddies.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed; /* Keep the background fixed */
+  min-height: 100vh; /* Ensure it takes the full height of the viewport */
+
+  // opacity: 0.7; /* Adjust the opacity for transparency */
+  position: relative; /* Maintain positioning for the overlay */
+}
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(150, 0, 0, 0.2));
+  z-index: 1;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+h1.display-3 {
+  font-size: 3rem;
+  font-family: 'Poppins', sans-serif; /* Custom font */
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+h1 {
+  color: #a3bb33;; /* Bright color for visibility */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Optional text shadow */
+  font-weight: bold; /* Make the text bold */
+}
+
+/* Subtitle Styling */
+.lead {
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  font-weight: 400;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* Google Login Button */
+.btn-google {
+  background-color: #a3bb33; /* Custom color */
+  color: #fff;
+  font-size: 1.2rem;
+  font-family: 'Poppins', sans-serif; /* Improved font */
+  font-weight: 600;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.google-logo {
+  height: 20px;
+  margin-right: 8px;
+}
+
+/* Hover Effect */
+.btn-google:hover {
+  background-color: #8aa92c; /* Slightly darker shade on hover */
+  color: #fff;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .btn-google {
+      font-size: 1rem;
+      padding: 10px 14px;
+  }
+
+  .google-logo {
+      height: 18px; /* Smaller logo for mobile */
+  }
+
+  h1.display-3 {
+      font-size: 3rem; /* Responsive heading size */
+  }
+
+  .lead {
+      font-size: 1.2rem;
+  }
+
+  .w-50 {
+      width: 90%; /* Full-width button on mobile */
+  }
+}
+
+body, html {
+  font-family: Arial, sans-serif;
+  background-color: #ffffe0; /* Light yellow background */
+}
+
+.navbar {
+  background: transparent; /* Keep the background transparent */
+  z-index: 10; /* Ensure it's above the background image */
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+  font-family: 'Poppins', sans-serif;
+  color: #a3bb33 !important; /* Custom color for the brand */
+}
+
+.navbar-toggler-icon {
+  color: #fff;
+}
+
+.nav-link {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  color: #fff !important; /* White text for links */
+  padding: 10px 15px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-outline-light {
+  border-color: #a3bb33 !important; /* Custom color for outline */
+  color: #a3bb33 !important;
+}
+
+.btn-outline-light:hover {
+  background-color: #a3bb33 !important; /* Background fill on hover */
+  color: #fff !important;
+}
+
+.btn-outline-danger {
+  border-color: #dc3545 !important;
+  color: #dc3545 !important;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545 !important;
+  color: #fff !important;
+}
+
+/* Custom Button */
+.custom-btn {
+  background-color: #a3bb33; /* Use your specified color */
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.custom-btn:hover {
+  background-color: #92c74f; /* Slightly lighter on hover */
+  transform: scale(1.05);
+}
+
+/* Profile Card */
+.profile-card {
+  border: none;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.8); /* Transparent white */
+}
+
+/* Profile Image Styling */
+.square-img {
+  width: 100%; /* Fill the available width */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 100%; /* Ensure it fits in the card */
+  border: 4px solid #a3bb33; /* Border color */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Body Styling */
+.card-body {
+  padding: 2rem;
+  border-radius: 0 15px 15px 0;
+}
+
+.card-title {
+  font-size: 2rem; /* Increased size */
+  color: #85a10a; /* Bright pink */
+}
+
+.list-group-item {
+  font-size: 1rem;
+  color: #ff4081; /* Bright pink for list items */
+  background-color: transparent; /* Make list items transparent */
+}
+
+.list-group-item i {
+  margin-right: 8px;
+  font-size: 1.2rem;
+  color: #ff4081; /* Bright pink for icons */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .profile-card {
+      max-width: 100%;
+  }
+
+  .card-body {
+      padding: 1.5rem;
+  }
+
+  .card-title {
+      font-size: 1.8rem;
+  }
+
+  .square-img {
+      width: 100%; /* Adjust to fill the space */
+      height: auto; /* Maintain aspect ratio */
+  }
+
+  .custom-btn {
+      font-size: 0.9rem;
+      padding: 0.4rem 0.8rem;
+  }
+}
+
+.form-label {
+  font-weight: bold; /* Make form labels bold */
+}
+
+.btn.custom-btn {
+  background-color: #a3bb33; /* Keep your existing button color */
+  border: none; /* Remove border for a cleaner look */
+}
+
+.btn.custom-btn:hover {
+  background-color: #92c03e; /* Slightly lighter color on hover */
+}
