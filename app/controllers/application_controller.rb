@@ -32,8 +32,8 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_fitness_profile
-    if current_user && current_user.fitness_profile.nil?
-      current_user.create_fitness_profile
+    if @user && @user.fitness_profile.nil?
+      @user.create_fitness_profile
     end
   end
 end

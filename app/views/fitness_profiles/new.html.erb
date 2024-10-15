@@ -1,7 +1,7 @@
 <p>
   Please create your fitness profile first
 </p>
-<%= form_with model: [@user, @fitness_profile] do |form| %>
+<%= form_with model: @fitness_profile, url: user_fitness_profile_path(@user) do |form| %>
   <div>
     <%= form.label :fitness_goals %>
     <%= form.text_field :fitness_goals %>

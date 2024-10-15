@@ -1,4 +1,15 @@
 <%= form_with model: [@user, @fitness_profile] do |form| %>
+  <% if @user.errors.any? %>
+    <div class="error-messages">
+      <h3>There were errors while saving the user:</h3>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div>
     <%= form.label :fitness_goals %>
     <%= form.text_field :fitness_goals %>

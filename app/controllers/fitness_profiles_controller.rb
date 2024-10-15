@@ -11,12 +11,12 @@ class FitnessProfilesController < ApplicationController
       @fitness_profile = @user.build_fitness_profile(fitness_profile_params)
       if @fitness_profile.save
         flash[:notice] = "Fitness profile created successfully."
-        redirect_to fitness_profile_path(@fitness_profile)
-      else
-        render :new
+        redirect_to user_fitness_profile_path(@user)
+        # else
+        #   render :new
       end
-    else
-      redirect_to fitness_profile_path(@user.fitness_profile), notice: "Fitness profile already exists."
+      # else
+      #   redirect_to user_fitness_profile_path(@user), notice: "Fitness profile already exists."
     end
   end
 
@@ -29,8 +29,8 @@ class FitnessProfilesController < ApplicationController
   def update
     if @fitness_profile.update(fitness_profile_params)
       redirect_to user_fitness_profile_path(@user, @fitness_profile), notice: "Fitness profile updated successfully."
-    else
-      render :edit
+      # else
+      #   render :edit
     end
   end
 
