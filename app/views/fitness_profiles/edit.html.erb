@@ -1,38 +1,66 @@
-<%= form_with model: [@user, @fitness_profile] do |form| %>
-  <% if @user.errors.any? %>
-    <div class="error-messages">
-      <h3>There were errors while saving the user:</h3>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+<h1 class="text-center mb-4">Edit Fitness Profile</h1>
+
+<%= form_with model: [@user, @fitness_profile], local: true, class: "needs-validation", novalidate: true do |form| %>
+  <div class="container">
+    <div class="card shadow mb-5 profile-card" style="max-width: 700px; margin: 0 auto; border-radius: 15px;">
+      <div class="card-body">
+        <% if @user.errors.any? %>
+          <div class="error-messages">
+            <h3>There were errors while saving the user:</h3>
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+
+        <fieldset>
+          <legend>Fitness Profile</legend>
+
+          <div class="form-group mb-3">
+            <%= form.label :fitness_goals, class: "form-label" %>
+            <%= form.text_field :fitness_goals, placeholder: "e.g., Weight loss, Muscle gain", class: "form-control" %>
+          </div>
+
+          <div class="form-group mb-3">
+            <%= form.label :workout_types, class: "form-label" %>
+            <%= form.text_field :workout_types, placeholder: "e.g., Cardio, Strength training", class: "form-control" %>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <%= form.label :gender_preference, class: "form-label" %>
+              <%= form.select :gender, options_for_select(['Male', 'Female', 'Any']), {}, class: "form-control" %>
+            </div>
+
+            <div class="col-md-6">
+              <%= form.label :age_range_start, "Age Range" %>
+              <%= form.select :age_range_start, options_for_select((18..60).to_a, @fitness_profile.age_range_start), {}, class: "form-control" %>
+              -
+              <%= form.select :age_range_end, options_for_select((18..60).to_a, @fitness_profile.age_range_end), {}, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="mt-4 text-center">
+            <%= form.submit "Update Fitness Profile", class: "btn custom-btn text-white", id: "submit-btn" %>
+          </div>
+        </fieldset>
+      </div>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :fitness_goals %>
-    <%= form.text_field :fitness_goals %>
   </div>
 
-  <div>
-    <%= form.label :workout_types %>
-    <%= form.text_field :workout_types %>
-  </div>
+  <script>
+    document.getElementById("submit-btn").addEventListener("click", function(event) {
+      var valid = true;
 
-  <div>
-    <%= form.label :gender %>
-    <%= form.select :gender, options_for_select(['Male', 'Female', 'Any']) %>
-  </div>
+      // Add validation logic here as necessary...
 
-  <div>
-    <%= form.label :age_range_start, "Age Range" %>
-    <%= form.select :age_range_start, options_for_select((18..60).to_a, @fitness_profile.age_range_start) %>
-    -
-    <%= form.select :age_range_end, options_for_select((18..60).to_a, @fitness_profile.age_range_end) %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
+      // Prevent form submission if validation fails
+      if (!valid) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    });
+  </script>
 <% end %>
