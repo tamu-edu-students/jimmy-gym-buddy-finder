@@ -2,17 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 body {
-  background-image: url('./bg-image-gym-buddies.png');
+  background-image: url('https://img.freepik.com/free-photo/happy-woman-man-keep-hands-together-dressed-sportwear-hold-fitness-mats_273609-33183.jpg?w=1800&t=st=1728853534~exp=1728854134~hmac=a6333615e906fffee2c292742fed661c33c0d193ee8fe560cdc46c3782cb0c07');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-attachment: fixed; /* Keep the background fixed */
-  min-height: 100vh; /* Ensure it takes the full height of the viewport */
-
-  // opacity: 0.7; /* Adjust the opacity for transparency */
-  position: relative; /* Maintain positioning for the overlay */
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
 }
-
 
 .overlay {
   position: absolute;
@@ -20,228 +17,177 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(150, 0, 0, 0.2));
+  background: rgba(0, 0, 0, 0.7);
   z-index: 1;
 }
 
 .container {
   position: relative;
   z-index: 2;
-  max-width: 100%;
-  box-sizing: border-box;
+  max-width: 80%;
+  margin: auto;
+  padding: 3rem 1rem;
   text-align: center;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 h1.display-3 {
-  font-size: 3rem;
-  font-family: 'Poppins', sans-serif; /* Custom font */
-  color: #fff;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  font-size: 3.5rem;
+  font-family: 'Poppins', sans-serif;
+  color: #ffd700;
+  text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.8);
+  font-weight: 600;
 }
 
-h1 {
-  color: #a3bb33;; /* Bright color for visibility */
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Optional text shadow */
-  font-weight: bold; /* Make the text bold */
-}
-
-/* Subtitle Styling */
 .lead {
   font-size: 1.5rem;
   font-family: 'Poppins', sans-serif;
   color: #fff;
-  font-weight: 400;
-  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+  margin-bottom: 2rem;
 }
 
-/* Google Login Button */
-.btn-google {
-  background-color: #a3bb33; /* Custom color */
+.btn-primary-custom {
+  background-color: #34c759;
   color: #fff;
   font-size: 1.2rem;
-  font-family: 'Poppins', sans-serif; /* Improved font */
+  font-family: 'Poppins', sans-serif;
   font-weight: 600;
   border: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 16px;
+  padding: 12px 30px;
+  border-radius: 50px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.google-logo {
-  height: 20px;
-  margin-right: 8px;
-}
-
-/* Hover Effect */
-.btn-google:hover {
-  background-color: #8aa92c; /* Slightly darker shade on hover */
+.btn-primary-custom:hover {
+  background-color: #28a745;
   color: #fff;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .btn-google {
-      font-size: 1rem;
-      padding: 10px 14px;
-  }
-
-  .google-logo {
-      height: 18px; /* Smaller logo for mobile */
-  }
-
-  h1.display-3 {
-      font-size: 3rem; /* Responsive heading size */
-  }
-
-  .lead {
-      font-size: 1.2rem;
-  }
-
-  .w-50 {
-      width: 90%; /* Full-width button on mobile */
-  }
-}
-
-body, html {
-  font-family: Arial, sans-serif;
-  background-color: #ffffe0; /* Light yellow background */
+  transform: translateY(-2px);
 }
 
 .navbar {
-  background: transparent; /* Keep the background transparent */
-  z-index: 10; /* Ensure it's above the background image */
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 10;
+  padding: 1rem 2rem;
+  border-radius: 10px;
 }
 
 .navbar-brand {
   font-size: 1.8rem;
   font-family: 'Poppins', sans-serif;
-  color: #a3bb33 !important; /* Custom color for the brand */
-}
-
-.navbar-toggler-icon {
-  color: #fff;
+  color: #34c759 !important;
 }
 
 .nav-link {
   font-family: 'Poppins', sans-serif;
   font-size: 1.1rem;
-  color: #fff !important; /* White text for links */
-  padding: 10px 15px;
-  transition: background-color 0.3s ease;
-}
-
-.btn-outline-light {
-  border-color: #a3bb33 !important; /* Custom color for outline */
-  color: #a3bb33 !important;
-}
-
-.btn-outline-light:hover {
-  background-color: #a3bb33 !important; /* Background fill on hover */
   color: #fff !important;
+  margin: 0 0.5rem;
+  transition: color 0.3s;
 }
 
-.btn-outline-danger {
-  border-color: #dc3545 !important;
-  color: #dc3545 !important;
+.nav-link:hover {
+  color: #ffd700 !important;
 }
 
-.btn-outline-danger:hover {
-  background-color: #dc3545 !important;
-  color: #fff !important;
+.profile-card {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  color: #fff;
 }
 
-/* Custom Button */
+.card-body {
+  padding: 2rem;
+}
+
+.card-title {
+  font-size: 2rem;
+  color: #ffd700;
+}
+
 .custom-btn {
-  background-color: #a3bb33; /* Use your specified color */
+  background-color: #34c759;
   font-size: 1rem;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
+  padding: 0.8rem 1.6rem;
+  border-radius: 50px;
   font-weight: 600;
   transition: background-color 0.3s ease, transform 0.2s;
 }
 
 .custom-btn:hover {
-  background-color: #92c74f; /* Slightly lighter on hover */
+  background-color: #28a745;
   transform: scale(1.05);
 }
 
-/* Profile Card */
-.profile-card {
-  border: none;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  border-radius: 15px;
-  background: rgba(255, 255, 255, 0.8); /* Transparent white */
+/* Use Bootstrap's responsive grid system */
+.container-fluid {
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
-/* Profile Image Styling */
-.square-img {
-  width: 100%; /* Fill the available width */
-  height: auto; /* Maintain aspect ratio */
-  max-height: 100%; /* Ensure it fits in the card */
-  border: 4px solid #a3bb33; /* Border color */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+.row {
+  justify-content: center;
 }
 
-/* Card Body Styling */
-.card-body {
-  padding: 2rem;
-  border-radius: 0 15px 15px 0;
-}
-
-.card-title {
-  font-size: 2rem; /* Increased size */
-  color: #85a10a; /* Bright pink */
-}
-
-.list-group-item {
-  font-size: 1rem;
-  color: #ff4081; /* Bright pink for list items */
-  background-color: transparent; /* Make list items transparent */
-}
-
-.list-group-item i {
-  margin-right: 8px;
-  font-size: 1.2rem;
-  color: #ff4081; /* Bright pink for icons */
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .profile-card {
-      max-width: 100%;
-  }
-
-  .card-body {
-      padding: 1.5rem;
-  }
-
-  .card-title {
-      font-size: 1.8rem;
-  }
-
-  .square-img {
-      width: 100%; /* Adjust to fill the space */
-      height: auto; /* Maintain aspect ratio */
-  }
-
-  .custom-btn {
-      font-size: 0.9rem;
-      padding: 0.4rem 0.8rem;
+/* Responsive Bootstrap classes */
+@media (min-width: 576px) {
+  .container {
+    max-width: 95%;
   }
 }
 
-.form-label {
-  font-weight: bold; /* Make form labels bold */
+@media (min-width: 768px) {
+  .container {
+    max-width: 85%;
+  }
+
+  h1.display-3 {
+    font-size: 2.8rem;
+  }
 }
 
-.btn.custom-btn {
-  background-color: #a3bb33; /* Keep your existing button color */
-  border: none; /* Remove border for a cleaner look */
+@media (min-width: 992px) {
+  .container {
+    max-width: 80%;
+  }
+
+  h1.display-3 {
+    font-size: 3.5rem;
+  }
+
+  .lead {
+    font-size: 1.5rem;
+  }
 }
 
-.btn.custom-btn:hover {
-  background-color: #92c03e; /* Slightly lighter color on hover */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 75%;
+  }
+
+  h1.display-3 {
+    font-size: 4rem;
+  }
+}
+
+/* Use Bootstrap utility classes for buttons */
+.btn {
+  @extend .btn-primary-custom;
+}
+
+/* Use responsive utility classes for background */
+.bg-cover {
+  background-size: cover !important;
+}
+
+.bg-center {
+  background-position: center !important;
 }
