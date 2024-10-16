@@ -1,55 +1,67 @@
 <h1 class="text-center mb-4">Create Fitness Profile</h1>
 
-<p class="text-center mb-4">
-  Please create your fitness profile first
-</p>
-
 <%= form_with model: @fitness_profile, url: user_fitness_profile_path(@user), local: true, class: "needs-validation", novalidate: true do |form| %>
   <div class="container">
     <div class="card shadow mb-5 profile-card" style="max-width: 700px; margin: 0 auto; border-radius: 15px;">
       <div class="card-body">
+        <% if @user.errors.any? %>
+          <div class="error-messages">
+            <h3>There were errors while saving the user:</h3>
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-        <div class="form-group mb-3">
-          <%= form.label :goal, class: "form-label" %>
-          <%= form.select :goal, options_for_select([
-            ['Weight Loss', 'Weight Loss'],
-            ['Muscle Gain', 'Muscle Gain'],
-            ['Maintain Weight', 'Maintain Weight']
-          ], @fitness_profile.goal), {}, class: "form-control" %>
-        </div>
+        <fieldset>
+          <legend>Fitness Profile</legend>
 
-        <div class="form-group mb-3">
-          <%= form.label :fitness_level, class: "form-label" %>
-          <%= form.select :fitness_level, options_for_select([
-            ['Beginner', 'Beginner'],
-            ['Intermediate', 'Intermediate'],
-            ['Advanced', 'Advanced']
-          ], @fitness_profile.fitness_level), {}, class: "form-control" %>
-        </div>
+          <div class="form-group mb-3">
+            <%= form.label :fitness_goals, class: "form-label" %>
+            <%= form.text_field :fitness_goals, placeholder: "e.g., Weight loss, Muscle gain", class: "form-control" %>
+          </div>
 
-        <div class="form-group mb-3">
-          <%= form.label :workout_frequency, class: "form-label" %>
-          <%= form.select :workout_frequency, options_for_select([
-            ['1-2 times a week', '1-2 times a week'],
-            ['3-4 times a week', '3-4 times a week'],
-            ['5 or more times a week', '5 or more times a week']
-          ], @fitness_profile.workout_frequency), {}, class: "form-control" %>
-        </div>
+          <div class="form-group mb-3">
+            <%= form.label :workout_types, class: "form-label" %>
+            <%= form.text_field :workout_types, placeholder: "e.g., Cardio, Strength training", class: "form-control" %>
+          </div>
 
-        <div class="form-group mb-3">
-          <%= form.label :preferred_workout_types, class: "form-label" %>
-          <%= form.text_area :preferred_workout_types, class: "form-control", rows: 3, placeholder: "e.g., Cardio, Strength Training, Yoga" %>
-        </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <%= form.label :gender_preference, class: "form-label" %>
+              <%= form.select :gender, options_for_select(['Male', 'Female', 'Any']), {}, class: "form-control" %>
+            </div>
 
-        <div class="form-group mb-3">
-          <%= form.label :nutrition_preferences, class: "form-label" %>
-          <%= form.text_area :nutrition_preferences, class: "form-control", rows: 3, placeholder: "e.g., Vegetarian, Vegan, High Protein" %>
-        </div>
+            <div class="col-md-6">
+              <%= form.label :age_range_start, "Age Range" %>
+              <%= form.select :age_range_start, options_for_select((18..60).to_a, @fitness_profile.age_range_start), {}, class: "form-control" %>
+              -
+              <%= form.select :age_range_end, options_for_select((18..60).to_a, @fitness_profile.age_range_end), {}, class: "form-control" %>
+            </div>
+          </div>
 
-        <div class="mt-4 text-center">
-          <%= form.submit "Create Fitness Profile", class: "btn custom-btn text-white", id: "submit-btn" %>
-        </div>
+          <div class="mt-4 text-center">
+            <%= form.submit "Update Fitness Profile", class: "btn custom-btn text-white", id: "submit-btn" %>
+          </div>
+        </fieldset>
       </div>
     </div>
   </div>
+
+  <script>
+    document.getElementById("submit-btn").addEventListener("click", function(event) {
+      var valid = true;
+
+      // Add validation logic here as necessary...
+
+      // Prevent form submission if validation fails
+      if (!valid) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    });
+  </script>
 <% end %>
+
