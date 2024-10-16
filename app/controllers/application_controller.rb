@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :require_login
   before_action :check_profile_completion
+  before_action :ensure_fitness_profile
 
   private
 
@@ -27,6 +28,12 @@ class ApplicationController < ActionController::Base
     # redirect to the welcome page unless user is logged in
     unless logged_in?
       redirect_to welcome_path, alert: "You must be logged in to access this section."
+    end
+  end
+
+  def ensure_fitness_profile
+    if @user && @user.fitness_profile.nil?
+      @user.create_fitness_profile
     end
   end
 end
