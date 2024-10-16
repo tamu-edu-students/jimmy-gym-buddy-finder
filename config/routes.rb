@@ -19,4 +19,6 @@ Rails.application.routes.draw do
     end
     resource :fitness_profile, only: [ :new, :create, :show, :edit, :update ]
   end
+
+  get "matching/profileswipe", to: "matching#profileswipe", as: "profileswipe"
 end
