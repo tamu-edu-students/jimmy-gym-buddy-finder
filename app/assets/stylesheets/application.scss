@@ -245,3 +245,39 @@ body, html {
 .btn.custom-btn:hover {
   background-color: #92c03e; /* Slightly lighter color on hover */
 }
+
+#flash {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+
+  .alert {
+    width: 100%; // Full width on small screens
+    max-width: 50%; // Restrict width to 50% on larger screens
+    margin: 0 auto; // Center align on larger screens
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.8); /* Transparent white */
+    padding: 15px;
+    text-align: center;
+  }
+
+  // For smaller screens (below 768px)
+  @media (max-width: 767.98px) {
+    .alert {
+      max-width: 90%; // Make sure it takes full width on small screens
+    }
+  }
+
+  // Specific styles for success messages
+  .flash-success {
+    color: green;
+    border: 1px solid green;
+  }
+
+  // Specific styles for failure messages
+  .flash-danger {
+    color: red;
+    border: 1px solid red;
+  }
+}

@@ -1,23 +1,6 @@
 <h1 class="text-center mb-4">Edit Profile</h1>
 
-<% if flash[:alert] %>
-  <div class="alert alert-danger">
-    <%= flash[:alert] %>
-  </div>
-<% end %>
-
 <%= form_with model: @user, local: true, class: "needs-validation", novalidate: true do |form| %>
-  <% if @user.errors.any? %>
-    <div class="alert alert-danger">
-      <h3>There were errors while saving the user:</h3>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="container">
     <div class="card shadow mb-5 profile-card" style="max-width: 700px; margin: 0 auto; border-radius: 15px;">
       <div class="card-body">
@@ -29,11 +12,13 @@
         <div class="row mb-3">
           <div class="col-md-6">
             <%= form.label :username, class: "form-label" %>
-            <%= form.text_field :username, class: "form-control" %>
+            <%= form.text_field :username, id: "username", class: "form-control" %>
+            <div id="username-feedback" class="invalid-feedback"></div>
           </div>
           <div class="col-md-6">
             <%= form.label :age, class: "form-label" %>
-            <%= form.number_field :age, class: "form-control" %>
+            <%= form.number_field :age, id: "age", class: "form-control" %>
+            <div id="age-feedback" class="invalid-feedback"></div>
           </div>
         </div>
 
@@ -51,143 +36,143 @@
         <div class="form-group mb-3">
           <%= form.label :major, class: "form-label" %>
           <%= form.select :major, options_for_select([
-          ['Accounting', 'Accounting'],
-          ['Aerospace Engineering', 'Aerospace Engineering'],
-          ['Agribusiness', 'Agribusiness'],
-          ['Agricultural Communications & Journalism', 'Agricultural Communications & Journalism'],
-          ['Agricultural Economics', 'Agricultural Economics'],
-          ['Agricultural Leadership & Development', 'Agricultural Leadership & Development'],
-          ['Agricultural Science', 'Agricultural Science'],
-          ['Agricultural Systems Management', 'Agricultural Systems Management'],
-          ['Animal Science', 'Animal Science'],
-          ['Anthropology', 'Anthropology'],
-          ['Applied Mathematics', 'Applied Mathematics'],
-          ['Architectural Engineering', 'Architectural Engineering'],
-          ['Architecture', 'Architecture'],
-          ['Biochemistry', 'Biochemistry'],
-          ['Bioenvironmental Sciences', 'Bioenvironmental Sciences'],
-          ['Biological & Agricultural Engineering', 'Biological & Agricultural Engineering'],
-          ['Biology', 'Biology'],
-          ['Biomedical Engineering', 'Biomedical Engineering'],
-          ['Biomedical Sciences', 'Biomedical Sciences'],
-          ['Business Administration', 'Business Administration'],
-          ['Business Honors', 'Business Honors'],
-          ['Chemical Engineering', 'Chemical Engineering'],
-          ['Chemistry', 'Chemistry'],
-          ['Civil Engineering', 'Civil Engineering'],
-          ['Classics', 'Classics'],
-          ['Coastal Environmental Science & Society', 'Coastal Environmental Science & Society'],
-          ['Communication', 'Communication'],
-          ['Community Health', 'Community Health'],
-          ['Computer Engineering', 'Computer Engineering'],
-          ['Computer Science', 'Computer Science'],
-          ['Computing', 'Computing'],
-          ['Construction Science', 'Construction Science'],
-          ['Dance Science', 'Dance Science'],
-          ['Data Engineering', 'Data Engineering'],
-          ['Ecology & Conservation Biology', 'Ecology & Conservation Biology'],
-          ['Economics', 'Economics'],
-          ['Education - Bilingual Education', 'Education - Bilingual Education'],
-          ['Education - Language Arts/Social Studies Middle Grades Certification', 'Education - Language Arts/Social Studies Middle Grades Certification'],
-          ['Education - Math/Science Middle Grades Certification', 'Education - Math/Science Middle Grades Certification'],
-          ['Education - PreK-6 Generalist Certification', 'Education - PreK-6 Generalist Certification'],
-          ['Education - Special Education', 'Education - Special Education'],
-          ['Electrical Engineering', 'Electrical Engineering'],
-          ['Electronic Systems Engineering Technology', 'Electronic Systems Engineering Technology'],
-          ['English', 'English'],
-          ['Entomology', 'Entomology'],
-          ['Environmental Engineering', 'Environmental Engineering'],
-          ['Environmental Geosciences', 'Environmental Geosciences'],
-          ['Environmental Studies', 'Environmental Studies'],
-          ['Finance', 'Finance'],
-          ['Financial Planning', 'Financial Planning'],
-          ['Food Science & Technology', 'Food Science & Technology'],
-          ['Forensic & Investigative Sciences', 'Forensic & Investigative Sciences'],
-          ['General Studies', 'General Studies'],
-          ['Genetics', 'Genetics'],
-          ['Geographic Information Science & Technology', 'Geographic Information Science & Technology'],
-          ['Geography', 'Geography'],
-          ['Geology', 'Geology'],
-          ['Geophysics', 'Geophysics'],
-          ['Health', 'Health'],
-          ['History', 'History'],
-          ['Horticulture', 'Horticulture'],
-          ['Hospitality, Hotel Management, & Tourism', 'Hospitality, Hotel Management, & Tourism'],
-          ['Human Resource Development', 'Human Resource Development'],
-          ['Industrial & Systems Engineering', 'Industrial & Systems Engineering'],
-          ['Industrial Distribution', 'Industrial Distribution'],
-          ['Information Technology Service Management', 'Information Technology Service Management'],
-          ['Interdisciplinary Engineering', 'Interdisciplinary Engineering'],
-          ['International Affairs', 'International Affairs'],
-          ['International Studies', 'International Studies'],
-          ['International Studies (Politics & Diplomacy Track)', 'International Studies (Politics & Diplomacy Track)'],
-          ['Journalism', 'Journalism'],
-          ['Kinesiology - Dance Science', 'Kinesiology - Dance Science'],
-          ['Kinesiology - Exercise & Sport Science', 'Kinesiology - Exercise & Sport Science'],
-          ['Kinesiology - Exercise Science', 'Kinesiology - Exercise Science'],
-          ['Landscape Architecture', 'Landscape Architecture'],
-          ['Management', 'Management'],
-          ['Management Information Systems', 'Management Information Systems'],
-          ['Manufacturing & Mechanical Engineering Technology', 'Manufacturing & Mechanical Engineering Technology'],
-          ['Marine Biology', 'Marine Biology'],
-          ['Marine Engineering Technology', 'Marine Engineering Technology'],
-          ['Marine Fisheries', 'Marine Fisheries'],
-          ['Marine Sciences', 'Marine Sciences'],
-          ['Marine Transportation', 'Marine Transportation'],
-          ['Maritime Business Administration', 'Maritime Business Administration'],
-          ['Maritime Studies', 'Maritime Studies'],
-          ['Marketing', 'Marketing'],
-          ['Materials Science & Engineering', 'Materials Science & Engineering'],
-          ['Mathematics', 'Mathematics'],
-          ['Mechanical Engineering', 'Mechanical Engineering'],
-          ['Meteorology', 'Meteorology'],
-          ['Microbiology', 'Microbiology'],
-          ['Modern Languages (French, German, or Russian)', 'Modern Languages (French, German, or Russian)'],
-          ['Molecular and Cell Biology', 'Molecular and Cell Biology'],
-          ['Multidisciplinary Engineering Technology', 'Multidisciplinary Engineering Technology'],
-          ['Neuroscience - Behavioral and Cognitive Track', 'Neuroscience - Behavioral and Cognitive Track'],
-          ['Neuroscience - Molecular and Cellular Track', 'Neuroscience - Molecular and Cellular Track'],
-          ['Nuclear Engineering', 'Nuclear Engineering'],
-          ['Nursing', 'Nursing'],
-          ['Nutrition', 'Nutrition'],
-          ['Ocean Engineering', 'Ocean Engineering'],
-          ['Ocean Studies', 'Ocean Studies'],
-          ['Oceanography', 'Oceanography'],
-          ['Performance & Visual Studies', 'Performance & Visual Studies'],
-          ['Petroleum Engineering', 'Petroleum Engineering'],
-          ['Philosophy', 'Philosophy'],
-          ['Physics', 'Physics'],
-          ['Plant & Environmental Soil Science', 'Plant & Environmental Soil Science'],
-          ['Political Science', 'Political Science'],
-          ['Poultry Science', 'Poultry Science'],
-          ['Psychology', 'Psychology'],
-          ['Public Health', 'Public Health'],
-          ['Rangeland, Wildlife, & Fisheries Management', 'Rangeland, Wildlife, & Fisheries Management'],
-          ['Recreation Park & Tourism Sciences', 'Recreation Park & Tourism Sciences'],
-          ['Sociology', 'Sociology'],
-          ['Spanish', 'Spanish'],
-          ['Sport Management', 'Sport Management'],
-          ['Statistics', 'Statistics'],
-          ['Supply Chain Management', 'Supply Chain Management'],
-          ['Technology Management', 'Technology Management'],
-          ['Telecommunication Media Studies', 'Telecommunication Media Studies'],
-          ['Turfgrass Science', 'Turfgrass Science'],
-          ['University Studies - Arts and Sciences', 'University Studies - Arts and Sciences'],
-          ['University Studies - Business', 'University Studies - Business'],
-          ['University Studies - Global Arts, Planning, Design & Construction', 'University Studies - Global Arts, Planning, Design, & Construction'],
-          ['University Studies - Leadership Studies', 'University Studies - Leadership Studies'],
-          ['University Studies - Marine Environmental Law & Policy', 'University Studies - Marine Environmental Law & Policy'],
-          ['University Studies - Mathematics for Secondary Teaching', 'University Studies - Mathematics for Secondary Teaching'],
-          ['University Studies - Oceans & One Health', 'University Studies - Oceans & One Health'],
-          ['University Studies - Race, Gender, & Ethnicity', 'University Studies - Race, Gender, & Ethnicity'],
-          ['University Studies - Society, Ethics, & Law', 'University Studies - Society, Ethics, & Law'],
-          ['University Studies - Tourism & Coastal Community Development', 'University Studies - Tourism & Coastal Community Development'],
-          ['Urban & Regional Planning', 'Urban & Regional Planning'],
-          ['Visualization', 'Visualization'],
-          ['Wildlife & Fisheries Sciences', 'Wildlife & Fisheries Sciences'],
-          ['Women\'s & Gender Studies', 'Women\'s & Gender Studies'],
-          ['Zoology', 'Zoology']
-        ], @user.major), {}, class: "form-control" %>
+                    ['Accounting', 'Accounting'],
+                    ['Aerospace Engineering', 'Aerospace Engineering'],
+                    ['Agribusiness', 'Agribusiness'],
+                    ['Agricultural Communications & Journalism', 'Agricultural Communications & Journalism'],
+                    ['Agricultural Economics', 'Agricultural Economics'],
+                    ['Agricultural Leadership & Development', 'Agricultural Leadership & Development'],
+                    ['Agricultural Science', 'Agricultural Science'],
+                    ['Agricultural Systems Management', 'Agricultural Systems Management'],
+                    ['Animal Science', 'Animal Science'],
+                    ['Anthropology', 'Anthropology'],
+                    ['Applied Mathematics', 'Applied Mathematics'],
+                    ['Architectural Engineering', 'Architectural Engineering'],
+                    ['Architecture', 'Architecture'],
+                    ['Biochemistry', 'Biochemistry'],
+                    ['Bioenvironmental Sciences', 'Bioenvironmental Sciences'],
+                    ['Biological & Agricultural Engineering', 'Biological & Agricultural Engineering'],
+                    ['Biology', 'Biology'],
+                    ['Biomedical Engineering', 'Biomedical Engineering'],
+                    ['Biomedical Sciences', 'Biomedical Sciences'],
+                    ['Business Administration', 'Business Administration'],
+                    ['Business Honors', 'Business Honors'],
+                    ['Chemical Engineering', 'Chemical Engineering'],
+                    ['Chemistry', 'Chemistry'],
+                    ['Civil Engineering', 'Civil Engineering'],
+                    ['Classics', 'Classics'],
+                    ['Coastal Environmental Science & Society', 'Coastal Environmental Science & Society'],
+                    ['Communication', 'Communication'],
+                    ['Community Health', 'Community Health'],
+                    ['Computer Engineering', 'Computer Engineering'],
+                    ['Computer Science', 'Computer Science'],
+                    ['Computing', 'Computing'],
+                    ['Construction Science', 'Construction Science'],
+                    ['Dance Science', 'Dance Science'],
+                    ['Data Engineering', 'Data Engineering'],
+                    ['Ecology & Conservation Biology', 'Ecology & Conservation Biology'],
+                    ['Economics', 'Economics'],
+                    ['Education - Bilingual Education', 'Education - Bilingual Education'],
+                    ['Education - Language Arts/Social Studies Middle Grades Certification', 'Education - Language Arts/Social Studies Middle Grades Certification'],
+                    ['Education - Math/Science Middle Grades Certification', 'Education - Math/Science Middle Grades Certification'],
+                    ['Education - PreK-6 Generalist Certification', 'Education - PreK-6 Generalist Certification'],
+                    ['Education - Special Education', 'Education - Special Education'],
+                    ['Electrical Engineering', 'Electrical Engineering'],
+                    ['Electronic Systems Engineering Technology', 'Electronic Systems Engineering Technology'],
+                    ['English', 'English'],
+                    ['Entomology', 'Entomology'],
+                    ['Environmental Engineering', 'Environmental Engineering'],
+                    ['Environmental Geosciences', 'Environmental Geosciences'],
+                    ['Environmental Studies', 'Environmental Studies'],
+                    ['Finance', 'Finance'],
+                    ['Financial Planning', 'Financial Planning'],
+                    ['Food Science & Technology', 'Food Science & Technology'],
+                    ['Forensic & Investigative Sciences', 'Forensic & Investigative Sciences'],
+                    ['General Studies', 'General Studies'],
+                    ['Genetics', 'Genetics'],
+                    ['Geographic Information Science & Technology', 'Geographic Information Science & Technology'],
+                    ['Geography', 'Geography'],
+                    ['Geology', 'Geology'],
+                    ['Geophysics', 'Geophysics'],
+                    ['Health', 'Health'],
+                    ['History', 'History'],
+                    ['Horticulture', 'Horticulture'],
+                    ['Hospitality, Hotel Management, & Tourism', 'Hospitality, Hotel Management, & Tourism'],
+                    ['Human Resource Development', 'Human Resource Development'],
+                    ['Industrial & Systems Engineering', 'Industrial & Systems Engineering'],
+                    ['Industrial Distribution', 'Industrial Distribution'],
+                    ['Information Technology Service Management', 'Information Technology Service Management'],
+                    ['Interdisciplinary Engineering', 'Interdisciplinary Engineering'],
+                    ['International Affairs', 'International Affairs'],
+                    ['International Studies', 'International Studies'],
+                    ['International Studies (Politics & Diplomacy Track)', 'International Studies (Politics & Diplomacy Track)'],
+                    ['Journalism', 'Journalism'],
+                    ['Kinesiology - Dance Science', 'Kinesiology - Dance Science'],
+                    ['Kinesiology - Exercise & Sport Science', 'Kinesiology - Exercise & Sport Science'],
+                    ['Kinesiology - Exercise Science', 'Kinesiology - Exercise Science'],
+                    ['Landscape Architecture', 'Landscape Architecture'],
+                    ['Management', 'Management'],
+                    ['Management Information Systems', 'Management Information Systems'],
+                    ['Manufacturing & Mechanical Engineering Technology', 'Manufacturing & Mechanical Engineering Technology'],
+                    ['Marine Biology', 'Marine Biology'],
+                    ['Marine Engineering Technology', 'Marine Engineering Technology'],
+                    ['Marine Fisheries', 'Marine Fisheries'],
+                    ['Marine Sciences', 'Marine Sciences'],
+                    ['Marine Transportation', 'Marine Transportation'],
+                    ['Maritime Business Administration', 'Maritime Business Administration'],
+                    ['Maritime Studies', 'Maritime Studies'],
+                    ['Marketing', 'Marketing'],
+                    ['Materials Science & Engineering', 'Materials Science & Engineering'],
+                    ['Mathematics', 'Mathematics'],
+                    ['Mechanical Engineering', 'Mechanical Engineering'],
+                    ['Meteorology', 'Meteorology'],
+                    ['Microbiology', 'Microbiology'],
+                    ['Modern Languages (French, German, or Russian)', 'Modern Languages (French, German, or Russian)'],
+                    ['Molecular and Cell Biology', 'Molecular and Cell Biology'],
+                    ['Multidisciplinary Engineering Technology', 'Multidisciplinary Engineering Technology'],
+                    ['Neuroscience - Behavioral and Cognitive Track', 'Neuroscience - Behavioral and Cognitive Track'],
+                    ['Neuroscience - Molecular and Cellular Track', 'Neuroscience - Molecular and Cellular Track'],
+                    ['Nuclear Engineering', 'Nuclear Engineering'],
+                    ['Nursing', 'Nursing'],
+                    ['Nutrition', 'Nutrition'],
+                    ['Ocean Engineering', 'Ocean Engineering'],
+                    ['Ocean Studies', 'Ocean Studies'],
+                    ['Oceanography', 'Oceanography'],
+                    ['Performance & Visual Studies', 'Performance & Visual Studies'],
+                    ['Petroleum Engineering', 'Petroleum Engineering'],
+                    ['Philosophy', 'Philosophy'],
+                    ['Physics', 'Physics'],
+                    ['Plant & Environmental Soil Science', 'Plant & Environmental Soil Science'],
+                    ['Political Science', 'Political Science'],
+                    ['Poultry Science', 'Poultry Science'],
+                    ['Psychology', 'Psychology'],
+                    ['Public Health', 'Public Health'],
+                    ['Rangeland, Wildlife, & Fisheries Management', 'Rangeland, Wildlife, & Fisheries Management'],
+                    ['Recreation Park & Tourism Sciences', 'Recreation Park & Tourism Sciences'],
+                    ['Sociology', 'Sociology'],
+                    ['Spanish', 'Spanish'],
+                    ['Sport Management', 'Sport Management'],
+                    ['Statistics', 'Statistics'],
+                    ['Supply Chain Management', 'Supply Chain Management'],
+                    ['Technology Management', 'Technology Management'],
+                    ['Telecommunication Media Studies', 'Telecommunication Media Studies'],
+                    ['Turfgrass Science', 'Turfgrass Science'],
+                    ['University Studies - Arts and Sciences', 'University Studies - Arts and Sciences'],
+                    ['University Studies - Business', 'University Studies - Business'],
+                    ['University Studies - Global Arts, Planning, Design & Construction', 'University Studies - Global Arts, Planning, Design, & Construction'],
+                    ['University Studies - Leadership Studies', 'University Studies - Leadership Studies'],
+                    ['University Studies - Marine Environmental Law & Policy', 'University Studies - Marine Environmental Law & Policy'],
+                    ['University Studies - Mathematics for Secondary Teaching', 'University Studies - Mathematics for Secondary Teaching'],
+                    ['University Studies - Oceans & One Health', 'University Studies - Oceans & One Health'],
+                    ['University Studies - Race, Gender, & Ethnicity', 'University Studies - Race, Gender, & Ethnicity'],
+                    ['University Studies - Society, Ethics, & Law', 'University Studies - Society, Ethics, & Law'],
+                    ['University Studies - Tourism & Coastal Community Development', 'University Studies - Tourism & Coastal Community Development'],
+                    ['Urban & Regional Planning', 'Urban & Regional Planning'],
+                    ['Visualization', 'Visualization'],
+                    ['Wildlife & Fisheries Sciences', 'Wildlife & Fisheries Sciences'],
+                    ['Women\'s & Gender Studies', 'Women\'s & Gender Studies'],
+                    ['Zoology', 'Zoology']
+          ], @user.major), {}, class: "form-control" %>
         </div>
 
         <div class="form-group mb-3">
@@ -196,9 +181,58 @@
         </div>
 
         <div class="mt-4 text-center">
-          <%= form.submit "Update Profile", class: "btn custom-btn text-white" %>
+          <%= form.submit "Update Profile", class: "btn custom-btn text-white", id: "submit-btn" %>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    document.getElementById("submit-btn").addEventListener("click", function(event) {
+      var valid = true;
+
+      // Username validation: only letters and spaces, cannot be blank, and must be at least 3 characters long
+      var username = document.getElementById("username");
+      var usernameFeedback = document.getElementById("username-feedback");
+      var usernamePattern = /^[A-Za-z\s]+$/;
+
+      if (username.value.trim() === "") {
+        usernameFeedback.innerText = "Username cannot be blank.";
+        username.classList.add("is-invalid");
+        valid = false;
+      } else if (username.value.trim().length < 3) {
+        usernameFeedback.innerText = "Username must be at least 3 characters long.";
+        username.classList.add("is-invalid");
+        valid = false;
+      } else if (!usernamePattern.test(username.value)) {
+        usernameFeedback.innerText = "Username should only contain letters and spaces.";
+        username.classList.add("is-invalid");
+        valid = false;
+      } else {
+        username.classList.remove("is-invalid");
+      }
+
+      // Age validation: cannot be blank and must be more than 16
+      var age = document.getElementById("age");
+      var ageFeedback = document.getElementById("age-feedback");
+
+      if (age.value.trim() === "") {
+        ageFeedback.innerText = "Age cannot be blank.";
+        age.classList.add("is-invalid");
+        valid = false;
+      } else if (parseInt(age.value) <= 16) {
+        ageFeedback.innerText = "You must be older than 16.";
+        age.classList.add("is-invalid");
+        valid = false;
+      } else {
+        age.classList.remove("is-invalid");
+      }
+
+      // Prevent form submission if validation fails
+      if (!valid) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    });
+  </script>
 <% end %>

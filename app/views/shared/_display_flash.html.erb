@@ -1,8 +1,15 @@
-<div id="flash">
+<div id="flash" class="container mt-3 d-flex justify-content-center">
   <% if flash[:alert] %>
-    <p style="color: red;"><%= flash[:alert] %></p>
+    <div class="alert flash-danger alert-dismissible fade show" role="alert">
+      <%= flash[:alert] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
   <% end %>
+
   <% if flash[:notice] %>
-    <p style="color: green;"><%= flash[:notice] %></p>
+    <div class="alert flash-success alert-dismissible fade show" role="alert">
+      <%= flash[:notice] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
   <% end %>
 </div>
