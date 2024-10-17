@@ -21,31 +21,31 @@ Then("I should be able to upload and change my profile photo") do
 end
 
 Then('I should be able to change my user name') do
-  fill_in 'user_username', with: 'TestName'
+  fill_in 'username', with: 'TestName'
 end
 
-Then("I should be able to modify my gender") do
-  fill_in 'user_gender', with: 'Male'
+Then('I should be able to modify my gender') do
+  select 'male', from: 'gender'
 end
 
 Then("I should be able to set or update my age using a date picker") do
-  fill_in 'user_age', with: '25'
+  fill_in 'age', with: '25'
 end
 
 Then('I should be able to modify my school') do
-  fill_in 'user_school', with: 'Texas A&M'
+  fill_in 'school', with: 'Texas A&M'
 end
 
 Then('I should be able to modify my major') do
-  fill_in 'user_major', with: 'Computer Science'
+  fill_in 'major', with: 'Computer Science'
 end
 
 Then('I should be able to modify about me') do
-  fill_in 'user_about_me', with: 'Test Test Test'
+  fill_in 'about_me', with: 'Test Test Test'
 end
 
 Then("I should be able to save these changes") do
-  click_button 'Save'
+  click_button 'Update Profile'
 end
 
 Then("I should see a confirmation message when the updates are successfully saved") do
@@ -54,7 +54,7 @@ end
 
 When('I try to upload photo with invalid format and save') do
   attach_file('photo-upload', Rails.root.join('test_image', 'wrong_format.txt'))
-  click_button 'Save'
+  click_button 'Update Profile'
 end
 
 When('I should see error message of invalid photo format') do
@@ -63,7 +63,7 @@ end
 
 When('I try to upload photo with invalid size and save') do
   attach_file('photo-upload', Rails.root.join('test_image', 'too_large.jpg'))
-  click_button 'Save'
+  click_button 'Update Profile'
 end
 
 When('I should see error message of invalid photo size') do
@@ -71,8 +71,8 @@ When('I should see error message of invalid photo size') do
 end
 
 When('I try to leave my username blank and save') do
-  fill_in 'user_username', with: ''
-  click_button 'Save'
+  fill_in 'username', with: ''
+  click_button 'Update Profile'
 end
 
 Then('I should see error message of incomplete user profile') do

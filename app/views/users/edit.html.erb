@@ -7,6 +7,7 @@
         <div class="form-group mb-3">
           <%= form.label :photo, class: "form-label" %>
           <%= form.file_field :photo, id: 'photo-upload', class: "form-control" %>
+          <div id="photo-feedback" class="invalid-feedback"></div>
         </div>
 
         <div class="row mb-3">
@@ -226,6 +227,29 @@
         valid = false;
       } else {
         age.classList.remove("is-invalid");
+      }
+
+      // Photo validation: must be a JPEG, JPG, GIF, or PNG and less than 500KB
+      var photoUpload = document.getElementById("photo-upload");
+      var photoFeedback = document.getElementById("photo-feedback");
+      var filePath = photoUpload.value;
+
+      if (filePath) {
+        var fileExtension = filePath.split('.').pop().toLowerCase();
+        var file = photoUpload.files[0];
+
+        // Check file extension
+        if (!['jpg', 'jpeg', 'gif', 'png'].includes(fileExtension)) {
+          photoFeedback.innerText = "Photo must be a JPEG, JPG, GIF, or PNG.";
+          photoUpload.classList.add("is-invalid");
+          valid = false;
+        } else if (file.size > 500 * 1024) { // Check file size (500KB)
+          photoFeedback.innerText = "Photo must be less than 500KB in size.";
+          photoUpload.classList.add("is-invalid");
+          valid = false;
+        } else {
+          photoUpload.classList.remove("is-invalid");
+        }
       }
 
       // Prevent form submission if validation fails
