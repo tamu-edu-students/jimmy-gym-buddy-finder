@@ -9,6 +9,12 @@ class User < ApplicationRecord
   validates :gender, presence: true, on: :profile_update
   validate :photo_type, :photo_size
   has_one_attached :photo
+  has_one :fitness_profile, dependent: :destroy
+  after_create :build_default_fitness_profile
+
+  def build_default_fitness_profile
+    build_fitness_profile.save
+  end
 
   def password_required?
     uid.blank? && provider.blank? && super

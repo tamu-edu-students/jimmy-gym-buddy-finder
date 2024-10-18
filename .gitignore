@@ -28,8 +28,10 @@
 /tmp/storage/*
 !/tmp/storage/
 !/tmp/storage/.keep
-
+test_view/
 /public/assets
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/coverage

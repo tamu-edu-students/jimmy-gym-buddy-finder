@@ -1,0 +1,26 @@
+<h1 class="text-center mb-5 display-4">Fitness Profile</h1>
+
+<div class="container">
+  <div class="card shadow-lg mb-5 profile-card" style="max-width: 700px; margin: 0 auto; border-radius: 15px;">
+    <div class="card-body">
+      <h4 class="card-title mb-3"><strong><%= @user.username %>'s Fitness Profile</strong></h4>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item bg-transparent text-dark">
+          <i class="bi bi-calendar"></i> <strong>Age Range:</strong> <%= @fitness_profile.age_range_start %> - <%= @fitness_profile.age_range_end %>
+        </li>
+        <li class="list-group-item bg-transparent text-dark">
+          <i class="bi bi-graph-up"></i> <strong>Fitness Goals:</strong> <%= @fitness_profile.fitness_goals %>
+        </li>
+        <li class="list-group-item bg-transparent text-dark">
+          <i class="bi bi-fitness"></i> <strong>Workout Types:</strong> <%= @fitness_profile.workout_types %>
+        </li>
+        <li class="list-group-item bg-transparent text-dark">
+          <i class="bi bi-gender-ambiguous"></i> <strong>Buddy Gender Preference:</strong> <%= @fitness_profile.gender %>
+        </li>
+      </ul>
+      <div class="mt-4 text-center">
+        <a href="<%= edit_user_fitness_profile_path(@user, @fitness_profile) %>" class="btn custom-btn text-white">Edit Profile</a>
+      </div>
+    </div>
+  </div>
+</div>

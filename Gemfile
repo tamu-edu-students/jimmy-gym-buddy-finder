@@ -43,6 +43,12 @@ gem "bootsnap", require: false
 gem "carrierwave", "~> 2.0"
 gem "devise"
 
+gem "drb", "~> 2.2.1"
+gem "irb", "~> 1.14.1"
+
+gem "bootstrap", "~> 5.3.0"
+gem "sassc-rails"
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem "sqlite3", ">= 1.4"
@@ -55,6 +61,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "carrierwave", "~> 2.0"
 
   gem "factory_bot_rails"
   gem "warden"
@@ -80,6 +88,10 @@ group :test do
   gem "rspec-rails"
   gem "simplecov", require: false
   gem "ZenTest"
+  gem "database_cleaner-active_record"
+  gem "rack_session_access"
+  gem "omniauth-test"
+
   # gem "codeclimate-test-reporter", require: nil
 end
 

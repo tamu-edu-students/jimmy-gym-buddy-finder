@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :check_profile_completion, only: [ :edit, :update ]
 
-  def show
-    @user = User.find(params[:id])
-  end
-
   def edit
     @user = User.find(params[:id])
   end
@@ -20,31 +16,17 @@ class UsersController < ApplicationController
         render :edit, status: :unprocessable_entity
       end
     else
-      flash.now[:alert] = "There were errors while updating the profile. Please check the fields and try again."
+      if @user.errors[:photo].include?("must be less than 500KB in size.")
+        flash.now[:alert] = "Photo must be less than 500KB in size."
+      elsif @user.errors[:photo].include?("must be a JPEG, JPG, GIF, or PNG.")
+        flash.now[:alert] = "Photo must be a JPEG, JPG, GIF, or PNG."
+      else
+      end
       render :edit, status: :unprocessable_entity
     end
   end
 
-  def new
-    @user = User.new # Initializes a new user instance for the form
-  end
-
-  def create
-    @user = User.new(create_user_params) # Create a new user with the submitted params
-    if @user.save
-      flash[:notice] = "User registered successfully."
-      redirect_to dashboard_user_path(@user)
-    else
-      flash.now[:alert] = "There were errors while saving the user."
-      render :new, status: :unprocessable_entity  # Important: this tells Turbo the form is invalid
-    end
-  end
-
   private
-  def create_user_params
-    params.require(:user).permit(:first_name, :last_name, :age, :gender)
-  end
-
   def update_user_params
     params.require(:user).permit(:photo, :username, :age, :gender, :school, :major, :about_me)
   end
