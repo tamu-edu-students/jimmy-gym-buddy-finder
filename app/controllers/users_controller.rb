@@ -16,7 +16,12 @@ class UsersController < ApplicationController
         render :edit, status: :unprocessable_entity
       end
     else
-      flash.now[:alert] = "There were errors while updating the profile. Please check the fields and try again."
+      if @user.errors[:photo].include?("must be less than 500KB in size.")
+        flash.now[:alert] = "Photo must be less than 500KB in size."
+      elsif @user.errors[:photo].include?("must be a JPEG, JPG, GIF, or PNG.")
+        flash.now[:alert] = "Photo must be a JPEG, JPG, GIF, or PNG."
+      else
+      end
       render :edit, status: :unprocessable_entity
     end
   end

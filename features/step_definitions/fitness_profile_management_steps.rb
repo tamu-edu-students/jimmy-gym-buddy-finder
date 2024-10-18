@@ -26,7 +26,7 @@ Then('I should be able to select age range to match') do
 end
 
 Then('I should be able to save the fitness profile') do
-  click_button 'Create Fitness profile'
+  click_button 'Create Fitness Profile'
 end
 
 Then('I should see the confirm message when the fitness profile is created successfully') do
@@ -41,7 +41,7 @@ Given('I have created my fitness profile') do
   select 'Male', from: 'fitness_profile_gender'
   select '18', from: 'fitness_profile_age_range_start'
   select '28', from: 'fitness_profile_age_range_end'
-  click_button 'Create Fitness profile'
+  click_button 'Create Fitness Profile'
 end
 
 When('I am on my fitness page') do
@@ -74,7 +74,7 @@ Then('I should be able to change age range to match') do
 end
 
 Then('I should be able to save these updates') do
-  click_button 'Update Fitness profile'
+  click_button 'Update Fitness Profile'
 end
 
 Then('I should see the confirm message when the fitness profile is updated successfully') do

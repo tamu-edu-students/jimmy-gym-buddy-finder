@@ -25,23 +25,23 @@ Then('I should be able to change my user name') do
 end
 
 Then('I should be able to modify my gender') do
-  select 'male', from: 'gender'
+  select 'male', from: 'user_gender'
 end
 
 Then("I should be able to set or update my age using a date picker") do
   fill_in 'age', with: '25'
 end
 
-Then('I should be able to modify my school') do
-  fill_in 'school', with: 'Texas A&M'
+Then("I should be able to modify my school") do
+  select "Texas A&M University, College Station", from: "user_school"
 end
 
-Then('I should be able to modify my major') do
-  fill_in 'major', with: 'Computer Science'
+Then("I should be able to modify my major") do
+  select "Computer Science", from: "user_major"
 end
 
 Then('I should be able to modify about me') do
-  fill_in 'about_me', with: 'Test Test Test'
+  fill_in 'user_about_me', with: 'Test Test Test'
 end
 
 Then("I should be able to save these changes") do
@@ -78,3 +78,4 @@ end
 Then('I should see error message of incomplete user profile') do
   expect(page).to have_content('Profile is incomplete. Please fill in all required fields.')
 end
+
