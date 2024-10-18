@@ -78,4 +78,3 @@ end
 Then('I should see error message of incomplete user profile') do
   expect(page).to have_content('Profile is incomplete. Please fill in all required fields.')
 end
-
