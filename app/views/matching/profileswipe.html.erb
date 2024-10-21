@@ -58,53 +58,12 @@
             
             
         </div>
-        <div class="tinder--buttons">
+        <div class="tinder--buttons ">
             <button id="nope"><i class="fa fa-remove"></i></button>
             <button id="love"><i class="fa fa-heart"></i></button>
         </div>
 
     <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Select the Tinder container and the card elements
-            const tinderContainer = document.querySelector('.tinder');
-            const allCards = document.querySelectorAll('.tinder--card');
-
-            // Initialize the Tinder cards to be visible
-            function initCards() {
-                const newCards = document.querySelectorAll('.tinder--card:not(.removed)');
-
-                newCards.forEach(function (card, index) {
-                    card.style.zIndex = allCards.length - index;
-                    card.style.opacity = 1;
-                    card.style.transform = 'scale(1) translateY(0px)';
-                });
-
-                tinderContainer.classList.remove('no-cards');
-            }
-
-            initCards(); // Call this function to show all cards initially
-
-            // Optionally add any swipe functionality or event listeners here
-            const nope = document.getElementById('nope');
-            const love = document.getElementById('love');
-
-            nope.addEventListener('click', function () {
-                const card = document.querySelector('.tinder--card:not(.removed)');
-                if (card) {
-                    card.classList.add('removed');
-                    initCards();
-                }
-            });
-
-            love.addEventListener('click', function () {
-                const card = document.querySelector('.tinder--card:not(.removed)');
-                if (card) {
-                    card.classList.add('removed');
-                    initCards();
-                }
-            });
-        });
-    </script>
+    
 </body>
 </html>

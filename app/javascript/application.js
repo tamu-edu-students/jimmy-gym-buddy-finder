@@ -7,6 +7,7 @@ import "bootstrap"
 
 'use strict';
 
+document.addEventListener('turbo:load', function () {
 var tinderContainer = document.querySelector('.tinder');
 var allCards = document.querySelectorAll('.tinder--card');
 var nope = document.getElementById('nope');
@@ -102,3 +103,4 @@ var loveListener = createButtonListener(true);
 
 nope.addEventListener('click', nopeListener);
 love.addEventListener('click', loveListener);
+}); 
