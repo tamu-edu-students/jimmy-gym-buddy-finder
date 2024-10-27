@@ -21,4 +21,10 @@ Rails.application.routes.draw do
   end
 
   get "matching/profileswipe", to: "matching#profileswipe", as: "profileswipe"
+  get 'users/:id/prospective_users', to: 'user_matches#prospective_users'
+
+  # Routes for handling user actions on prospective users
+  post 'users/:user_id/match/:prospective_user_id', to: 'user_matches#match'
+  post 'users/:user_id/skip/:prospective_user_id', to: 'user_matches#skip'
+  post 'users/:user_id/block/:prospective_user_id', to: 'user_matches#block'
 end
