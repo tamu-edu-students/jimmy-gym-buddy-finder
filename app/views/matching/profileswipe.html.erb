@@ -1,68 +1,163 @@
+# <!DOCTYPE html>
+# <html lang="en">
+# <head>
+#     <meta charset="UTF-8">
+#     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+#     <title>Tinder-like Swipe Cards</title>
+#     <link rel="stylesheet" href="profileswipe.css">
+#     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+# </head>
+# <body>
+# #     <div class="tinder">
+# #         <div class="tinder--status">
+# #             <i class="fa fa-remove"></i>
+# #             <i class="fa fa-heart"></i>
+# #         </div>
+
+# #         <div class="tinder--cards">
+# #             <div class="tinder--card">
+# #                 <div class="user-image" style="background-image: url('https://img.freepik.com/free-photo/full-length-happy-sportswoman-jogging-road-morning-copy-space_637285-3764.jpg?semt=ais_hybrid');"></div>
+# #                 <div class="user-info">
+# #                     <h3>Emma Johnson</h3>
+# #                     <p>Age: 25</p>
+# #                     <p>Fitness Enthusiast. Loves hiking and yoga.</p>
+# #                 </div>
+# #             </div>
+# #             <div class="tinder--card">
+# #                 <div class="user-image" style="background-image: url('https://cdn.prod.website-files.com/62aa9ab662e3d2778653006f/63dfa0be70afa6cb3db78a45_Solo60_Training%20Images-8-min.jpg');"></div>
+# #                 <div class="user-info">
+# #                     <h3>Liam Smith</h3>
+# #                     <p>Age: 28</p>
+# #                     <p>Adventure seeker. Enjoys rock climbing and travel.</p>
+# #                 </div>
+# #             </div>
+# #             <div class="tinder--card">
+# #                 <div class="user-image" style="background-image: url('https://integrumtechnology.net/wp-content/uploads/2023/05/happy-young-woman-using-mobile-phone-in-gym-2021-09-03-07-02-04-utc1.jpg');"></div>
+# #                 <div class="user-info">
+# #                     <h3>Olivia Brown</h3>
+# #                     <p>Age: 23</p>
+# #                     <p>Foodie and chef. Passionate about healthy eating.</p>
+# #                 </div>
+# #             </div>
+# #             <div class="tinder--card">
+# #                 <div class="user-image" style="background-image: url('https://res.cloudinary.com/hydrow/image/upload/f_auto/q_auto/v1693335736/Blog/how-to-enjoy-working-out-alone.jpg');"></div>
+# #                 <div class="user-info">
+# #                     <h3>Noah Davis</h3>
+# #                     <p>Age: 30</p>
+# #                     <p>Tech geek. Loves coding and gaming.</p>
+# #                 </div>
+# #             </div>
+# #             <div class="tinder--card">
+# #                 <div class="user-image" style="background-image: url('https://www.theperfectworkout.com/cdn-cgi/image/width=1312,height=1312,fit=crop,quality=80,format=auto,onerror=redirect,metadata=none/wp-content/uploads/2024/05/Dedicated-personal-trainers-side-image.jpg');"></div>
+# #                 <div class="user-info">
+# #                     <h3>Ava Wilson</h3>
+# #                     <p>Age: 26</p>
+# #                     <p>Artist and designer. Enjoys painting and photography.</p>
+# #                 </div>
+# #             </div>
+            
+            
+# #         </div>
+# #         <div class="tinder--buttons">
+# #             <button id="nope"><i class="fa fa-remove"></i></button>
+# #             <button id="love"><i class="fa fa-heart"></i></button>
+# #         </div>
+
+# #     <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+
+# <div class="container mt-5">
+#   <!-- Search filter at the top -->
+#   <div class="search-filter text-center mb-4">
+#     <input type="text" id="search" class="form-control" placeholder="Search profiles..." oninput="filterProfiles()">
+#   </div>
+
+#   <!-- Tinder-like cards section -->
+#   <div id="profile-cards" class="text-center">
+#     <!-- Dummy card data to simulate profiles (replace this with dynamic content later) -->
+#     <div class="card mb-3 profile-card" data-id="1" style="display: none;">
+#       <img src="https://via.placeholder.com/300" class="card-img-top" alt="Profile 1">
+#       <div class="card-body">
+#         <h3 class="card-title">John Doe</h3>
+#         <p class="card-text">Age: 30</p>
+#         <p class="card-text">Activities: Hiking, Coding, Traveling</p>
+#       </div>
+#     </div>
+    
+#     <div class="card mb-3 profile-card" data-id="2" style="display: none;">
+#       <img src="https://via.placeholder.com/300" class="card-img-top" alt="Profile 2">
+#       <div class="card-body">
+#         <h3 class="card-title">Jane Smith</h3>
+#         <p class="card-text">Age: 28</p>
+#         <p class="card-text">Activities: Painting, Reading, Yoga</p>
+#       </div>
+#     </div>
+    
+#     <div class="card mb-3 profile-card" data-id="3" style="display: none;">
+#       <img src="https://via.placeholder.com/300" class="card-img-top" alt="Profile 3">
+#       <div class="card-body">
+#         <h3 class="card-title">Mark Johnson</h3>
+#         <p class="card-text">Age: 32</p>
+#         <p class="card-text">Activities: Running, Chess, Music</p>
+#       </div>
+#     </div>
+#   </div>
+
+#   <!-- Buttons section -->
+#   <div class="buttons text-center mt-4 d-flex justify-content-around">
+#     <button id="block" class="btn btn-warning" onclick="handleAction('block')">
+#       <i class="bi bi-x-lg"></i> Block
+#     </button>
+#     <button id="skip" class="btn btn-warning" onclick="handleAction('skip')">
+#       <i class="bi bi-arrow-right-circle"></i> Skip
+#     </button>
+#     <button id="like" class="btn btn-warning" onclick="handleAction('like')">
+#       <i class="bi bi-hand-thumbs-up"></i> Like
+#     </button>
+#   </div>
+# </div>
+# # </div>
+#     </body>
+# </html>
+<!-- app/views/matching/profileswipe.html.erb -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tinder-like Swipe Cards</title>
-    <link rel="stylesheet" href="profileswipe.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Swipe</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-    <div class="tinder">
-        <div class="tinder--status">
-            <i class="fa fa-remove"></i>
-            <i class="fa fa-heart"></i>
-        </div>
+  <div class="container">
+    <!-- Search Filter -->
+    <input type="text" id="search" placeholder="Search Profiles" onkeyup="filterProfiles()" />
 
-        <div class="tinder--cards">
-            <div class="tinder--card">
-                <div class="user-image" style="background-image: url('https://img.freepik.com/free-photo/full-length-happy-sportswoman-jogging-road-morning-copy-space_637285-3764.jpg?semt=ais_hybrid');"></div>
-                <div class="user-info">
-                    <h3>Emma Johnson</h3>
-                    <p>Age: 25</p>
-                    <p>Fitness Enthusiast. Loves hiking and yoga.</p>
-                </div>
-            </div>
-            <div class="tinder--card">
-                <div class="user-image" style="background-image: url('https://cdn.prod.website-files.com/62aa9ab662e3d2778653006f/63dfa0be70afa6cb3db78a45_Solo60_Training%20Images-8-min.jpg');"></div>
-                <div class="user-info">
-                    <h3>Liam Smith</h3>
-                    <p>Age: 28</p>
-                    <p>Adventure seeker. Enjoys rock climbing and travel.</p>
-                </div>
-            </div>
-            <div class="tinder--card">
-                <div class="user-image" style="background-image: url('https://integrumtechnology.net/wp-content/uploads/2023/05/happy-young-woman-using-mobile-phone-in-gym-2021-09-03-07-02-04-utc1.jpg');"></div>
-                <div class="user-info">
-                    <h3>Olivia Brown</h3>
-                    <p>Age: 23</p>
-                    <p>Foodie and chef. Passionate about healthy eating.</p>
-                </div>
-            </div>
-            <div class="tinder--card">
-                <div class="user-image" style="background-image: url('https://res.cloudinary.com/hydrow/image/upload/f_auto/q_auto/v1693335736/Blog/how-to-enjoy-working-out-alone.jpg');"></div>
-                <div class="user-info">
-                    <h3>Noah Davis</h3>
-                    <p>Age: 30</p>
-                    <p>Tech geek. Loves coding and gaming.</p>
-                </div>
-            </div>
-            <div class="tinder--card">
-                <div class="user-image" style="background-image: url('https://www.theperfectworkout.com/cdn-cgi/image/width=1312,height=1312,fit=crop,quality=80,format=auto,onerror=redirect,metadata=none/wp-content/uploads/2024/05/Dedicated-personal-trainers-side-image.jpg');"></div>
-                <div class="user-info">
-                    <h3>Ava Wilson</h3>
-                    <p>Age: 26</p>
-                    <p>Artist and designer. Enjoys painting and photography.</p>
-                </div>
-            </div>
-            
-            
-        </div>
-        <div class="tinder--buttons">
-            <button id="nope"><i class="fa fa-remove"></i></button>
-            <button id="love"><i class="fa fa-heart"></i></button>
-        </div>
+    <!-- Tinder-like Cards -->
+    <div class="profile-cards">
+      <div class="profile-card" style="display:none;">
+        <img src="profile1.jpg" alt="Profile 1">
+        <h3>Name: John</h3>
+        <p>Age: 30</p>
+        <p>Activities: Hiking, Reading</p>
+      </div>
+      <div class="profile-card" style="display:none;">
+        <img src="profile2.jpg" alt="Profile 2">
+        <h3>Name: Sarah</h3>
+        <p>Age: 25</p>
+        <p>Activities: Painting, Yoga</p>
+      </div>
+      <!-- Add more cards as needed -->
+    </div>
 
-    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+    <!-- Action Buttons -->
+    <div class="button-block">
+      <button class="btn btn-warning" onclick="handleAction('block')">✖ Block</button>
+      <button class="btn btn-warning" onclick="handleAction('skip')">⏭ Skip</button>
+      <button class="btn btn-warning" onclick="handleAction('like')">👍 Like</button>
+    </div>
+  </div>
 </body>
 </html>
+
