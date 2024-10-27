@@ -3,7 +3,6 @@ import "@hotwired/turbo-rails";
 import "controllers";
 import "popper";
 import "bootstrap";
-
 'use strict';
 
 document.addEventListener('turbo:load', function () {

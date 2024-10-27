@@ -1,5 +1,6 @@
 @import "bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import 'fitness_profiles';
 
 body {
   background-image: url('./bg-image-gym-buddies.png');
@@ -413,3 +414,4 @@ body, html {
 .fa-remove {
   color: #CDD6DD;
 }
+

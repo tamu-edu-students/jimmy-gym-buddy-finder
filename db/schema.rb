@@ -41,11 +41,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_13_205035) do
 
   create_table "fitness_profiles", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.string "fitness_goals"
-    t.string "workout_types"
     t.string "gender"
-    t.string "age_range_start"
-    t.string "age_range_end"
+    t.text "gender_preferences"
+    t.integer "age_range_start"
+    t.integer "age_range_end"
+    t.text "gym_locations"
+    t.text "activities_with_experience"
+    t.text "workout_schedule"
+    t.text "workout_types"
+    t.text "fitness_goals"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_fitness_profiles_on_user_id"
@@ -66,7 +70,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_13_205035) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "photo"
-    t.string "encrypted_password", default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
