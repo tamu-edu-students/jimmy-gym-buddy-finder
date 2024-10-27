@@ -1,43 +1,45 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails";
-import "controllers";
-import "popper";
-import "bootstrap";
+// import "@hotwired/turbo-rails";
+// import "controllers";
+// import "popper";
+// import "bootstrap";
 
-'use strict';
+// 'use strict';
 
-document.addEventListener("DOMContentLoaded", function () {
-  let currentCardIndex = 0;
-  const cards = document.querySelectorAll(".profile-card");
+// app/assets/javascripts/application.js
 
-  // Show the first card initially
-  if (cards.length > 0) {
-    cards[0].style.display = "block";
-  }
+// document.addEventListener("DOMContentLoaded", function () {
+//   let currentCardIndex = 0;
+//   const cards = document.querySelectorAll(".profile-card");
 
-  // Function to handle Block, Skip, Like actions
-  window.handleAction = function (action) {
-    if (cards.length === 0) return;
+//   // Show the first card initially
+//   if (cards.length > 0) {
+//       cards[currentCardIndex].style.display = "block";
+//   }
 
-    // Hide current card
-    cards[currentCardIndex].style.display = "none";
+//   // Function to handle Block, Skip, Like actions
+//   window.handleAction = function (action) {
+//       if (cards.length === 0) return;
 
-    // Move to the next card (loop back if at the end)
-    currentCardIndex = (currentCardIndex + 1) % cards.length;
+//       // Hide current card
+//       cards[currentCardIndex].style.display = "none";
 
-    // Show the next card
-    cards[currentCardIndex].style.display = "block";
-  };
+//       // Move to the next card (loop back if at the end)
+//       currentCardIndex = (currentCardIndex + 1) % cards.length;
 
-  // Function to filter profiles by search input
-  window.filterProfiles = function () {
-    const searchTerm = document.getElementById("search").value.toLowerCase();
-    cards.forEach((card) => {
-      const profileText = card.innerText.toLowerCase();
-      card.style.display = profileText.includes(searchTerm) ? "block" : "none";
-    });
-  };
-});
+//       // Show the next card
+//       cards[currentCardIndex].style.display = "block";
+//   };
+
+//   // Function to filter profiles by search input
+//   window.filterProfiles = function () {
+//       const searchTerm = document.getElementById("search").value.toLowerCase();
+//       cards.forEach((card) => {
+//           const profileText = card.innerText.toLowerCase();
+//           card.style.display = profileText.includes(searchTerm) ? "block" : "none";
+//       });
+//   };
+// });
 
 // document.addEventListener('turbo:load', function () {
 //   var tinderContainer = document.querySelector('.tinder');
