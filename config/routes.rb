@@ -24,7 +24,15 @@ Rails.application.routes.draw do
   get 'users/:id/prospective_users', to: 'user_matches#prospective_users'
 
   # Routes for handling user actions on prospective users
-  post 'users/:user_id/match/:prospective_user_id', to: 'user_matches#match'
+  get 'users/:user_id/match/:prospective_user_id', to: 'user_matches#match'
   post 'users/:user_id/skip/:prospective_user_id', to: 'user_matches#skip'
   post 'users/:user_id/block/:prospective_user_id', to: 'user_matches#block'
+
+  resources :users do
+    resources :notifications, only: [:index, :create] do
+      member do
+        post 'mark_as_read', to: 'notifications#mark_as_read'
+      end
+    end
+  end
 end
