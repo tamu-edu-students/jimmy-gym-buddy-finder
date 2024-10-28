@@ -27,12 +27,26 @@ class UserMatchesController < ApplicationController
     def match
       user = User.find(params[:user_id])
       prospective_user = User.find(params[:prospective_user_id])
+
+      if user.id == prospective_user.id
+        render json: { error: "You cannot match yourself." }, status: :unprocessable_entity
+        return
+      end
     
       # Create or update the user match entry
       user_match = UserMatch.find_or_initialize_by(user_id: user.id, prospective_user_id: prospective_user.id)
       user_match.status = 'matched'
     
       if user_match.save
+        # Check if the other user has also matched the current user
+        reciprocal_match = UserMatch.find_by(user_id: prospective_user.id, prospective_user_id: user.id, status: 'matched')
+    
+        if reciprocal_match
+          # Create notifications for both users
+          Notification.create(user: user, matched_user: prospective_user, read: false)
+          Notification.create(user: prospective_user, matched_user: user, read: false)
+        end
+    
         render json: { message: 'Matched successfully.' }, status: :ok
       else
         render json: { error: 'Failed to match.' }, status: :unprocessable_entity
@@ -43,6 +57,11 @@ class UserMatchesController < ApplicationController
     def skip
       user = User.find(params[:user_id])
       prospective_user = User.find(params[:prospective_user_id])
+
+      if user.id == prospective_user.id
+        render json: { error: "You cannot skip yourself." }, status: :unprocessable_entity
+        return
+      end
     
       # Create or update the user match entry
       user_match = UserMatch.find_or_initialize_by(user_id: user.id, prospective_user_id: prospective_user.id)
@@ -59,6 +78,11 @@ class UserMatchesController < ApplicationController
     def block
       user = User.find(params[:user_id])
       prospective_user = User.find(params[:prospective_user_id])
+
+      if user.id == prospective_user.id
+        render json: { error: "You cannot block yourself." }, status: :unprocessable_entity
+        return
+      end
     
       # Create or update the user match entry
       user_match = UserMatch.find_or_initialize_by(user_id: user.id, prospective_user_id: prospective_user.id)

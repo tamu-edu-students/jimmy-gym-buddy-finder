@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_26_064252) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_28_221916) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -51,6 +51,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_26_064252) do
     t.index ["user_id"], name: "index_fitness_profiles_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "matched_user_id", null: false
+    t.boolean "read", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matched_user_id"], name: "index_notifications_on_matched_user_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "user_matches", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "prospective_user_id", null: false
@@ -82,6 +92,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_26_064252) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "fitness_profiles", "users"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "matched_user_id"
   add_foreign_key "user_matches", "users"
   add_foreign_key "user_matches", "users", column: "prospective_user_id"
 end
