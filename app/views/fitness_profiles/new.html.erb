@@ -1,11 +1,4 @@
 <%= form_with model: @fitness_profile, url: user_fitness_profile_path(@user), local: true, class: "needs-validation", novalidate: true, data: { turbo: false } do |form| %>
-  <style>
-  /* Ensure the selector is specific enough */
-  .workout-schedule-selector .day-button.selected {
-    background-color: green !important; /* Force the green background */
-    color: white !important;            /* Ensure white text on green background */
-  }
-</style>
   <div class="container">
     <div class="card shadow mb-5 profile-card" style="max-width: 700px; margin: 0 auto; border-radius: 15px;">
       <div class="card-body">
@@ -96,27 +89,23 @@
           </ul>
 
           <div class="form-group mb-4">
-            <%= form.label :workout_schedule, "Preferred Workout Days and Time Range" %>
-            <div id="workoutScheduleSelector" class="workout-schedule-selector">
-              <div class="mb-4">
-                <h4 class="text-lg font-semibold mb-3">Select Workout Days</h4>
-                <div class="flex flex-wrap gap-2" id="daySelector">
-                  <% ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].each do |day| %>
-                    <button type="button"
-                            class="day-button px-4 py-2 rounded-md transition-colors"
-                            data-day="<%= day %>"
-                            onclick="toggleDay(this)">
-                      <%= day %>
-                    </button>
-                  <% end %>
-                </div>
+            <%= form.label :workout_schedule, "Preferred Workout Days and Time Range", class: "form-label" %>
+            <div class="workout-schedule-container profile-card">
+              <div class="schedule-form">
+                <select id="daySelect" class="day-select form-control">
+                  <option value="">Add workout day</option>
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </select>
               </div>
-      
-              <!-- Time Selection Container -->
-              <div id="timeSelectionContainer" class="space-y-4">
-                <!-- Time slots will be dynamically added here -->
+              <div id="schedulesList" class="schedules-list">
+                <!-- Schedule items will be added here -->
               </div>
-      
               <%= form.hidden_field :workout_schedule, id: 'workoutScheduleData' %>
             </div>
           </div>
@@ -214,209 +203,205 @@ function addWorkoutTypeToList() {
     
     document.getElementById('workoutTypeList').appendChild(listItem);
     workoutType.value = '';
-}
-
-let workoutSchedule = {};
+};
 
 document.addEventListener('DOMContentLoaded', function() {
-    initializeSchedule();
-});
+  const daySelect = document.getElementById('daySelect');
+  const schedulesList = document.getElementById('schedulesList');
+  let workoutSchedule = {};
+  
+  const dayOrder = {
+    'Monday': 1,
+    'Tuesday': 2,
+    'Wednesday': 3,
+    'Thursday': 4,
+    'Friday': 5,
+    'Saturday': 6,
+    'Sunday': 7
+  };
 
-function initializeSchedule() {
-    const scheduleInput = document.getElementById('workoutScheduleData');
-    if (scheduleInput.value) {
-        try {
-            workoutSchedule = JSON.parse(scheduleInput.value);
-            Object.keys(workoutSchedule).forEach(day => {
-                const button = document.querySelector(`button[data-day="${day}"]`);
-                if (button) {
-                    button.classList.add('selected');
-                    addTimeSlot(day, workoutSchedule[day]);
-                }
-            });
-        } catch (e) {
-            console.error('Error parsing schedule:', e);
-            workoutSchedule = {};
-        }
-    }
-}
-
-function toggleDay(button) {
-    const day = button.dataset.day;
-    button.classList.toggle('selected');
-    console.log(`${day} is now ${button.classList.contains('selected') ? 'selected' : 'not selected'}`);
-    
-    if (button.classList.contains('selected')) {
-        addTimeSlot(day, workoutSchedule[day]);
-    } else {
-        removeTimeSlot(day);
-        delete workoutSchedule[day];
-        updateScheduleData();
-    }
-}
-
-function addTimeSlot(day, times = null) {
-    const container = document.getElementById('timeSelectionContainer');
-    const existingSlot = container.querySelector(`[data-day="${day}"]`);
-    
-    if (existingSlot) return;
-
-    const timeSlot = document.createElement('div');
-    timeSlot.className = 'time-slot';
-    timeSlot.dataset.day = day;
-    
-    const timeOptions = generateTimeOptions();
-    
-    timeSlot.innerHTML = `
-        <span style="min-width: 100px; font-weight: 500;">${day}</span>
-        <div class="time-selectors">
-            <select class="start-time" onchange="updateTimeSlot('${day}')">
-                <option value="">Start Time</option>
-                ${timeOptions}
-            </select>
-            <span style="white-space: nowrap;">to</span>
-            <select class="end-time" onchange="updateTimeSlot('${day}')">
-                <option value="">End Time</option>
-                ${timeOptions}
-            </select>
-        </div>
-    `;
-    
-    container.appendChild(timeSlot);
-
-    if (times) {
-        const startSelect = timeSlot.querySelector('.start-time');
-        const endSelect = timeSlot.querySelector('.end-time');
-        if (startSelect) startSelect.value = times.start;
-        if (endSelect) endSelect.value = times.end;
-    }
-}
-
-function removeTimeSlot(day) {
-    const slot = document.querySelector(`.time-slot[data-day="${day}"]`);
-    if (slot) {
-        slot.remove();
-    }
-}
-
-function updateTimeSlot(day) {
-    const slot = document.querySelector(`.time-slot[data-day="${day}"]`);
-    if (!slot) return;
-
-    const startTime = slot.querySelector('.start-time').value;
-    const endTime = slot.querySelector('.end-time').value;
-
-    if (startTime && endTime) {
-        workoutSchedule[day] = { start: startTime, end: endTime };
-    } else {
-        delete workoutSchedule[day];
-    }
-    
-    updateScheduleData();
-}
-
-function generateTimeOptions() {
+  function createTimeOptions() {
     const options = [];
     for (let hour = 0; hour < 24; hour++) {
-        for (let minute = 0; minute < 60; minute += 15) {
-            const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
-            const period = hour < 12 ? 'AM' : 'PM';
-            const displayTime = `${formattedHour}:${minute.toString().padStart(2, '0')} ${period}`;
-            const value = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-            options.push(`<option value="${value}">${displayTime}</option>`);
-        }
+      for (let minute = 0; minute < 60; minute += 15) {
+        const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+        const period = hour < 12 ? 'AM' : 'PM';
+        const displayTime = `${formattedHour}:${minute.toString().padStart(2, '0')} ${period}`;
+        const value = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+        options.push(`<option value="${value}">${displayTime}</option>`);
+      }
     }
     return options.join('');
-}
+  }
 
-function updateScheduleData() {
-    const scheduleInput = document.getElementById('workoutScheduleData');
-    // Convert to pipe-separated format: "day=start-end|day=start-end"
-    const formattedSchedule = Object.entries(workoutSchedule)
-        .filter(([_, times]) => times.start && times.end) // Only include complete time slots
-        .map(([day, times]) => `${day}=${times.start}-${times.end}`)
-        .join('|');
-    scheduleInput.value = formattedSchedule;
-    console.log('Updated schedule:', formattedSchedule); // For debugging
-}
-
-function initializeSchedule() {
-    const scheduleInput = document.getElementById('workoutScheduleData');
-    if (scheduleInput.value) {
-        try {
-            // Parse the pipe-separated format into our schedule object
-            workoutSchedule = {};
-            const scheduleParts = scheduleInput.value.split('|');
-            scheduleParts.forEach(part => {
-                const [day, times] = part.split('=');
-                const [start, end] = times.split('-');
-                workoutSchedule[day] = {
-                    start: start,
-                    end: end
-                };
-                
-                // Update UI to show selected days and times
-                const button = document.querySelector(`button[data-day="${day}"]`);
-                if (button) {
-                    button.classList.add('selected');
-                    addTimeSlot(day, { start, end });
-                }
-            });
-        } catch (e) {
-            console.error('Error parsing schedule:', e);
-            workoutSchedule = {};
-        }
-    }
-}
-
-// The rest of your functions remain the same, but let's add validation for good measure
-function updateTimeSlot(day) {
-    const slot = document.querySelector(`.time-slot[data-day="${day}"]`);
-    if (!slot) return;
-
-    const startTime = slot.querySelector('.start-time').value;
-    const endTime = slot.querySelector('.end-time').value;
-
-    if (startTime && endTime) {
-        // Add basic validation
-        if (startTime >= endTime) {
-            alert('End time must be after start time');
-            return;
-        }
-        workoutSchedule[day] = { start: startTime, end: endTime };
-    } else {
-        delete workoutSchedule[day];
-    }
-    
-    updateScheduleData();
-}
-
-// Optional: Add a function to validate the entire schedule
-function validateSchedule() {
-    const errors = [];
-    
-    Object.entries(workoutSchedule).forEach(([day, times]) => {
-        if (!times.start || !times.end) {
-            errors.push(`${day} must have both start and end times`);
-        } else if (times.start >= times.end) {
-            errors.push(`${day}'s end time must be after start time`);
-        }
+  function sortScheduleItems() {
+    const items = Array.from(schedulesList.children);
+    items.sort((a, b) => {
+      const dayA = a.querySelector('.day-label').textContent;
+      const dayB = b.querySelector('.day-label').textContent;
+      return dayOrder[dayA] - dayOrder[dayB];
     });
-    
-    if (errors.length > 0) {
-        alert('Please fix the following issues:\n' + errors.join('\n'));
-        return false;
-    }
-    
-    return true;
-}
 
-// You might want to add this to your form's submit handler
-document.querySelector('form').addEventListener('submit', function(event) {
-    if (!validateSchedule()) {
-        event.preventDefault();
+    schedulesList.innerHTML = '';
+    items.forEach(item => schedulesList.appendChild(item));
+  }
+
+  function updateDaySelect() {
+    const selectedDays = Array.from(schedulesList.children).map(
+      item => item.querySelector('.day-label').textContent
+    );
+    
+    const options = daySelect.options;
+    for (let i = 1; i < options.length; i++) {
+      options[i].disabled = selectedDays.includes(options[i].value);
     }
+  }
+
+  function createScheduleItem(day, startTime = '', endTime = '') {
+    const div = document.createElement('div');
+    div.className = 'schedule-item';
+
+    const timeOptions = createTimeOptions();
+
+    div.innerHTML = `
+      <span class="day-label">${day}</span>
+      <div class="time-selectors-container">
+        <select class="time-select form-control start-time">
+          <option value="">Start Time</option>
+          ${timeOptions}
+        </select>
+        <span class="time-separator">to</span>
+        <select class="time-select form-control end-time">
+          <option value="">End Time</option>
+          ${timeOptions}
+        </select>
+      </div>
+      <button type="button" class="remove-btn" aria-label="Remove schedule">&times;</button>
+    `;
+
+    const startSelect = div.querySelector('.start-time');
+    const endSelect = div.querySelector('.end-time');
+    
+    if (startTime) startSelect.value = startTime;
+    if (endTime) endSelect.value = endTime;
+
+    div.querySelector('.remove-btn').addEventListener('click', function() {
+      delete workoutSchedule[day];
+      div.remove();
+      updateDaySelect();
+      updateScheduleData();
+    });
+
+    const timeSelects = div.querySelectorAll('.time-select');
+    timeSelects.forEach(select => {
+      select.addEventListener('change', function() {
+        const start = startSelect.value;
+        const end = endSelect.value;
+
+        if (start && end && start >= end) {
+          alert('End time must be after start time');
+          this.value = '';
+          return;
+        }
+
+        if (start && end) {
+          workoutSchedule[day] = { start, end };
+        } else {
+          delete workoutSchedule[day];
+        }
+        updateScheduleData();
+      });
+    });
+
+    return div;
+  }
+
+  function updateScheduleData() {
+    const scheduleInput = document.getElementById('workoutScheduleData');
+    const formattedSchedule = Object.entries(workoutSchedule)
+      .sort((a, b) => dayOrder[a[0]] - dayOrder[b[0]])
+      .map(([day, times]) => `${day}=${times.start}-${times.end}`)
+      .join('|');
+    scheduleInput.value = formattedSchedule;
+    console.log('Updated schedule:', formattedSchedule);
+  }
+
+  function initializeSchedule() {
+    const scheduleInput = document.getElementById('workoutScheduleData');
+    if (!scheduleInput.value) return;
+
+    try {
+      const scheduleParts = scheduleInput.value.split('|');
+      
+      scheduleParts.sort((a, b) => {
+        const dayA = a.split('=')[0];
+        const dayB = b.split('=')[0];
+        return dayOrder[dayA] - dayOrder[dayB];
+      });
+
+      scheduleParts.forEach(part => {
+        if (!part.trim()) return;
+
+        const [day, times] = part.split('=');
+        if (!times) return;
+
+        const [start, end] = times.split('-');
+        if (!start || !end) return;
+
+        workoutSchedule[day] = { start, end };
+        schedulesList.appendChild(createScheduleItem(day, start, end));
+      });
+      updateDaySelect();
+    } catch (e) {
+      console.error('Error parsing schedule:', e);
+      workoutSchedule = {};
+    }
+  }
+
+  daySelect.addEventListener('change', function() {
+    if (!this.value) return;
+
+    const day = this.value;
+    const scheduledItem = createScheduleItem(day);
+    schedulesList.appendChild(scheduledItem);
+    
+    // Set default times (6:00 AM - 7:00 AM)
+    workoutSchedule[day] = {
+      start: '06:00',
+      end: '07:00'
+    };
+    
+    const startSelect = scheduledItem.querySelector('.start-time');
+    const endSelect = scheduledItem.querySelector('.end-time');
+    startSelect.value = '06:00';
+    endSelect.value = '07:00';
+    
+    this.value = '';
+    updateDaySelect();
+    updateScheduleData();
+    sortScheduleItems();
+  });
+
+  // Form validation
+  document.querySelector('form').addEventListener('submit', function(event) {
+    const scheduleInput = document.getElementById('workoutScheduleData');
+    if (!scheduleInput.value) {
+      alert('Please select at least one workout day and time');
+      event.preventDefault();
+      return;
+    }
+
+    const hasInvalidTimes = Object.values(workoutSchedule).some(times => {
+      return !times.start || !times.end || times.start >= times.end;
+    });
+
+    if (hasInvalidTimes) {
+      alert('Please ensure all selected days have valid start and end times');
+      event.preventDefault();
+    }
+  });
+
+  // Initialize the schedule
+  initializeSchedule();
 });
-
-
 </script>
