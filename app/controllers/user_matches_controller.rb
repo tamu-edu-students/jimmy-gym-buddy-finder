@@ -1,10 +1,15 @@
 class UserMatchesController < ApplicationController
     # Existing method to get prospective users
     def prospective_users
-      user = User.find(params[:id])
-      prospective_users = User.where.not(id: user.id)
+      current_user_id = params[:id]
+
+      # Find all users who aren’t matched, skipped, or blocked for the given user
+      # This avoids the need for complex joins or includes which can cause circular references
+      prospective_users = User.where.not(id: current_user_id)
+                              .where.not(id: UserMatch.select(:prospective_user_id)
+                                                       .where(user_id: current_user_id))
   
-      render json: prospective_users, status: :ok
+      render json: prospective_users
     end
   
     # Match a prospective user
