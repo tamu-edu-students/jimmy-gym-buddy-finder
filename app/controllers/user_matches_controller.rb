@@ -3,11 +3,11 @@ class UserMatchesController < ApplicationController
     def prospective_users
       current_user_id = params[:id]
 
-      # Find all users who aren’t matched, skipped, or blocked for the given user
-      # This avoids the need for complex joins or includes which can cause circular references
-      prospective_users = User.where.not(id: current_user_id)
-                              .where.not(id: UserMatch.select(:prospective_user_id)
-                                                       .where(user_id: current_user_id))
+      # Fetch users marked as "new" or "skipped"
+      prospective_users = User.joins(:user_matches)
+                               .where(user_matches: { user_id: current_user_id })
+                               .where(user_matches: { status: ['new', 'skipped'] })
+                               .order(Arel.sql("CASE WHEN user_matches.status = 'new' THEN 0 ELSE 1 END"))
   
       render json: prospective_users
     end
