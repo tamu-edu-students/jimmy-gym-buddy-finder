@@ -1,110 +1,148 @@
+
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails";
-import "controllers";
-import "popper";
-import "bootstrap";
-'use strict';
+// import "@hotwired/turbo-rails";
+// import "controllers";
+// import "popper";
+// import "bootstrap";
 
-document.addEventListener('turbo:load', function () {
-  var tinderContainer = document.querySelector('.tinder');
-  var allCards = document.querySelectorAll('.tinder--card');
-  var nope = document.getElementById('nope');
-  var love = document.getElementById('love');
+// 'use strict';
 
-  function initCards() {
-    var newCards = document.querySelectorAll('.tinder--card:not(.removed)');
+// app/assets/javascripts/application.js
 
-    newCards.forEach(function (card, index) {
-      card.style.zIndex = allCards.length - index;
-      card.style.transform = 'scale(' + (20 - index) / 20 + ') translateY(-' + 30 * index + 'px)';
-      card.style.opacity = (10 - index) / 10;
-    });
+// document.addEventListener("DOMContentLoaded", function () {
+//   let currentCardIndex = 0;
+//   const cards = document.querySelectorAll(".profile-card");
 
-    tinderContainer.classList.add('loaded');
-  }
+//   // Show the first card initially
+//   if (cards.length > 0) {
+//       cards[currentCardIndex].style.display = "block";
+//   }
 
-  function setupHammer() {
-    allCards.forEach(function (el) {
-      var hammertime = new Hammer(el);
+//   // Function to handle Block, Skip, Like actions
+//   window.handleAction = function (action) {
+//       if (cards.length === 0) return;
 
-      hammertime.on('pan', function (event) {
-        el.classList.add('moving');
-        if (event.deltaX === 0) return;
-        if (event.center.x === 0 && event.center.y === 0) return;
+//       // Hide current card
+//       cards[currentCardIndex].style.display = "none";
 
-        tinderContainer.classList.toggle('tinder_love', event.deltaX > 0);
-        tinderContainer.classList.toggle('tinder_nope', event.deltaX < 0);
+//       // Move to the next card (loop back if at the end)
+//       currentCardIndex = (currentCardIndex + 1) % cards.length;
 
-        var xMulti = event.deltaX * 0.03;
-        var yMulti = event.deltaY / 80;
-        var rotate = xMulti * yMulti;
+//       // Show the next card
+//       cards[currentCardIndex].style.display = "block";
+//   };
 
-        event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
-      });
+//   // Function to filter profiles by search input
+//   window.filterProfiles = function () {
+//       const searchTerm = document.getElementById("search").value.toLowerCase();
+//       cards.forEach((card) => {
+//           const profileText = card.innerText.toLowerCase();
+//           card.style.display = profileText.includes(searchTerm) ? "block" : "none";
+//       });
+//   };
+// });
 
-      hammertime.on('panend', function (event) {
-        el.classList.remove('moving');
-        tinderContainer.classList.remove('tinder_love');
-        tinderContainer.classList.remove('tinder_nope');
+// document.addEventListener('turbo:load', function () {
+//   var tinderContainer = document.querySelector('.tinder');
+//   var allCards = document.querySelectorAll('.tinder--card');
+//   var nope = document.getElementById('nope');
+//   var love = document.getElementById('love');
 
-        var moveOutWidth = document.body.clientWidth;
-        var keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
+//   function initCards() {
+//     var newCards = document.querySelectorAll('.tinder--card:not(.removed)');
 
-        event.target.classList.toggle('removed', !keep);
+//     newCards.forEach(function (card, index) {
+//       card.style.zIndex = allCards.length - index;
+//       card.style.transform = 'scale(' + (20 - index) / 20 + ') translateY(-' + 30 * index + 'px)';
+//       card.style.opacity = (10 - index) / 10;
+//     });
 
-        if (keep) {
-          event.target.style.transform = '';
-        } else {
-          var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
-          var toX = event.deltaX > 0 ? endX : -endX;
-          var endY = Math.abs(event.velocityY) * moveOutWidth;
-          var toY = event.deltaY > 0 ? endY : -endY;
-          var xMulti = event.deltaX * 0.03;
-          var yMulti = event.deltaY / 80;
-          var rotate = xMulti * yMulti;
+//     tinderContainer.classList.add('loaded');
+//   }
 
-          event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
-        }
+//   function setupHammer() {
+//     allCards.forEach(function (el) {
+//       var hammertime = new Hammer(el);
 
-        // Re-initialize cards after panning
-        initCards();
-      });
-    });
-  }
+//       hammertime.on('pan', function (event) {
+//         el.classList.add('moving');
+//         if (event.deltaX === 0) return;
+//         if (event.center.x === 0 && event.center.y === 0) return;
 
-  function createButtonListener(love) {
-    return function (event) {
-      var cards = document.querySelectorAll('.tinder--card:not(.removed)');
-      var moveOutWidth = document.body.clientWidth * 1.5;
+//         tinderContainer.classList.toggle('tinder_love', event.deltaX > 0);
+//         tinderContainer.classList.toggle('tinder_nope', event.deltaX < 0);
 
-      if (!cards.length) return false;
+//         var xMulti = event.deltaX * 0.03;
+//         var yMulti = event.deltaY / 80;
+//         var rotate = xMulti * yMulti;
 
-      var card = cards[0];
-      card.classList.add('removed');
+//         event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
+//       });
 
-      if (love) {
-        card.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
-      } else {
-        card.style.transform = 'translate(-' + moveOutWidth + 'px, -100px) rotate(30deg)';
-      }
+//       hammertime.on('panend', function (event) {
+//         el.classList.remove('moving');
+//         tinderContainer.classList.remove('tinder_love');
+//         tinderContainer.classList.remove('tinder_nope');
 
-      // Reset state after button click
-      initCards();
-      event.preventDefault();
-    };
-  }
+//         var moveOutWidth = document.body.clientWidth;
+//         var keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
 
-  // Clear event listeners before setting up to avoid duplicates
-  nope.removeEventListener('click', createButtonListener(false));
-  love.removeEventListener('click', createButtonListener(true));
+//         event.target.classList.toggle('removed', !keep);
 
-  var nopeListener = createButtonListener(false);
-  var loveListener = createButtonListener(true);
+//         if (keep) {
+//           event.target.style.transform = '';
+//         } else {
+//           var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
+//           var toX = event.deltaX > 0 ? endX : -endX;
+//           var endY = Math.abs(event.velocityY) * moveOutWidth;
+//           var toY = event.deltaY > 0 ? endY : -endY;
+//           var xMulti = event.deltaX * 0.03;
+//           var yMulti = event.deltaY / 80;
+//           var rotate = xMulti * yMulti;
 
-  nope.addEventListener('click', nopeListener);
-  love.addEventListener('click', loveListener);
+//           event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
+//         }
 
-  // Ensure the cards are initialized correctly on page load
-  initCards();
-  setupHammer(); // Set up Hammer.js event listeners
-});
+//         // Re-initialize cards after panning
+//         initCards();
+//       });
+//     });
+//   }
+
+//   function createButtonListener(love) {
+//     return function (event) {
+//       var cards = document.querySelectorAll('.tinder--card:not(.removed)');
+//       var moveOutWidth = document.body.clientWidth * 1.5;
+
+//       if (!cards.length) return false;
+
+//       var card = cards[0];
+//       card.classList.add('removed');
+
+//       if (love) {
+//         card.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
+//       } else {
+//         card.style.transform = 'translate(-' + moveOutWidth + 'px, -100px) rotate(30deg)';
+//       }
+
+//       // Reset state after button click
+//       initCards();
+//       event.preventDefault();
+//     };
+//   }
+
+//   // Clear event listeners before setting up to avoid duplicates
+//   nope.removeEventListener('click', createButtonListener(false));
+//   love.removeEventListener('click', createButtonListener(true));
+
+//   var nopeListener = createButtonListener(false);
+//   var loveListener = createButtonListener(true);
+
+//   nope.addEventListener('click', nopeListener);
+//   love.addEventListener('click', loveListener);
+
+//   // Ensure the cards are initialized correctly on page load
+//   initCards();
+//   setupHammer(); // Set up Hammer.js event listeners
+// });
+
