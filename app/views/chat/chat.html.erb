@@ -17,7 +17,6 @@
                 <div class="menu-item" onclick="alert('Unmatched')">Unmatch</div>
                 <div class="menu-item" onclick="alert('Reported')">Report</div>
                 <div class="menu-item" onclick="alert('Blocked')">Block</div>
-                <!-- Add more options as needed -->
             </div>
         </div>
         <div class="tabs">
@@ -31,15 +30,21 @@
         <div id="profile-area" class="profile-area" style="display: none;">
             <p><strong>Name:</strong> Flora</p>
             <p><strong>Email:</strong> flora@example.com</p>
-            <!-- Add more profile details as needed -->
         </div>
         <div id="input-area" class="input-area">
-            <input type="text" placeholder="send a message">
-            <button>send</button>
+            <input type="text" id="message-input" placeholder="send a message">
+            <button onclick="sendMessage()">send</button>
         </div>
     </div>
 
     <script>
+        document.getElementById("message-input").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevents any default behavior, if needed
+                sendMessage();
+            }
+        });
+    
         function showChat() {
             document.getElementById("chat-tab").classList.add("active");
             document.getElementById("profile-tab").classList.remove("active");
@@ -49,7 +54,7 @@
             document.getElementById("profile-area").style.display = "none";
             document.getElementById("input-area").style.display = "flex";
         }
-
+    
         function showProfile() {
             document.getElementById("profile-tab").classList.add("active");
             document.getElementById("chat-tab").classList.remove("active");
@@ -59,12 +64,35 @@
             document.getElementById("chat-area").style.display = "none";
             document.getElementById("input-area").style.display = "flex";
         }
-
+    
         function toggleMenu() {
             const dropdown = document.getElementById("dropdown");
             dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
         }
-
+    
+        function sendMessage() {
+            const messageInput = document.getElementById("message-input");
+            const messageText = messageInput.value.trim();
+    
+            if (messageText !== "") {
+                const chatArea = document.getElementById("chat-area");
+    
+                // Create a new message element
+                const newMessage = document.createElement("div");
+                newMessage.className = "message sent";
+                newMessage.textContent = messageText;
+    
+                // Append the new message to the chat area
+                chatArea.appendChild(newMessage);
+    
+                // Clear the input field
+                messageInput.value = "";
+    
+                // Scroll to the bottom of the chat area
+                chatArea.scrollTop = chatArea.scrollHeight;
+            }
+        }
+    
         // Close the menu if clicked outside
         window.onclick = function(event) {
             if (!event.target.matches('.menu')) {
