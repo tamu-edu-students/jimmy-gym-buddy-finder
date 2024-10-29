@@ -1,6 +1,4 @@
-<h1 class="text-center mb-4">Create Fitness Profile</h1>
-
-<%= form_with model: @fitness_profile, url: user_fitness_profile_path(@user), local: true, class: "needs-validation", novalidate: true do |form| %>
+<%= form_with model: @fitness_profile, url: user_fitness_profile_path(@user), local: true, class: "needs-validation", novalidate: true, data: { turbo: false } do |form| %>
   <div class="container">
     <div class="card shadow mb-5 profile-card" style="max-width: 700px; margin: 0 auto; border-radius: 15px;">
       <div class="card-body">
@@ -17,30 +15,120 @@
 
         <fieldset>
           <legend>Fitness Profile</legend>
-
           <div class="form-group mb-3">
-            <%= form.label :fitness_goals, class: "form-label" %>
-            <%= form.text_field :fitness_goals, placeholder: "e.g., Weight loss, Muscle gain", class: "form-control" %>
-          </div>
-
-          <div class="form-group mb-3">
-            <%= form.label :workout_types, class: "form-label" %>
-            <%= form.text_field :workout_types, placeholder: "e.g., Cardio, Strength training", class: "form-control" %>
-          </div>
-
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <%= form.label :gender_preference, class: "form-label" %>
-              <%= form.select :gender, options_for_select(['Male', 'Female', 'Any']), {}, class: "form-control" %>
-            </div>
-
-            <div class="col-md-6">
-              <%= form.label :age_range_start, "Age Range" %>
-              <%= form.select :age_range_start, options_for_select((18..60).to_a, @fitness_profile.age_range_start), {}, class: "form-control" %>
-              -
-              <%= form.select :age_range_end, options_for_select((18..60).to_a, @fitness_profile.age_range_end), {}, class: "form-control" %>
+            <%= form.label :gender_preferences, "Gender Preferences" %>
+            <div class="dropdown" id="genderDropdown">
+              <button type="button" onclick="toggleDropdown('genderDropdown')" id="genderButton">Select Gender</button>
+              <div class="dropdown-content">
+                <% ["Male", "Female", "Any"].each do |gender| %>
+                  <label>
+                    <%= check_box_tag 'fitness_profile[gender_preferences][]', gender, @fitness_profile.gender_preferences_array&.include?(gender), id: "gender_#{gender.downcase}", class: "form-check-input", onchange: "updateSelectedOptions('fitness_profile[gender_preferences][]', 'genderButton')" %>
+                    <%= gender %>
+                  </label>
+                <% end %>
+              </div>
             </div>
           </div>
+
+          <div class="form-group">
+            <%= form.label :age_range %>
+            <div class="d-flex gap-2">
+              <%= form.select :age_range_start, 
+                  options_for_select((18..60).to_a, @fitness_profile.age_range_start),
+                  { prompt: "Min Age" }, 
+                  class: "form-control" %>
+              <%= form.select :age_range_end, 
+                  options_for_select((18..60).to_a, @fitness_profile.age_range_end),
+                  { prompt: "Max Age" }, 
+                  class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <%= form.label :gym_locations, "Preferred Gym Locations" %>
+            <div class="dropdown" id="gymLocationDropdown">
+              <button type="button" onclick="toggleDropdown('gymLocationDropdown')" id="gymLocationButton">Select Gym Locations</button>
+              <div class="dropdown-content">
+                <% ["Student Rec Center", "Southside Rec Center", "Polo Road Rec Center", 
+                    "Penberthy Rec Sports Complex", "PEAP", "Omar Smith Tennis Center"].each do |location| %>
+                  <label>
+                    <%= check_box_tag 'fitness_profile[gym_locations][]', location, 
+                        @fitness_profile.gym_locations_array.include?(location), 
+                        id: "gym_#{location.parameterize}", 
+                        class: "form-check-input", 
+                        onchange: "updateSelectedOptions('fitness_profile[gym_locations][]', 'gymLocationButton')" %> 
+                    <%= location %>
+                  </label>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <%= form.label :activities_with_experience, "Preferred Activities and Experience Level" %>
+            <div class="activity-experience-group">
+              <%= select_tag 'activitySelect', 
+                  options_for_select(['Soccer', 'Archery', 'Badminton', 'Tennis', 'Fitness']), 
+                  prompt: "Activity", class: "form-control" %>
+              <%= select_tag 'experienceSelect', 
+                  options_for_select(['Beginner', 'Amateur', 'Expert']), 
+                  prompt: "Experience Level", class: "form-control" %>
+            </div>
+            <div class="add-button" onclick="addActivityToList()">+ Add Activity</div>
+          </div>
+      
+          <ul id="activityList" class="activity-list">
+            <% if @fitness_profile.activities_array.present? %>
+              <% @fitness_profile.activities_array.each do |activity| %>
+                <li>
+                  <%= activity['activity'] %> - <%= activity['experience'] %>
+                  <button type="button" class="remove-button" onclick="removeItem(this)">&times;</button>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+
+          <div class="form-group mb-4">
+            <%= form.label :workout_schedule, "Preferred Workout Days and Time Range", class: "form-label" %>
+            <div class="workout-schedule-container profile-card">
+              <div class="schedule-form">
+                <select id="daySelect" class="day-select form-control">
+                  <option value="">Add workout day</option>
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </select>
+              </div>
+              <div id="schedulesList" class="schedules-list">
+                <!-- Schedule items will be added here -->
+              </div>
+              <%= form.hidden_field :workout_schedule, id: 'workoutScheduleData' %>
+            </div>
+          </div>
+
+          <!-- Workout Types -->
+          <div class="form-group">
+            <%= form.label :workout_types, "Preferred Workout Type" %>
+            <%= select_tag 'workoutTypeSelect', 
+                options_for_select(['Weight Loss', 'Muscle Gain', 'Cardio', 'Strength Training']), 
+                prompt: "Workout Type", class: "form-control" %>
+            <div class="add-button" onclick="addWorkoutTypeToList()">+ Add Workout Type</div>
+          </div>
+
+          <ul id="workoutTypeList" class="workout-list">
+            <% if @fitness_profile.workout_types_array.present? %>
+              <% @fitness_profile.workout_types_array.each do |type| %>
+                <li>
+                  <%= type %>
+                  <button type="button" class="remove-button" onclick="removeItem(this)">&times;</button>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
 
           <div class="mt-4 text-center">
             <%= form.submit "Create Fitness Profile", class: "btn custom-btn text-white", id: "submit-btn" %>
@@ -49,19 +137,271 @@
       </div>
     </div>
   </div>
-
-  <script>
-    document.getElementById("submit-btn").addEventListener("click", function(event) {
-      var valid = true;
-
-      // Add validation logic here as necessary...
-
-      // Prevent form submission if validation fails
-      if (!valid) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    });
-  </script>
 <% end %>
 
+
+<script>
+
+function toggleDropdown(dropdownId) {
+    document.getElementById(dropdownId).classList.toggle('active');
+}
+
+function updateSelectedOptions(optionName, buttonId) {
+    const checkboxes = document.querySelectorAll(`input[name="${optionName}"]:checked`);
+    const selectedOptions = Array.from(checkboxes).map(cb => cb.value);
+    document.getElementById(buttonId).textContent = selectedOptions.length ? selectedOptions.join(', ') : 'Select Gender';
+}
+
+function addActivityToList() {
+    const activity = document.getElementById('activitySelect');
+    const experience = document.getElementById('experienceSelect');
+    
+    if (!activity.value || !experience.value) {
+        alert("Please select both an activity and experience level.");
+        return;
+    }
+    
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `
+        ${activity.value} - ${experience.value}
+        <button type="button" class="remove-button" onclick="removeItem(this)">&times;</button>
+        <input type="hidden" name="fitness_profile[activities_with_experience][]" 
+               value="${activity.value}:${experience.value}">
+    `;
+    
+    document.getElementById('activityList').appendChild(listItem);
+    activity.value = '';
+    experience.value = '';
+}
+
+function removeItem(button) {
+    button.closest('li').remove();
+}
+
+function addWorkoutTypeToList() {
+    const workoutType = document.getElementById('workoutTypeSelect');
+    
+    if (!workoutType.value) {
+        alert("Please select a workout type.");
+        return;
+    }
+    
+    const existingTypes = Array.from(document.querySelectorAll('#workoutTypeList li'))
+        .map(li => li.textContent.trim().replace('×', '').trim());
+    
+    if (existingTypes.includes(workoutType.value)) {
+        alert("This workout type has already been added.");
+        return;
+    }
+    
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `
+        ${workoutType.value}
+        <button type="button" class="remove-button" onclick="removeItem(this)">&times;</button>
+        <input type="hidden" name="fitness_profile[workout_types][]" value="${workoutType.value}">
+    `;
+    
+    document.getElementById('workoutTypeList').appendChild(listItem);
+    workoutType.value = '';
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  const daySelect = document.getElementById('daySelect');
+  const schedulesList = document.getElementById('schedulesList');
+  let workoutSchedule = {};
+  
+  const dayOrder = {
+    'Monday': 1,
+    'Tuesday': 2,
+    'Wednesday': 3,
+    'Thursday': 4,
+    'Friday': 5,
+    'Saturday': 6,
+    'Sunday': 7
+  };
+
+  function createTimeOptions() {
+    const options = [];
+    for (let hour = 0; hour < 24; hour++) {
+      for (let minute = 0; minute < 60; minute += 15) {
+        const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+        const period = hour < 12 ? 'AM' : 'PM';
+        const displayTime = `${formattedHour}:${minute.toString().padStart(2, '0')} ${period}`;
+        const value = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+        options.push(`<option value="${value}">${displayTime}</option>`);
+      }
+    }
+    return options.join('');
+  }
+
+  function sortScheduleItems() {
+    const items = Array.from(schedulesList.children);
+    items.sort((a, b) => {
+      const dayA = a.querySelector('.day-label').textContent;
+      const dayB = b.querySelector('.day-label').textContent;
+      return dayOrder[dayA] - dayOrder[dayB];
+    });
+
+    schedulesList.innerHTML = '';
+    items.forEach(item => schedulesList.appendChild(item));
+  }
+
+  function updateDaySelect() {
+    const selectedDays = Array.from(schedulesList.children).map(
+      item => item.querySelector('.day-label').textContent
+    );
+    
+    const options = daySelect.options;
+    for (let i = 1; i < options.length; i++) {
+      options[i].disabled = selectedDays.includes(options[i].value);
+    }
+  }
+
+  function createScheduleItem(day, startTime = '', endTime = '') {
+    const div = document.createElement('div');
+    div.className = 'schedule-item';
+
+    const timeOptions = createTimeOptions();
+
+    div.innerHTML = `
+      <span class="day-label">${day}</span>
+      <div class="time-selectors-container">
+        <select class="time-select form-control start-time">
+          <option value="">Start Time</option>
+          ${timeOptions}
+        </select>
+        <span class="time-separator">to</span>
+        <select class="time-select form-control end-time">
+          <option value="">End Time</option>
+          ${timeOptions}
+        </select>
+      </div>
+      <button type="button" class="remove-btn" aria-label="Remove schedule">&times;</button>
+    `;
+
+    const startSelect = div.querySelector('.start-time');
+    const endSelect = div.querySelector('.end-time');
+    
+    if (startTime) startSelect.value = startTime;
+    if (endTime) endSelect.value = endTime;
+
+    div.querySelector('.remove-btn').addEventListener('click', function() {
+      delete workoutSchedule[day];
+      div.remove();
+      updateDaySelect();
+      updateScheduleData();
+    });
+
+    const timeSelects = div.querySelectorAll('.time-select');
+    timeSelects.forEach(select => {
+      select.addEventListener('change', function() {
+        const start = startSelect.value;
+        const end = endSelect.value;
+
+        if (start && end && start >= end) {
+          alert('End time must be after start time');
+          this.value = '';
+          return;
+        }
+
+        if (start && end) {
+          workoutSchedule[day] = { start, end };
+        } else {
+          delete workoutSchedule[day];
+        }
+        updateScheduleData();
+      });
+    });
+
+    return div;
+  }
+
+  function updateScheduleData() {
+    const scheduleInput = document.getElementById('workoutScheduleData');
+    const formattedSchedule = Object.entries(workoutSchedule)
+      .sort((a, b) => dayOrder[a[0]] - dayOrder[b[0]])
+      .map(([day, times]) => `${day}=${times.start}-${times.end}`)
+      .join('|');
+    scheduleInput.value = formattedSchedule;
+    console.log('Updated schedule:', formattedSchedule);
+  }
+
+  function initializeSchedule() {
+    const scheduleInput = document.getElementById('workoutScheduleData');
+    if (!scheduleInput.value) return;
+
+    try {
+      const scheduleParts = scheduleInput.value.split('|');
+      
+      scheduleParts.sort((a, b) => {
+        const dayA = a.split('=')[0];
+        const dayB = b.split('=')[0];
+        return dayOrder[dayA] - dayOrder[dayB];
+      });
+
+      scheduleParts.forEach(part => {
+        if (!part.trim()) return;
+
+        const [day, times] = part.split('=');
+        if (!times) return;
+
+        const [start, end] = times.split('-');
+        if (!start || !end) return;
+
+        workoutSchedule[day] = { start, end };
+        schedulesList.appendChild(createScheduleItem(day, start, end));
+      });
+      updateDaySelect();
+    } catch (e) {
+      console.error('Error parsing schedule:', e);
+      workoutSchedule = {};
+    }
+  }
+
+  daySelect.addEventListener('change', function() {
+    if (!this.value) return;
+
+    const day = this.value;
+    const scheduledItem = createScheduleItem(day);
+    schedulesList.appendChild(scheduledItem);
+    
+    // Set default times (6:00 AM - 7:00 AM)
+    workoutSchedule[day] = {
+      start: '06:00',
+      end: '07:00'
+    };
+    
+    const startSelect = scheduledItem.querySelector('.start-time');
+    const endSelect = scheduledItem.querySelector('.end-time');
+    startSelect.value = '06:00';
+    endSelect.value = '07:00';
+    
+    this.value = '';
+    updateDaySelect();
+    updateScheduleData();
+    sortScheduleItems();
+  });
+
+  // Form validation
+  document.querySelector('form').addEventListener('submit', function(event) {
+    const scheduleInput = document.getElementById('workoutScheduleData');
+    if (!scheduleInput.value) {
+      alert('Please select at least one workout day and time');
+      event.preventDefault();
+      return;
+    }
+
+    const hasInvalidTimes = Object.values(workoutSchedule).some(times => {
+      return !times.start || !times.end || times.start >= times.end;
+    });
+
+    if (hasInvalidTimes) {
+      alert('Please ensure all selected days have valid start and end times');
+      event.preventDefault();
+    }
+  });
+
+  // Initialize the schedule
+  initializeSchedule();
+});
+</script>
