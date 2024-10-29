@@ -13,16 +13,19 @@ class UserMatchesController < ApplicationController
       ordered_ids = new_user_ids + skipped_user_ids
 
       # Fetch users based on the combined ID list
-      prospective_users = User.where(id: ordered_ids).select(:id, :username, :email)
+      prospective_users = User.where(id: ordered_ids).select(:id, :username, :email, :age, :gender)
+
+      # Filter prospective users based on fitness profile criteria
+      filtered_users = filter_prospective_users(user, prospective_users)
 
       # Sort users based on the original ordered_ids to maintain the correct order
       sorted_prospective_users = ordered_ids.map do |id|
-        prospective_users.find { |user| user.id == id }
+        filtered_users.find { |user| user.id == id }
       end.compact # Remove nil values if there are any IDs not found
 
       render json: sorted_prospective_users
     end
-  
+
     # Match a prospective user
     def match
       user = User.find(params[:user_id])
@@ -94,5 +97,68 @@ class UserMatchesController < ApplicationController
         render json: { error: 'Failed to block.' }, status: :unprocessable_entity
       end
     end
+
+    private
+
+    def filter_prospective_users(user, prospective_users)
+      fitness_profile = user.fitness_profile
+    
+      prospective_users.select do |prospective_user|
+        prospective_fitness_profile = prospective_user.fitness_profile
+    
+        # Apply filtering criteria
+        age_criteria = prospective_user.age.between?(fitness_profile.age_range_start, fitness_profile.age_range_end)
+        Rails.logger.info("Age criteria for #{prospective_user.username}: #{age_criteria}")
+
+        gender_criteria = match_gender?(fitness_profile.gender_preferences, prospective_user.gender)
+        Rails.logger.info("Gender criteria for #{prospective_user.username}: #{gender_criteria}")
+
+        gym_locations_criteria = match_gym_locations?(fitness_profile.gym_locations, prospective_fitness_profile.gym_locations)
+        Rails.logger.info("Gym locations criteria for #{prospective_user.username}: #{gym_locations_criteria}")
+
+        activities_criteria = match_activities?(fitness_profile.activities_with_experience, prospective_fitness_profile.activities_with_experience)
+        Rails.logger.info("Activities criteria for #{prospective_user.username}: #{activities_criteria}")
+
+        workout_schedule_criteria = match_workout_schedule?(fitness_profile.workout_schedule, prospective_fitness_profile.workout_schedule)
+        Rails.logger.info("Workout schedule criteria for #{prospective_user.username}: #{workout_schedule_criteria}")
+
+        workout_types_criteria = match_workout_types?(fitness_profile.workout_types, prospective_fitness_profile.workout_types)
+        Rails.logger.info("Workout types criteria for #{prospective_user.username}: #{workout_types_criteria}")
+
+        # All criteria must be satisfied
+        age_criteria && gender_criteria && gym_locations_criteria &&
+        activities_criteria && workout_schedule_criteria && workout_types_criteria
+      end
+    end
+
+    def match_gender?(gender_preferences, prospective_gender)
+      # Split the gender preferences into an array
+      preferences = gender_preferences.split(',')
+    
+      # Check if the prospective user's gender matches any of the preferences
+      preferences.include?(prospective_gender) || preferences.include?('Any')
+    end
+
+    def match_gym_locations?(user_locations, prospective_locations)
+      (user_locations.split(',') & prospective_locations.split(',')).any?
+    end
+
+    def match_activities?(user_activities, prospective_activities)
+      # Extract activity names by splitting on the '|' character
+      user_activity_names = user_activities.split('|').map { |activity| activity.split(':').first.strip }
+      prospective_activity_names = prospective_activities.split('|').map { |activity| activity.split(':').first.strip }
+    
+      # Check if there's any overlap between the activity names
+      (user_activity_names & prospective_activity_names).any?
+    end
+
+    def match_workout_schedule?(user_schedule, prospective_schedule)
+      (user_schedule.split('|') & prospective_schedule.split('|')).any?
+    end
+
+    def match_workout_types?(user_types, prospective_types)
+      (user_types.split(',') & prospective_types.split(',')).any?
+    end
+  
   end
   
