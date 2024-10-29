@@ -12,21 +12,69 @@
         <div class="header">
             <span class="back">&lt;</span>
             <span>flora</span>
-            <span class="menu">⋮</span>
+            <span class="menu" onclick="toggleMenu()">⋮</span>
+            <div id="dropdown" class="dropdown-menu">
+                <div class="menu-item" onclick="alert('Unmatched')">Unmatch</div>
+                <div class="menu-item" onclick="alert('Reported')">Report</div>
+                <div class="menu-item" onclick="alert('Blocked')">Block</div>
+                <!-- Add more options as needed -->
+            </div>
         </div>
         <div class="tabs">
-            <div class="active">Chat</div>
-            <div>Profile</div>
+            <div id="chat-tab" class="active" onclick="showChat()">Chat</div>
+            <div id="profile-tab" onclick="showProfile()">Profile</div>
         </div>
-        <div class="chat-area">
+        <div id="chat-area" class="chat-area">
             <div class="message sent">Hello!</div>
             <div class="message received">Hi there!</div>
         </div>
-        <div class="input-area">
+        <div id="profile-area" class="profile-area" style="display: none;">
+            <p><strong>Name:</strong> Flora</p>
+            <p><strong>Email:</strong> flora@example.com</p>
+            <!-- Add more profile details as needed -->
+        </div>
+        <div id="input-area" class="input-area">
             <input type="text" placeholder="send a message">
             <button>send</button>
         </div>
     </div>
+
+    <script>
+        function showChat() {
+            document.getElementById("chat-tab").classList.add("active");
+            document.getElementById("profile-tab").classList.remove("active");
+            document.getElementById("chat-tab").style.color = "orange";
+            document.getElementById("profile-tab").style.color = "black";
+            document.getElementById("chat-area").style.display = "flex";
+            document.getElementById("profile-area").style.display = "none";
+            document.getElementById("input-area").style.display = "flex";
+        }
+
+        function showProfile() {
+            document.getElementById("profile-tab").classList.add("active");
+            document.getElementById("chat-tab").classList.remove("active");
+            document.getElementById("profile-tab").style.color = "orange";
+            document.getElementById("chat-tab").style.color = "black";
+            document.getElementById("profile-area").style.display = "block";
+            document.getElementById("chat-area").style.display = "none";
+            document.getElementById("input-area").style.display = "flex";
+        }
+
+        function toggleMenu() {
+            const dropdown = document.getElementById("dropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+
+        // Close the menu if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.menu')) {
+                const dropdown = document.getElementById("dropdown");
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                }
+            }
+        };
+    </script>
 
 </body>
 </html>
