@@ -1,4 +1,59 @@
 <h1 class="text-center mb-4">Edit Fitness Profile</h1>
+<style>
+  .invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+  }
+  
+  .form-control.is-invalid {
+    border-color: #dc3545;
+    padding-right: calc(1.5em + 0.75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  }
+  
+  .dropdown button.is-invalid {
+    border-color: #dc3545;
+  }
+  
+  .schedule-item.is-invalid {
+    border-color: #dc3545;
+  }
+
+  /* Additional styles for time selector validation */
+  .time-select-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .time-select-wrapper .invalid-feedback {
+    display: none;
+    position: absolute;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+  }
+
+  .time-selectors-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .schedule-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+  }
+  </style>
 <%= form_with model: [@user, @fitness_profile], local: true, class: "needs-validation", novalidate: true, data: { turbo: false } do |form| %>
   <div class="container">
     <div class="card shadow mb-5 profile-card" style="max-width: 700px; margin: 0 auto; border-radius: 15px;">
@@ -15,6 +70,8 @@
         <% end %>
         <fieldset>
           <legend>Fitness Profile</legend>
+          
+          <!-- Gender Preferences with validation -->
           <div class="form-group mb-3">
             <%= form.label :gender_preferences, "Gender Preferences" %>
             <div class="dropdown" id="genderDropdown">
@@ -25,23 +82,35 @@
                 <% ["Male", "Female", "Any"].each do |gender| %>
                   <label>
                     <%= check_box_tag 'fitness_profile[gender_preferences][]', gender, 
-              @fitness_profile.gender_preferences_array.include?(gender), 
-              id: "gender_#{gender.downcase}", 
-              class: "form-check-input", 
-              onchange: "updateSelectedOptions('fitness_profile[gender_preferences][]', 'genderButton')" %>
+                        @fitness_profile.gender_preferences_array.include?(gender), 
+                        id: "gender_#{gender.downcase}", 
+                        class: "form-check-input", 
+                        onchange: "updateSelectedOptions('fitness_profile[gender_preferences][]', 'genderButton')" %>
                     <%= gender %>
                   </label>
                 <% end %>
               </div>
             </div>
+            <div class="invalid-feedback" id="genderFeedback"></div>
           </div>
+
+          <!-- Age Range with validation -->
           <div class="form-group">
             <%= form.label :age_range %>
             <div class="d-flex gap-2">
-              <%= form.select :age_range_start, options_for_select((18..60).to_a, @fitness_profile.age_range_start), { prompt: "Min Age" }, class: "form-control" %>
-              <%= form.select :age_range_end, options_for_select((18..60).to_a, @fitness_profile.age_range_end), { prompt: "Max Age" }, class: "form-control" %>
+              <%= form.select :age_range_start, 
+                  options_for_select((18..60).to_a, @fitness_profile.age_range_start), 
+                  { prompt: "Min Age" }, 
+                  class: "form-control" %>
+              <%= form.select :age_range_end, 
+                  options_for_select((18..60).to_a, @fitness_profile.age_range_end), 
+                  { prompt: "Max Age" }, 
+                  class: "form-control" %>
             </div>
+            <div class="invalid-feedback" id="ageFeedback"></div>
           </div>
+
+          <!-- Gym Locations with validation -->
           <div class="form-group mb-3">
             <%= form.label :gym_locations, "Preferred Gym Locations" %>
             <div class="dropdown" id="gymLocationDropdown">
@@ -49,27 +118,39 @@
                 <%= @fitness_profile.gym_locations_array.join(', ') || 'Select Gym Locations' %>
               </button>
               <div class="dropdown-content">
-                <% ["Student Rec Center", "Southside Rec Center", "Polo Road Rec Center", "Penberthy Rec Sports Complex", "PEAP", "Omar Smith Tennis Center"].each do |location| %>
+                <% ["Student Rec Center", "Southside Rec Center", "Polo Road Rec Center", 
+                    "Penberthy Rec Sports Complex", "PEAP", "Omar Smith Tennis Center"].each do |location| %>
                   <label>
                     <%= check_box_tag 'fitness_profile[gym_locations][]', location, 
-              @fitness_profile.gym_locations_array.include?(location), 
-              id: "gym_#{location.parameterize}", 
-              class: "form-check-input", 
-              onchange: "updateSelectedOptions('fitness_profile[gym_locations][]', 'gymLocationButton')" %>
+                        @fitness_profile.gym_locations_array.include?(location), 
+                        id: "gym_#{location.parameterize}", 
+                        class: "form-check-input", 
+                        onchange: "updateSelectedOptions('fitness_profile[gym_locations][]', 'gymLocationButton')" %>
                     <%= location %>
                   </label>
                 <% end %>
               </div>
             </div>
+            <div class="invalid-feedback" id="gymLocationFeedback"></div>
           </div>
+
+          <!-- Activities with validation -->
           <div class="form-group">
             <%= form.label :activities_with_experience, "Preferred Activities and Experience Level" %>
             <div class="activity-experience-group">
-              <%= select_tag 'activitySelect', options_for_select(['Soccer', 'Archery', 'Badminton', 'Tennis', 'Fitness']), prompt: "Activity", class: "form-control" %>
-              <%= select_tag 'experienceSelect', options_for_select(['Beginner', 'Amateur', 'Expert']), prompt: "Experience Level", class: "form-control" %>
+              <%= select_tag 'activitySelect', 
+                  options_for_select(['Soccer', 'Archery', 'Badminton', 'Tennis', 'Fitness']), 
+                  prompt: "Activity", 
+                  class: "form-control" %>
+              <%= select_tag 'experienceSelect', 
+                  options_for_select(['Beginner', 'Amateur', 'Expert']), 
+                  prompt: "Experience Level", 
+                  class: "form-control" %>
             </div>
             <div class="add-button" onclick="addActivityToList()">+ Add Activity</div>
+            <div class="invalid-feedback" id="activityFeedback"></div>
           </div>
+
           <ul id="activityList" class="activity-list">
             <% if @fitness_profile.activities_array.present? %>
               <% @fitness_profile.activities_array.each do |activity| %>
@@ -82,12 +163,13 @@
               <% end %>
             <% end %>
           </ul>
-          <!-- Workout Schedule Section -->
+
+          <!-- Workout Schedule with validation -->
           <div class="form-group mb-4">
             <%= form.label :workout_schedule, "Preferred Workout Days and Time Range" %>
             <div class="workout-schedule-container">
               <div class="schedule-form">
-                <select id="daySelect" class="day-select">
+                <select id="daySelect" class="day-select form-control">
                   <option value="">Add workout day</option>
                   <option value="Monday">Monday</option>
                   <option value="Tuesday">Tuesday</option>
@@ -103,12 +185,20 @@
               </div>
               <%= form.hidden_field :workout_schedule, id: 'workoutScheduleData' %>
             </div>
+            <div class="invalid-feedback" id="scheduleFeedback"></div>
           </div>
+
+          <!-- Workout Types with validation -->
           <div class="form-group">
             <%= form.label :workout_types, "Preferred Workout Type" %>
-            <%= select_tag 'workoutTypeSelect', options_for_select(['Weight Loss', 'Muscle Gain', 'Cardio', 'Strength Training']), prompt: "Workout Type", class: "form-control" %>
+            <%= select_tag 'workoutTypeSelect', 
+                options_for_select(['Weight Loss', 'Muscle Gain', 'Cardio', 'Strength Training']), 
+                prompt: "Workout Type", 
+                class: "form-control" %>
             <div class="add-button" onclick="addWorkoutTypeToList()">+ Add Workout Type</div>
+            <div class="invalid-feedback" id="workoutTypeFeedback"></div>
           </div>
+
           <ul id="workoutTypeList" class="workout-list">
             <% if @fitness_profile.workout_types_array.present? %>
               <% @fitness_profile.workout_types_array.each do |type| %>
@@ -120,6 +210,7 @@
               <% end %>
             <% end %>
           </ul>
+
           <div class="mt-4 text-center">
             <%= form.submit "Update Fitness Profile", class: "btn custom-btn text-white", id: "submit-btn" %>
           </div>
@@ -222,7 +313,7 @@ function initializeFitnessProfile() {
     function createTimeOptions() {
         const options = [];
         for (let hour = 0; hour < 24; hour++) {
-            for (let minute = 0; minute < 30; minute += 30) {
+            for (let minute = 0; minute < 60; minute += 15) {
                 const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
                 const period = hour < 12 ? 'AM' : 'PM';
                 const displayTime = `${formattedHour}:${minute.toString().padStart(2, '0')} ${period}`;
@@ -257,69 +348,77 @@ function initializeFitnessProfile() {
     }
 
     function createScheduleItem(day, startTime = '', endTime = '') {
-        const div = document.createElement('div');
-        div.className = 'schedule-item profile-card';
+    const div = document.createElement('div');
+    div.className = 'schedule-item profile-card';
 
-        const timeOptions = createTimeOptions();
-        const timeSelectsHtml = timeOptions.map(({ display, value }) => 
-            `<option value="${value}">${display}</option>`
-        ).join('');
+    const timeOptions = createTimeOptions();
+    const timeSelectsHtml = timeOptions.map(({ display, value }) => 
+        `<option value="${value}">${display}</option>`
+    ).join('');
 
-        div.innerHTML = `
-            <span class="day-label">${day}</span>
-            <div class="time-selectors-container">
-                <select class="time-select form-control start-time">
-                    <option value="">Start Time</option>
+    div.innerHTML = `
+        <span class="day-label">${day}</span>
+        <div class="time-selectors-container">
+            <div class="time-select-wrapper">
+                <select class="time-select form-control start-time" required>
+                    <option value="">Select Start Time</option>
                     ${timeSelectsHtml}
                 </select>
-                <span class="time-separator">to</span>
-                <select class="time-select form-control end-time">
-                    <option value="">End Time</option>
-                    ${timeSelectsHtml}
-                </select>
+                <div class="invalid-feedback">Please select a start time</div>
             </div>
-            <button type="button" class="remove-btn" aria-label="Remove schedule">&times;</button>
-        `;
+            <span class="time-separator">to</span>
+            <div class="time-select-wrapper">
+                <select class="time-select form-control end-time" required>
+                    <option value="">Select End Time</option>
+                    ${timeSelectsHtml}
+                </select>
+                <div class="invalid-feedback">Please select an end time</div>
+            </div>
+        </div>
+        <button type="button" class="remove-btn" aria-label="Remove schedule">&times;</button>
+    `;
 
-        const startSelect = div.querySelector('.start-time');
-        const endSelect = div.querySelector('.end-time');
+    const startSelect = div.querySelector('.start-time');
+    const endSelect = div.querySelector('.end-time');
+    
+    if (startTime) startSelect.value = startTime;
+    if (endTime) endSelect.value = endTime;
 
-        if (startTime) startSelect.value = startTime;
-        if (endTime) endSelect.value = endTime;
+    div.querySelector('.remove-btn').addEventListener('click', function() {
+        delete workoutSchedule[day];
+        div.remove();
+        updateDaySelect();
+        updateScheduleData();
+    });
 
-        div.querySelector('.remove-btn').addEventListener('click', function() {
-            delete workoutSchedule[day];
-            div.remove();
-            updateDaySelect();
-            updateScheduleData();
-        });
+    const timeSelects = div.querySelectorAll('.time-select');
+    timeSelects.forEach(select => {
+        select.addEventListener('change', function() {
+            // Reset validation states
+            timeSelects.forEach(s => {
+                s.classList.remove('is-invalid');
+                s.parentElement.querySelector('.invalid-feedback').style.display = 'none';
+            });
 
-        const timeSelects = div.querySelectorAll('.time-select');
-        timeSelects.forEach(select => {
-            select.addEventListener('change', function() {
-                const start = startSelect.value;
-                const end = endSelect.value;
+            const start = startSelect.value;
+            const end = endSelect.value;
 
-                if (start && end && start >= end) {
-                    alert('End time must be after start time');
-                    this.value = this.dataset.lastValue || '';
+            if (start && end) {
+                if (start >= end) {
+                    this.classList.add('is-invalid');
+                    this.parentElement.querySelector('.invalid-feedback').textContent = 'End time must be after start time';
+                    this.parentElement.querySelector('.invalid-feedback').style.display = 'block';
+                    this.value = '';
                     return;
                 }
-
-                this.dataset.lastValue = this.value;
-
-                if (start && end) {
-                    workoutSchedule[day] = { start, end };
-                } else {
-                    delete workoutSchedule[day];
-                }
-
-                updateScheduleData();
-            });
+                workoutSchedule[day] = { start, end };
+            }
+            updateScheduleData();
         });
+    });
 
-        return div;
-    }
+    return div;
+}
 
     function updateScheduleData() {
         const formattedSchedule = Object.entries(workoutSchedule)
@@ -390,26 +489,151 @@ function initializeFitnessProfile() {
             sortScheduleItems();
         });
     }
-
-    // Form validation
-    const form = document.querySelector('form');
-    if (form) {
-        form.addEventListener('submit', function(event) {
-            if (!scheduleInput.value) {
-                alert('Please select at least one workout day and time');
-                event.preventDefault();
-                return;
-            }
-
-            const hasInvalidTimes = Object.values(workoutSchedule).some(times => {
-                return !times.start || !times.end || times.start >= times.end;
-            });
-
-            if (hasInvalidTimes) {
-                alert('Please ensure all selected days have valid start and end times');
-                event.preventDefault();
-            }
-        });
-    }
 }
+
+document.getElementById("submit-btn").addEventListener("click", function(event) {
+    let isValid = true;
+    
+    // Reset all validation states
+    document.querySelectorAll('.invalid-feedback').forEach(el => el.textContent = '');
+    document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+
+    // Gender Preferences Validation
+    const genderCheckboxes = document.querySelectorAll("input[name='fitness_profile[gender_preferences][]']:checked");
+    if (genderCheckboxes.length === 0) {
+        document.getElementById('genderFeedback').textContent = 'Please select at least one gender preference';
+        document.getElementById('genderButton').classList.add('is-invalid');
+        isValid = false;
+    }
+
+    // Age Range Validation
+    const ageStart = document.querySelector("[name='fitness_profile[age_range_start]']");
+    const ageEnd = document.querySelector("[name='fitness_profile[age_range_end]']");
+    
+    if (!ageStart.value || !ageEnd.value) {
+        document.getElementById('ageFeedback').textContent = 'Please select both minimum and maximum age';
+        ageStart.classList.add('is-invalid');
+        ageEnd.classList.add('is-invalid');
+        isValid = false;
+    } else if (parseInt(ageStart.value) >= parseInt(ageEnd.value)) {
+        document.getElementById('ageFeedback').textContent = 'Maximum age must be greater than minimum age';
+        ageStart.classList.add('is-invalid');
+        ageEnd.classList.add('is-invalid');
+        isValid = false;
+    }
+
+    // Gym Locations Validation
+    const gymLocations = document.querySelectorAll("input[name='fitness_profile[gym_locations][]']:checked");
+    if (gymLocations.length === 0) {
+        document.getElementById('gymLocationFeedback').textContent = 'Please select at least one gym location';
+        document.getElementById('gymLocationButton').classList.add('is-invalid');
+        isValid = false;
+    }
+
+    // Activities Validation
+    const activityList = document.getElementById('activityList');
+    if (activityList.children.length === 0) {
+        document.getElementById('activityFeedback').textContent = 'Please add at least one activity with experience level';
+        document.getElementById('activitySelect').classList.add('is-invalid');
+        document.getElementById('experienceSelect').classList.add('is-invalid');
+        isValid = false;
+    }
+
+    // Workout Schedule Validation
+    const schedulesList = document.getElementById('schedulesList');
+const scheduleItems = schedulesList.querySelectorAll('.schedule-item');
+
+if (scheduleItems.length === 0) {
+    document.getElementById('scheduleFeedback').textContent = 'Please add at least one workout schedule';
+    document.getElementById('daySelect').classList.add('is-invalid');
+    isValid = false;
+} else {
+    // Validate each schedule item's times
+    scheduleItems.forEach(item => {
+        const startTime = item.querySelector('.start-time');
+        const endTime = item.querySelector('.end-time');
+        
+        if (!startTime.value) {
+            startTime.classList.add('is-invalid');
+            startTime.parentElement.querySelector('.invalid-feedback').style.display = 'block';
+            isValid = false;
+        }
+        
+        if (!endTime.value) {
+            endTime.classList.add('is-invalid');
+            endTime.parentElement.querySelector('.invalid-feedback').style.display = 'block';
+            isValid = false;
+        }
+        
+        if (startTime.value && endTime.value && startTime.value >= endTime.value) {
+            endTime.classList.add('is-invalid');
+            endTime.parentElement.querySelector('.invalid-feedback').textContent = 'End time must be after start time';
+            endTime.parentElement.querySelector('.invalid-feedback').style.display = 'block';
+            isValid = false;
+        }
+    });
+}
+
+    // Workout Types Validation
+    const workoutTypeList = document.getElementById('workoutTypeList');
+    if (workoutTypeList.children.length === 0) {
+        document.getElementById('workoutTypeFeedback').textContent = 'Please select at least one workout type';
+        document.getElementById('workoutTypeSelect').classList.add('is-invalid');
+        isValid = false;
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        // Scroll to the first error
+        const firstError = document.querySelector('.invalid-feedback:not(:empty)');
+        if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+});
+
+// Add validation to addActivityToList function
+const originalAddActivityToList = addActivityToList;
+addActivityToList = function() {
+    const activity = document.getElementById('activitySelect');
+    const experience = document.getElementById('experienceSelect');
+    
+    // Reset validation state
+    activity.classList.remove('is-invalid');
+    experience.classList.remove('is-invalid');
+    document.getElementById('activityFeedback').textContent = '';
+    
+    if (!activity.value || !experience.value) {
+        if (!activity.value) {
+            activity.classList.add('is-invalid');
+        }
+        if (!experience.value) {
+            experience.classList.add('is-invalid');
+        }
+        document.getElementById('activityFeedback').textContent = 'Please select both activity and experience level';
+        return;
+    }
+    
+    originalAddActivityToList();
+};
+
+// Add validation to addWorkoutTypeToList function
+const originalAddWorkoutTypeToList = addWorkoutTypeToList;
+addWorkoutTypeToList = function() {
+    const workoutType = document.getElementById('workoutTypeSelect');
+    
+    // Reset validation state
+    workoutType.classList.remove('is-invalid');
+    document.getElementById('workoutTypeFeedback').textContent = '';
+    
+    if (!workoutType.value) {
+        workoutType.classList.add('is-invalid');
+        document.getElementById('workoutTypeFeedback').textContent = 'Please select a workout type';
+        return;
+    }
+    
+    originalAddWorkoutTypeToList();
+};
 </script>
