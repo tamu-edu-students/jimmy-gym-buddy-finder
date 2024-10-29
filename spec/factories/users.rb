@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :user do
     uid { "123456789" }
     provider { "google_oauth2" }
-    email { 'test@example.com' }
+    sequence(:email) { |n| "user#{n}@example.com" } 
 
     trait :complete_profile do
       username { 'TestUser' }

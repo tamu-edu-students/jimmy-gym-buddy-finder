@@ -10,6 +10,7 @@ RSpec.describe FitnessProfile, type: :model do
       gender: 'Male',
       age_range_start: '18',
       age_range_end: '28',
+      gym_locations: 'dummy gym location',
       user: user
     )
     expect(fitness_profile).to be_valid
