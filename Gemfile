@@ -92,7 +92,7 @@ group :test do
   gem "rack_session_access"
   gem "omniauth-test"
 
-  # gem "codeclimate-test-reporter", require: nil
+  gem "codeclimate-test-reporter", require: nil
 end
 
 group :production do
