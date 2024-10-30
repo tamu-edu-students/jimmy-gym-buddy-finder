@@ -58,30 +58,28 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <!-- Example Notification 1 -->
-        <div class="notification-item d-flex align-items-center mb-3 p-2 border rounded">
-          <!-- Match Photo -->
-          <img src="https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg" alt="Match Photo" class="rounded-circle me-3" style="width: 50px; height: 50px;">
-
-          <!-- Notification Content -->
-          <div class="notification-content flex-grow-1">
-            <p class="mb-1"><strong>You have a match with A</strong></p>
-            <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
-          </div>
-        </div>
-
-        <!-- Example Notification 2 -->
-        <div class="notification-item d-flex align-items-center mb-3 p-2 border rounded">
-          <!-- Match Photo -->
-          <img src="https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg" alt="Match Photo" class="rounded-circle me-3" style="width: 50px; height: 50px;">
-
-          <!-- Notification Content -->
-          <div class="notification-content flex-grow-1">
-            <p class="mb-1"><strong>You have a match with B</strong></p>
-            <button class="btn btn-sm btn-outline-secondary">Mark as read</button>
-          </div>
-        </div>
-
+        <% if @notifications && @notifications.any? %>
+          <% @notifications.each do |notification| %>
+            <div class="notification-item d-flex align-items-center mb-3 p-2 border rounded">
+              <!-- Match Photo -->
+              <img src="https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg" alt="Match Photo" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+              
+              <!-- Notification Content -->
+              <div class="notification-content flex-grow-1">
+                <p class="mb-1"><strong>You have a match with <%= notification.matched_user_name %></strong></p>
+                <div id="mark-button-<%= notification.id %>">
+                  <% if notification.read? %>
+                    <%= button_to "Mark as Unread", mark_as_unread_user_notification_path(notification), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true, data: { action: "update-button##{notification.id}" } %>
+                  <% else %>
+                    <%= button_to "Mark as Read", mark_as_read_user_notification_path(notification), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true, data: { action: "update-button##{notification.id}" } %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <p>No new notifications</p>
+        <% end %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -89,6 +87,7 @@
     </div>
   </div>
 </div>
+
 
 
 <div class="overlay"></div>

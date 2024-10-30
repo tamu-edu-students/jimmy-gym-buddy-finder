@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     resources :notifications, only: [:index, :create] do
       member do
         post 'mark_as_read', to: 'notifications#mark_as_read'
+        post 'mark_as_unread', to: 'notifications#mark_as_unread'
       end
     end
   end
