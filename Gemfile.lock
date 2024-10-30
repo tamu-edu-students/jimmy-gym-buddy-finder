@@ -162,6 +162,9 @@ GEM
       cucumber (>= 5, < 10)
       railties (>= 5.2, < 8)
     cucumber-tag-expressions (6.1.0)
+    cuprite (0.15.1)
+      capybara (~> 3.0)
+      ferrum (~> 0.15.0)
     database_cleaner (2.0.2)
       database_cleaner-active_record (>= 2, < 3)
     database_cleaner-active_record (2.2.0)
@@ -196,6 +199,11 @@ GEM
       logger
     faraday-net_http (3.3.0)
       net-http
+    ferrum (0.15)
+      addressable (~> 2.5)
+      concurrent-ruby (~> 1.1)
+      webrick (~> 1.7)
+      websocket-driver (~> 0.7)
     ffi (1.17.0-aarch64-linux-gnu)
     ffi (1.17.0-aarch64-linux-musl)
     ffi (1.17.0-arm-linux-gnu)
@@ -561,6 +569,7 @@ DEPENDENCIES
   capybara
   carrierwave (~> 2.0)
   cucumber-rails
+  cuprite
   database_cleaner
   database_cleaner-active_record
   debug

@@ -11,9 +11,6 @@ class FitnessProfilesController < ApplicationController
     
     if @fitness_profile.save
       redirect_to user_fitness_profile_path(@user), notice: 'Fitness profile created successfully.'
-    else
-      Rails.logger.debug "Fitness Profile Save Errors: #{@fitness_profile.errors.full_messages}"
-      render :new
     end
   end
 
@@ -26,8 +23,6 @@ class FitnessProfilesController < ApplicationController
   def update
     if @fitness_profile.update(fitness_profile_params)
       redirect_to user_fitness_profile_path(@user), notice: 'Fitness profile updated successfully.'
-    else
-      render :edit
     end
   end
 
