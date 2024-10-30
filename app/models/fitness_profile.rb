@@ -43,12 +43,4 @@ class FitnessProfile < ApplicationRecord
     schedule
   end
 
-  private
-
-  def valid_age_range
-    return unless age_range_start.present? && age_range_end.present?
-    if age_range_start > age_range_end
-      errors.add(:age_range_start, "must be less than or equal to end age")
-    end
-  end
 end
