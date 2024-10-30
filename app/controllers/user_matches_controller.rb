@@ -101,10 +101,11 @@ class UserMatchesController < ApplicationController
     private
 
     def filter_prospective_users(user, prospective_users)
-      fitness_profile = user.fitness_profile
+        fitness_profile = user.fitness_profile
     
-      prospective_users.select do |prospective_user|
+        prospective_users.select do |prospective_user|
         prospective_fitness_profile = prospective_user.fitness_profile
+        next unless prospective_fitness_profile
     
         # Apply filtering criteria
         age_criteria = prospective_user.age.between?(fitness_profile.age_range_start, fitness_profile.age_range_end)
@@ -133,7 +134,7 @@ class UserMatchesController < ApplicationController
 
     def match_gender?(gender_preferences, prospective_gender)
       # Split the gender preferences into an array
-      preferences = gender_preferences.split(',')
+      preferences = gender_preferences.split(',') || []
     
       # Check if the prospective user's gender matches any of the preferences
       preferences.include?(prospective_gender) || preferences.include?('Any')
