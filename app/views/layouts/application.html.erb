@@ -10,6 +10,7 @@
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   <%= javascript_importmap_tags %>
   <%= yield :head %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
@@ -27,6 +28,11 @@
   <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
     <div class="navbar-nav">
       <% if session[:user_id] %>
+        <!-- Notification Button -->
+        <button type="button" class="nav-item nav-link btn btn-outline-light fw-bold me-2" data-bs-toggle="modal" data-bs-target="#notificationModal">
+          <i class="fas fa-bell"></i>
+        </button>
+
         <!-- Dashboard Link -->
         <%= link_to "Dashboard", dashboard_user_path(@user), class: "nav-item nav-link btn btn-outline-light fw-bold me-2" %>
 
@@ -42,6 +48,46 @@
 
   </div>
 </nav>
+
+<!-- Notification Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if @notifications && @notifications.any? %>
+          <% @notifications.each do |notification| %>
+            <div class="notification-item d-flex align-items-center mb-3 p-2 border rounded">
+              <!-- Match Photo -->
+              <img src="https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg" alt="Match Photo" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+              
+              <!-- Notification Content -->
+              <div class="notification-content flex-grow-1">
+                <p class="mb-1"><strong>You have a match with <%= notification.matched_user_name %></strong></p>
+                <div id="mark-button-<%= notification.id %>">
+                  <% if notification.read? %>
+                    <%= button_to "Mark as Unread", mark_as_unread_user_notification_path(notification), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true, data: { action: "update-button##{notification.id}" } %>
+                  <% else %>
+                    <%= button_to "Mark as Read", mark_as_read_user_notification_path(notification), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true, data: { action: "update-button##{notification.id}" } %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <p>No new notifications</p>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 <div class="overlay"></div>
