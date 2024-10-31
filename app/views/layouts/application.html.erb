@@ -69,9 +69,9 @@
                 <p class="mb-1"><strong>You have a match with <%= notification.matched_user_name %></strong></p>
                 <div id="mark-button-<%= notification.id %>">
                   <% if notification.read? %>
-                    <%= button_to "Mark as Unread", mark_as_unread_user_notification_path(notification), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true, data: { action: "update-button##{notification.id}" } %>
+                    <%= button_to "Mark as Unread", mark_as_unread_user_notification_path(user_id: @user.id, id: notification.id), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true, data: { action: "update-button##{notification.id}" } %>
                   <% else %>
-                    <%= button_to "Mark as Read", mark_as_read_user_notification_path(notification), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true, data: { action: "update-button##{notification.id}" } %>
+                    <%= button_to "Mark as Read", mark_as_read_user_notification_path(user_id: @user.id, id: notification.id), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true, data: { action: "update-button##{notification.id}" } %>
                   <% end %>
                 </div>
               </div>
