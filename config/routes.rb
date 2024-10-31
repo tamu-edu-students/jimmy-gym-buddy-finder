@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     end
     resource :fitness_profile, only: [ :new, :create, :show, :edit, :update ]
   end
-
   get "matching/profileswipe", to: "matching#profileswipe", as: "profileswipe"
+
+  get 'buddies', to: 'buddies#index', as: 'buddies'
+  get 'chatrooms/:buddy_name', to: 'chatrooms#show', as: 'chatroom'
 end

@@ -1,5 +1,12 @@
 @import "bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import 'chat';
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   background-image: url('./bg-image-gym-buddies.png');

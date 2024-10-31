@@ -1,0 +1,35 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'chat', media: 'all' %>
+<% end %>
+
+<div class="chat-container">
+  <div class="header">
+    <span class="back">
+        <%= link_to '&lt;'.html_safe, buddies_path, class: 'back-link' %>
+    </span>
+    <span><%= @buddy_name %></span>
+    <span class="menu" onclick="toggleMenu()">⋮</span>
+    <div id="dropdown" class="dropdown-menu">
+      <div class="menu-item" onclick="alert('Unmatched')">Unmatch</div>
+      <div class="menu-item" onclick="alert('Reported')">Report</div>
+      <div class="menu-item" onclick="alert('Blocked')">Block</div>
+    </div>
+  </div>
+  <div class="tabs">
+    <div id="chat-tab" class="active" onclick="showChat()">Chat</div>
+    <div id="profile-tab" onclick="showProfile()">Profile</div>
+  </div>
+  <div id="chat-area" class="chat-area">
+    <% @messages.reverse_each  do |message| %>
+      <div class="message <%= message[:sender] == 'You' ? 'sent' : 'received' %>"><%= message[:content] %></div>
+    <% end %>
+  </div>
+  <div id="profile-area" class="profile-area" style="display: none;">
+    <p><strong>Name:</strong> <%= @buddy_name %></p>
+    <p><strong>Email:</strong> <%= @buddy_name.downcase %>@example.com</p>
+  </div>
+  <div id="input-area" class="input-area">
+    <input type="text" id="message-input" placeholder="Send a message">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
