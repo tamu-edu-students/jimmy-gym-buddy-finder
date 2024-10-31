@@ -8,9 +8,9 @@ FactoryBot.define do
     gender { "Male" }
 
     trait :complete_profile do
-      after(:create) do |user, evaluator|
-        create(:fitness_profile, user: user)
-      end
+      # after(:create) do |user, evaluator|
+      #   create(:fitness_profile, user: user)
+      # end
     end
 
     trait :incomplete_profile do
