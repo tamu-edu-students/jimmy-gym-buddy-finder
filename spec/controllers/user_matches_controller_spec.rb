@@ -21,50 +21,36 @@ RSpec.describe UserMatchesController, type: :controller do
     })
     session[:user_id] = user.id
 
-    # Update user's fitness profile
     user.fitness_profile.update!(
-      age_range_start: 20,
-      age_range_end: 40,
-      gender_preferences: 'Any',
-      gym_locations: 'Gym A,Gym B',
-      workout_types: 'Cardio,Strength',
-      activities_with_experience: 'Running:Beginner|Swimming:Intermediate',
-      workout_schedule: 'Monday|Wednesday|Friday'
+      age_range_start: 25,
+      age_range_end: 35,
+      gender_preferences: "Female,Non-binary",
+      gym_locations: "Gym A,Gym B",
+      activities_with_experience: "Running:Intermediate|Swimming:Beginner",
+      workout_schedule: "Monday=06:00-08:00|Wednesday=06:00-08:00|Friday=06:00-08:00",
+      workout_types: "Cardio,Strength"
     )
 
-    # Update prospective user's fitness profile
+    # Set up prospective user's fitness profile
+    prospective_user.update!(age: 30, gender: "Female")
     prospective_user.fitness_profile.update!(
       age_range_start: 20,
       age_range_end: 40,
-      gender_preferences: 'Any',
-      gym_locations: 'Gym A,Gym C',
-      workout_types: 'Cardio,Yoga',
-      activities_with_experience: 'Running:Intermediate|Yoga:Beginner',
-      workout_schedule: 'Tuesday|Thursday|Saturday'
+      gender_preferences: "Female",
+      gym_locations: "Gym A,Gym C",
+      activities_with_experience: "Running:Intermediate|Yoga:Beginner",
+      workout_schedule: "Monday=06:00-08:00|Tuesday=06:00-08:00|Thursday=06:00-08:00|Saturday=06:00-08:00",
+      workout_types: "Cardio,Yoga"
     )
-
-    # Ensure prospective user's age is within user's preferred range
-    prospective_user.update!(age: 30)
   end
 
   describe 'GET #prospective_users' do
     context 'when prospective users are available' do
       it 'renders sorted prospective users as JSON' do
         user_match = UserMatch.create!(user_id: user.id, prospective_user_id: prospective_user.id, status: 'new')
-
-        # Debug output
-        puts "User Match created: #{user_match.inspect}"
-        puts "User: #{user.inspect}"
-        puts "User fitness profile: #{user.fitness_profile.inspect}"
-        puts "Prospective user: #{prospective_user.inspect}"
-        puts "Prospective user fitness profile: #{prospective_user.fitness_profile.inspect}"
-
         get :prospective_users, params: { id: user.id }
+        body = JSON.parse(response.body) rescue nil
         expect(response).to be_successful
-
-        body = JSON.parse(response.body)
-        puts "Response body: #{body.inspect}"
-
         expect(body).not_to be_empty
         expect(body.first['id']).to eq(prospective_user.id)
       end
