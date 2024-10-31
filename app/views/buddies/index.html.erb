@@ -1,7 +1,3 @@
-<% content_for :stylesheets do %>
-  <%= stylesheet_link_tag 'chat', media: 'all' %>
-<% end %>
-
 <div class="buddy-container">
   <div class="header">
     <h2>My Buddies</h2>
@@ -27,3 +23,7 @@
     <% end %>
   </div>
 </div>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'chat' %>
+<% end %>

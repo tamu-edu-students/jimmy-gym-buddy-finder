@@ -65,6 +65,7 @@ document.addEventListener("turbo:load", function() {
       }
     }
   };
+  
 document.addEventListener('turbo:load', function() {
   const searchInput = document.getElementById('buddy-search');
   const buddyItems = document.querySelectorAll('.buddy-item');
