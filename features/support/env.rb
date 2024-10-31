@@ -11,6 +11,8 @@ require 'cucumber/rails'
 require 'rack_session_access/capybara'
 require 'capybara/cuprite' # Require Cuprite
 
+World(Rack::Test::Methods)
+
 Capybara.default_max_wait_time = 5 # Adjust as needed for your app
 
 # Register Cuprite as the JavaScript driver

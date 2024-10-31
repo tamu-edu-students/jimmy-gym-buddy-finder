@@ -157,4 +157,3 @@ Then('I should see {string} in the age feedback') do |feedback_age|
     expect(page).to have_content(feedback_age)
   end
 end
-

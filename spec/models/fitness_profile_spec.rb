@@ -76,7 +76,7 @@ RSpec.describe FitnessProfile, type: :model do
   describe '#workout_types_array' do
     it 'returns an array of workout types' do
       fitness_profile = FitnessProfile.new(workout_types: 'Running, Swimming, Cycling')
-      expected_result = ['Running', 'Swimming', 'Cycling']
+      expected_result = [ 'Running', 'Swimming', 'Cycling' ]
       expect(fitness_profile.workout_types_array).to eq(expected_result)
     end
 
@@ -89,7 +89,7 @@ RSpec.describe FitnessProfile, type: :model do
   describe '#gym_locations_array' do
     it 'returns an array of gym locations' do
       fitness_profile = FitnessProfile.new(gym_locations: 'Student Rec Center, Southside Rec Center')
-      expected_result = ['Student Rec Center', 'Southside Rec Center']
+      expected_result = [ 'Student Rec Center', 'Southside Rec Center' ]
       expect(fitness_profile.gym_locations_array).to eq(expected_result)
     end
 
@@ -102,7 +102,7 @@ RSpec.describe FitnessProfile, type: :model do
   describe '#gender_preferences_array' do
     it 'returns an array of gender preferences' do
       fitness_profile = FitnessProfile.new(gender_preferences: 'Male, Female')
-      expected_result = ['Male', 'Female']
+      expected_result = [ 'Male', 'Female' ]
       expect(fitness_profile.gender_preferences_array).to eq(expected_result)
     end
 

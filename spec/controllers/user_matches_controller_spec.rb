@@ -31,7 +31,7 @@ RSpec.describe UserMatchesController, type: :controller do
       activities_with_experience: 'Running:Beginner|Swimming:Intermediate',
       workout_schedule: 'Monday|Wednesday|Friday'
     )
-    
+
     # Update prospective user's fitness profile
     prospective_user.fitness_profile.update!(
       age_range_start: 20,
@@ -51,20 +51,20 @@ RSpec.describe UserMatchesController, type: :controller do
     context 'when prospective users are available' do
       it 'renders sorted prospective users as JSON' do
         user_match = UserMatch.create!(user_id: user.id, prospective_user_id: prospective_user.id, status: 'new')
-        
+
         # Debug output
         puts "User Match created: #{user_match.inspect}"
         puts "User: #{user.inspect}"
         puts "User fitness profile: #{user.fitness_profile.inspect}"
         puts "Prospective user: #{prospective_user.inspect}"
         puts "Prospective user fitness profile: #{prospective_user.fitness_profile.inspect}"
-        
+
         get :prospective_users, params: { id: user.id }
         expect(response).to be_successful
-        
+
         body = JSON.parse(response.body)
         puts "Response body: #{body.inspect}"
-        
+
         expect(body).not_to be_empty
         expect(body.first['id']).to eq(prospective_user.id)
       end
