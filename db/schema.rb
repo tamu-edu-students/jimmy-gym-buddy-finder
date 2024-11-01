@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_13_205035) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_28_221916) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -41,14 +41,38 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_13_205035) do
 
   create_table "fitness_profiles", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.string "fitness_goals"
-    t.string "workout_types"
     t.string "gender"
-    t.string "age_range_start"
-    t.string "age_range_end"
+    t.text "gender_preferences"
+    t.integer "age_range_start"
+    t.integer "age_range_end"
+    t.text "gym_locations"
+    t.text "activities_with_experience"
+    t.text "workout_schedule"
+    t.text "workout_types"
+    t.text "fitness_goals"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_fitness_profiles_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "matched_user_id", null: false
+    t.boolean "read", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matched_user_id"], name: "index_notifications_on_matched_user_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "user_matches", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "prospective_user_id", null: false
+    t.string "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prospective_user_id"], name: "index_user_matches_on_prospective_user_id"
+    t.index ["user_id", "prospective_user_id"], name: "index_user_matches_on_user_and_prospective_user", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -72,4 +96,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_13_205035) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "fitness_profiles", "users"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "matched_user_id"
+  add_foreign_key "user_matches", "users"
+  add_foreign_key "user_matches", "users", column: "prospective_user_id"
 end

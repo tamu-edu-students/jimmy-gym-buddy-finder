@@ -21,6 +21,8 @@ class SessionsController < ApplicationController
         first_name: names[0],
         last_name: names[1..].join(" ")
       )
+
+      UserMatchJob.perform_later(@user) if @user.persisted?
     end
 
     session[:user_id] = @user.id

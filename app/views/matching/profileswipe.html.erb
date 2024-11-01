@@ -1,68 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tinder-like Swipe Cards</title>
-    <link rel="stylesheet" href="profileswipe.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Swipe</title>
+  
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-    <div class="tinder">
-        <div class="tinder--status">
-            <i class="fa fa-remove"></i>
-            <i class="fa fa-heart"></i>
+  <div class="container d-flex flex-column align-items-center mt-4">
+    <!-- Search Filter -->
+    <div class="w-100 mb-3 d-flex justify-content-center">
+      <input type="text" id="search" class="form-control" style="width: 400px;" placeholder="Search Profiles" onkeyup="filterProfiles()" />
+    </div>
+    <!-- Tinder-like Cards -->
+    <div class="profile-cards w-100 d-flex flex-column align-items-center">
+      <!-- Profile Cards -->
+      <div class="profile-card card shadow mb-2" style="display:none;">
+        <img src="https://randomuser.me/api/portraits/men/1.jpg" class="card-img-top" alt="John">
+        <div class="card-body text-center">
+          <h5 class="card-title">John</h5>
+          <p class="card-text">Age: 30</p>
+          <p class="card-text">Activities: Running, Soccer</p>
         </div>
+      </div>
+      <div class="profile-card card shadow mb-2" style="display:none;">
+        <img src="https://randomuser.me/api/portraits/women/2.jpg" class="card-img-top" alt="Sarah">
+        <div class="card-body text-center">
+          <h5 class="card-title">Sarah</h5>
+          <p class="card-text">Age: 25</p>
+          <p class="card-text">Activities: Cardio, Yoga</p>
+        </div>
+      </div>
+      <div class="profile-card card shadow mb-2" style="display:none;">
+        <img src="https://randomuser.me/api/portraits/men/3.jpg" class="card-img-top" alt="Mike">
+        <div class="card-body text-center">
+          <h5 class="card-title">Mike</h5>
+          <p class="card-text">Age: 28</p>
+          <p class="card-text">Activities: Soccer</p>
+        </div>
+      </div>
+      <div class="profile-card card shadow mb-2" style="display:none;">
+        <img src="https://randomuser.me/api/portraits/women/4.jpg" class="card-img-top" alt="Emma">
+        <div class="card-body text-center">
+          <h5 class="card-title">Emma</h5>
+          <p class="card-text">Age: 22</p>
+          <p class="card-text">Activities: Calisthenics</p>
+        </div>
+      </div>
+      <div class="profile-card card shadow mb-2" style="display:none;">
+        <img src="https://randomuser.me/api/portraits/men/5.jpg" class="card-img-top" alt="Alex">
+        <div class="card-body text-center">
+          <h5 class="card-title">Alex</h5>
+          <p class="card-text">Age: 27</p>
+          <p class="card-text">Activities: HIIT, Tennis</p>
+        </div>
+      </div>
+    </div>
 
-        <div class="tinder--cards">
-            <div class="tinder--card">
-                <div class="user-image" style="background-image: url('https://img.freepik.com/free-photo/full-length-happy-sportswoman-jogging-road-morning-copy-space_637285-3764.jpg?semt=ais_hybrid');"></div>
-                <div class="user-info">
-                    <h3>Emma Johnson</h3>
-                    <p>Age: 25</p>
-                    <p>Fitness Enthusiast. Loves hiking and yoga.</p>
-                </div>
-            </div>
-            <div class="tinder--card">
-                <div class="user-image" style="background-image: url('https://cdn.prod.website-files.com/62aa9ab662e3d2778653006f/63dfa0be70afa6cb3db78a45_Solo60_Training%20Images-8-min.jpg');"></div>
-                <div class="user-info">
-                    <h3>Liam Smith</h3>
-                    <p>Age: 28</p>
-                    <p>Adventure seeker. Enjoys rock climbing and travel.</p>
-                </div>
-            </div>
-            <div class="tinder--card">
-                <div class="user-image" style="background-image: url('https://integrumtechnology.net/wp-content/uploads/2023/05/happy-young-woman-using-mobile-phone-in-gym-2021-09-03-07-02-04-utc1.jpg');"></div>
-                <div class="user-info">
-                    <h3>Olivia Brown</h3>
-                    <p>Age: 23</p>
-                    <p>Foodie and chef. Passionate about healthy eating.</p>
-                </div>
-            </div>
-            <div class="tinder--card">
-                <div class="user-image" style="background-image: url('https://res.cloudinary.com/hydrow/image/upload/f_auto/q_auto/v1693335736/Blog/how-to-enjoy-working-out-alone.jpg');"></div>
-                <div class="user-info">
-                    <h3>Noah Davis</h3>
-                    <p>Age: 30</p>
-                    <p>Tech geek. Loves coding and gaming.</p>
-                </div>
-            </div>
-            <div class="tinder--card">
-                <div class="user-image" style="background-image: url('https://www.theperfectworkout.com/cdn-cgi/image/width=1312,height=1312,fit=crop,quality=80,format=auto,onerror=redirect,metadata=none/wp-content/uploads/2024/05/Dedicated-personal-trainers-side-image.jpg');"></div>
-                <div class="user-info">
-                    <h3>Ava Wilson</h3>
-                    <p>Age: 26</p>
-                    <p>Artist and designer. Enjoys painting and photography.</p>
-                </div>
-            </div>
-            
-            
-        </div>
-        <div class="tinder--buttons">
-            <button id="nope"><i class="fa fa-remove"></i></button>
-            <button id="love"><i class="fa fa-heart"></i></button>
-        </div>
+    <!-- Action Buttons -->
+    <div class="row justify-content-center mt-2 w-100">
+      <div class="col-auto">
+        <button class="btn btn-warning" onclick="handleAction('block')" title="Block">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-warning" onclick="handleAction('skip')" title="Skip">
+          <i class="fas fa-ban"></i>
+        </button>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-warning" onclick="handleAction('like')" title="Like">
+          <i class="fas fa-thumbs-up"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
-    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+  <!-- JavaScript for profile swipe functionality -->
+  <script>
+  document.addEventListener("turbo:load", function () {
+    let currentCardIndex = 0;
+    const cards = document.querySelectorAll(".profile-card");
+
+    function initializeCards() {
+      cards.forEach((card, index) => {
+        card.style.display = index === 0 ? "block" : "none";
+      });
+    }
+
+    initializeCards();
+
+    function animateCard(action) {
+      const card = cards[currentCardIndex];
+      if (!card) return;
+
+      card.classList.add(`animate-${action}`);
+      
+      setTimeout(() => {
+        card.classList.remove(`animate-${action}`);
+        card.style.display = "none";
+
+        // Move to next card
+        currentCardIndex = (currentCardIndex + 1) % cards.length;
+        const nextCard = cards[currentCardIndex];
+        if (nextCard) nextCard.style.display = "block";
+      }, 500); // Time to match CSS transition duration
+    }
+
+    window.handleAction = function (action) {
+      animateCard(action);
+    };
+
+    window.filterProfiles = function () {
+      const searchTerm = document.getElementById("search").value.toLowerCase();
+      let found = false;
+
+      cards.forEach((card, index) => {
+        const profileText = card.innerText.toLowerCase();
+        if (profileText.includes(searchTerm)) {
+          if (!found) {
+            currentCardIndex = index;
+            card.style.display = "block";
+            found = true;
+          } else {
+            card.style.display = "none";
+          }
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      if (!found) currentCardIndex = -1;
+    };
+  });
+  </script>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    .profile-cards {
+      max-width: 400px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .profile-card {
+      border-radius: 10px;
+      overflow: hidden;
+      width: 100%;
+      max-height: 350px;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .profile-card.animate-like {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    .profile-card.animate-skip {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    .profile-card.animate-block {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    .card-title, .card-text {
+      margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    
+      .profile-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  max-height: 350px;
+  height: 350px; /* Set fixed height for consistent layout */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.profile-card img {
+  height: 70%; /* Image takes 80% of the card */
+  width: 100%;
+  
+  margin: 0;
+  padding:0;
+  object-fit: fill;
+}
+
+.card-body {
+  height: 30%; /* Card body takes 20% */
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+  </style>
 </body>
 </html>
