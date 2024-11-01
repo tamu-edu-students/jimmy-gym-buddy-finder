@@ -17,7 +17,19 @@ Capybara.default_max_wait_time = 5 # Adjust as needed for your app
 
 # Register Cuprite as the JavaScript driver
 Capybara.register_driver :cuprite do |app|
-  Capybara::Cuprite::Driver.new(app, headless: true)
+  # Capybara::Cuprite::Driver.new(app, headless: true)
+  driven_by Capybara.javascript_driver, options: {
+    window_size: [1200, 800],
+    browser_options: {},
+    # Increase Chrome startup wait time (required for stable CI builds)
+    process_timeout: 10,
+    # Enable debugging capabilities
+    inspector: true,
+    # Allow running Chrome in a headful mode
+    headless: !ENV["BROWSER"],
+    url_blacklist: [],
+  }
+  
 end
 
 Capybara.javascript_driver = :cuprite # Set Cuprite as the JavaScript drive
