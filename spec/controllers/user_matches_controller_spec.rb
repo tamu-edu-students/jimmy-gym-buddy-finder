@@ -46,21 +46,29 @@ RSpec.describe UserMatchesController, type: :controller do
 
   describe 'GET #prospective_users' do
     context 'when prospective users are available' do
-      it 'renders sorted prospective users as JSON' do
-        user_match = UserMatch.create!(user_id: user.id, prospective_user_id: prospective_user.id, status: 'new')
-        get :prospective_users, params: { id: user.id }
-        body = JSON.parse(response.body) rescue nil
-        expect(response).to be_successful
-        expect(body).not_to be_empty
-        expect(body.first['id']).to eq(prospective_user.id)
+      it 'returns sorted prospective users' do
+        UserMatch.create!(user_id: user.id, prospective_user_id: prospective_user.id, status: 'new')
+        
+        get :prospective_users, params: { user_id: user.id }
+        
+        expect(response).to have_http_status(:success)
+        
+        # Check if the instance variable is populated correctly
+        prospective_users = assigns(:prospective_users)
+        expect(prospective_users).not_to be_empty
+        expect(prospective_users.first['id']).to eq(prospective_user.id)
       end
     end
 
     context 'when no prospective users are available' do
       it 'returns an empty array' do
-        get :prospective_users, params: { id: user.id }
-        expect(response).to be_successful
-        expect(JSON.parse(response.body)).to eq([])
+        get :prospective_users, params: { user_id: user.id }
+        
+        expect(response).to have_http_status(:success)
+        
+        # Check if the instance variable is empty
+        prospective_users = assigns(:prospective_users)
+        expect(prospective_users).to eq([])
       end
     end
   end

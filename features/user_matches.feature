@@ -69,3 +69,14 @@ Feature: User Matches
     When I request to view prospective users
     Then I should see a list of filtered prospective users
     And the list should only include users matching my preferences  
+
+  Scenario: Fetching prospective users
+    Given I am a registered user
+    When I request prospective users
+    Then I should receive a list of prospective users
+
+  Scenario: Fetching prospective users when none available
+    Given I am a registered user
+    And there are no prospective users available
+    When I request prospective users
+    Then I should receive an empty list

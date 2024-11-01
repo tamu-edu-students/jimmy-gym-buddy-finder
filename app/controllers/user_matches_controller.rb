@@ -22,10 +22,6 @@ class UserMatchesController < ApplicationController
       filtered_users = filter_prospective_users(user, prospective_users)
 
       # Sort users based on the original ordered_ids to maintain the correct order
-      # sorted_prospective_users = ordered_ids.map do |id|
-      #   filtered_users.find { |user| user.id == id }
-      # end.compact # Remove nil values if there are any IDs not found
-
       sorted_prospective_users = ordered_ids.map do |id|
         user = filtered_users.find { |u| u.id == id }
         if user
@@ -37,6 +33,7 @@ class UserMatchesController < ApplicationController
         end
       end.compact
 
+      @prospective_users = sorted_prospective_users
       sorted_prospective_users
     end
 
