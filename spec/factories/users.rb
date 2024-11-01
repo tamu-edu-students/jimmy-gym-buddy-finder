@@ -2,12 +2,15 @@ FactoryBot.define do
   factory :user do
     uid { "123456789" }
     provider { "google_oauth2" }
-    sequence(:email) { |n| "user#{n}@example.com" } 
+    sequence(:email) { |n| "user#{n}@example.com" }
+    username { 'TestUser' }
+    age { 30 }
+    gender { "Male" }
 
     trait :complete_profile do
-      username { 'TestUser' }
-      age { 25 }
-      gender { 'Male' }
+      # after(:create) do |user, evaluator|
+      #   create(:fitness_profile, user: user)
+      # end
     end
 
     trait :incomplete_profile do

@@ -1,14 +1,13 @@
 class UserMatchesController < ApplicationController
-
   before_action :require_login
 
     # Existing method to get prospective users
     def prospective_users
       user_id = params[:id]
-  
-      new_user_ids = UserMatch.where(user_id: user_id, status: 'new').pluck(:prospective_user_id)
-      skipped_user_ids = UserMatch.where(user_id: user_id, status: 'skipped').pluck(:prospective_user_id)
-      
+
+      new_user_ids = UserMatch.where(user_id: user_id, status: "new").pluck(:prospective_user_id)
+      skipped_user_ids = UserMatch.where(user_id: user_id, status: "skipped").pluck(:prospective_user_id)
+
       # Combine IDs in the desired order (new first, then skipped)
       ordered_ids = new_user_ids + skipped_user_ids
 
@@ -35,27 +34,27 @@ class UserMatchesController < ApplicationController
         render json: { error: "You cannot match yourself." }, status: :unprocessable_entity
         return
       end
-    
+
       # Create or update the user match entry
       user_match = UserMatch.find_or_initialize_by(user_id: user.id, prospective_user_id: prospective_user.id)
-      user_match.status = 'matched'
-    
+      user_match.status = "matched"
+
       if user_match.save
         # Check if the other user has also matched the current user
-        reciprocal_match = UserMatch.find_by(user_id: prospective_user.id, prospective_user_id: user.id, status: 'matched')
-    
+        reciprocal_match = UserMatch.find_by(user_id: prospective_user.id, prospective_user_id: user.id, status: "matched")
+
         if reciprocal_match
           # Create notifications for both users
           Notification.create(user: user, matched_user: prospective_user, read: false)
           Notification.create(user: prospective_user, matched_user: user, read: false)
         end
-    
-        render json: { message: 'Matched successfully.' }, status: :ok
+
+        render json: { message: "Matched successfully." }, status: :ok
       else
-        render json: { error: 'Failed to match.' }, status: :unprocessable_entity
+        render json: { error: "Failed to match." }, status: :unprocessable_entity
       end
     end
-  
+
     # Skip a prospective user
     def skip
       user = User.find(params[:user_id])
@@ -65,18 +64,18 @@ class UserMatchesController < ApplicationController
         render json: { error: "You cannot skip yourself." }, status: :unprocessable_entity
         return
       end
-    
+
       # Create or update the user match entry
       user_match = UserMatch.find_or_initialize_by(user_id: user.id, prospective_user_id: prospective_user.id)
-      user_match.status = 'skipped'
-    
+      user_match.status = "skipped"
+
       if user_match.save
-        render json: { message: 'Skipped successfully.' }, status: :ok
+        render json: { message: "Skipped successfully." }, status: :ok
       else
-        render json: { error: 'Failed to skip.' }, status: :unprocessable_entity
+        render json: { error: "Failed to skip." }, status: :unprocessable_entity
       end
     end
-  
+
     # Block a prospective user
     def block
       user = User.find(params[:user_id])
@@ -86,15 +85,15 @@ class UserMatchesController < ApplicationController
         render json: { error: "You cannot block yourself." }, status: :unprocessable_entity
         return
       end
-    
+
       # Create or update the user match entry
       user_match = UserMatch.find_or_initialize_by(user_id: user.id, prospective_user_id: prospective_user.id)
-      user_match.status = 'blocked'
-    
+      user_match.status = "blocked"
+
       if user_match.save
-        render json: { message: 'Blocked successfully.' }, status: :ok
+        render json: { message: "Blocked successfully." }, status: :ok
       else
-        render json: { error: 'Failed to block.' }, status: :unprocessable_entity
+        render json: { error: "Failed to block." }, status: :unprocessable_entity
       end
     end
 
@@ -102,11 +101,11 @@ class UserMatchesController < ApplicationController
 
     def filter_prospective_users(user, prospective_users)
         fitness_profile = user.fitness_profile
-    
+
         prospective_users.select do |prospective_user|
         prospective_fitness_profile = prospective_user.fitness_profile
         next unless prospective_fitness_profile
-    
+
         # Apply filtering criteria
         age_criteria = prospective_user.age.between?(fitness_profile.age_range_start, fitness_profile.age_range_end)
         Rails.logger.info("Age criteria for #{prospective_user.username}: #{age_criteria}")
@@ -134,32 +133,30 @@ class UserMatchesController < ApplicationController
 
     def match_gender?(gender_preferences, prospective_gender)
       # Split the gender preferences into an array
-      preferences = gender_preferences.split(',') || []
-    
+      preferences = gender_preferences.split(",") || []
+
       # Check if the prospective user's gender matches any of the preferences
-      preferences.include?(prospective_gender) || preferences.include?('Any')
+      preferences.include?(prospective_gender) || preferences.include?("Any")
     end
 
     def match_gym_locations?(user_locations, prospective_locations)
-      (user_locations.split(',') & prospective_locations.split(',')).any?
+      (user_locations.split(",") & prospective_locations.split(",")).any?
     end
 
     def match_activities?(user_activities, prospective_activities)
       # Extract activity names by splitting on the '|' character
-      user_activity_names = user_activities.split('|').map { |activity| activity.split(':').first.strip }
-      prospective_activity_names = prospective_activities.split('|').map { |activity| activity.split(':').first.strip }
-    
+      user_activity_names = user_activities.split("|").map { |activity| activity.split(":").first.strip }
+      prospective_activity_names = prospective_activities.split("|").map { |activity| activity.split(":").first.strip }
+
       # Check if there's any overlap between the activity names
       (user_activity_names & prospective_activity_names).any?
     end
 
     def match_workout_schedule?(user_schedule, prospective_schedule)
-      (user_schedule.split('|') & prospective_schedule.split('|')).any?
+      (user_schedule.split("|") & prospective_schedule.split("|")).any?
     end
 
     def match_workout_types?(user_types, prospective_types)
-      (user_types.split(',') & prospective_types.split(',')).any?
+      (user_types.split(",") & prospective_types.split(",")).any?
     end
-  
-  end
-  
+end
