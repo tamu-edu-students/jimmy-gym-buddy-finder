@@ -20,8 +20,8 @@ Rails.application.routes.draw do
     resource :fitness_profile, only: [ :new, :create, :show, :edit, :update ]
   end
 
-  get "matching/profileswipe", to: "matching#profileswipe", as: "profileswipe"
-  get "users/:id/prospective_users", to: "user_matches#prospective_users"
+  get 'matching/:user_id/profileswipe', to: 'matching#profileswipe', as: 'matching_profileswipe'
+  get "users/:user_id/prospective_users", to: "user_matches#prospective_users"
 
   # Routes for handling user actions on prospective users
   get "users/:user_id/match/:prospective_user_id", to: "user_matches#match"
