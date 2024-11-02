@@ -102,7 +102,7 @@ RSpec.describe UsersController, type: :controller do
         allow(large_photo).to receive(:content_type).and_return('image/jpeg')
         allow(large_photo).to receive(:size).and_return(1.megabyte)
         allow_any_instance_of(User).to receive(:update).and_return(false)
-        allow_any_instance_of(User).to receive(:errors).and_return(photo: ["must be less than 500KB in size."])
+        allow_any_instance_of(User).to receive(:errors).and_return(photo: [ "must be less than 500KB in size." ])
       end
 
       it "sets a flash alert for photo size" do
@@ -117,7 +117,7 @@ RSpec.describe UsersController, type: :controller do
       before do
         allow(invalid_photo).to receive(:content_type).and_return('text/plain')
         allow_any_instance_of(User).to receive(:update).and_return(false)
-        allow_any_instance_of(User).to receive(:errors).and_return(photo: ["must be a JPEG, JPG, GIF, or PNG."])
+        allow_any_instance_of(User).to receive(:errors).and_return(photo: [ "must be a JPEG, JPG, GIF, or PNG." ])
       end
 
       it "sets a flash alert for photo format" do

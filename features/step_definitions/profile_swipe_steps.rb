@@ -14,8 +14,8 @@ Given("I am logged in as a user for profile swipe") do
 
 When("I visit the profile swipe page") do
     allow(UserMatchesController).to receive(:get_prospective_users).and_return([
-      {'id' => 1, 'username' => 'user1', 'age' => 25, 'fitness_profile' => {'activities_with_experience' => 'Running:Intermediate'}},
-      {'id' => 2, 'username' => 'user2', 'age' => 30, 'fitness_profile' => {'activities_with_experience' => 'Swimming:Beginner'}}
+      { 'id' => 1, 'username' => 'user1', 'age' => 25, 'fitness_profile' => { 'activities_with_experience' => 'Running:Intermediate' } },
+      { 'id' => 2, 'username' => 'user2', 'age' => 30, 'fitness_profile' => { 'activities_with_experience' => 'Swimming:Beginner' } }
     ])
     visit matching_profileswipe_path(@user.id)
   end

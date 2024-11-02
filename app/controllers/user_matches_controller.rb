@@ -25,9 +25,9 @@ class UserMatchesController < ApplicationController
       sorted_prospective_users = ordered_ids.map do |id|
         user = filtered_users.find { |u| u.id == id }
         if user
-          user_data = user.as_json(only: [:id, :username, :email, :age, :gender, :photo])
+          user_data = user.as_json(only: [ :id, :username, :email, :age, :gender, :photo ])
           if user.fitness_profile
-            user_data['fitness_profile'] = user.fitness_profile.as_json(only: [:activities_with_experience, :gym_locations, :workout_schedule, :workout_types])
+            user_data["fitness_profile"] = user.fitness_profile.as_json(only: [ :activities_with_experience, :gym_locations, :workout_schedule, :workout_types ])
           end
           user_data
         end

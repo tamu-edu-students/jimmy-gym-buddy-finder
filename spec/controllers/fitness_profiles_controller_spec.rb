@@ -39,10 +39,10 @@ RSpec.describe FitnessProfilesController, type: :controller do
         age_range_end: 30,
         fitness_goals: "Stay fit",
         workout_schedule: "Monday=09:00-10:00|Wednesday=14:00-15:00",
-        gender_preferences: ["Male", "Female"],
-        workout_types: ["Cardio", "Strength"],
-        gym_locations: ["Gym A", "Gym B"],
-        activities_with_experience: ["Running:Intermediate", "Swimming:Beginner"]
+        gender_preferences: [ "Male", "Female" ],
+        workout_types: [ "Cardio", "Strength" ],
+        gym_locations: [ "Gym A", "Gym B" ],
+        activities_with_experience: [ "Running:Intermediate", "Swimming:Beginner" ]
       }
     end
 
@@ -79,10 +79,10 @@ RSpec.describe FitnessProfilesController, type: :controller do
         age_range_end: 35,
         fitness_goals: "Build muscle",
         workout_schedule: "Tuesday=10:00-11:00|Thursday=16:00-17:00",
-        gender_preferences: ["Female"],
-        workout_types: ["Strength"],
-        gym_locations: ["Gym C"],
-        activities_with_experience: ["Weightlifting:Advanced"]
+        gender_preferences: [ "Female" ],
+        workout_types: [ "Strength" ],
+        gym_locations: [ "Gym C" ],
+        activities_with_experience: [ "Weightlifting:Advanced" ]
       }
     end
 

@@ -42,13 +42,13 @@ end
 
 Then("I should see a success message") do
   expect(page.status_code).to eq(200)
-  
+
   success_messages = {
     "match" => "Matched successfully.",
     "skip" => "Skipped successfully.",
     "block" => "Blocked successfully."
   }
-  
+
   expected_message = success_messages[@current_action]
   expect(JSON.parse(page.body)["message"]).to eq(expected_message)
 end
@@ -123,8 +123,8 @@ Given("there are multiple prospective users with various profiles") do
   )
 
   # Create a matching user
-  @matching_user = FactoryBot.create(:user, 
-    age: 30, 
+  @matching_user = FactoryBot.create(:user,
+    age: 30,
     gender: "Female",
     username: "MatchingUser"
   )
@@ -139,8 +139,8 @@ Given("there are multiple prospective users with various profiles") do
   )
 
   # Create a non-matching user
-  @non_matching_user = FactoryBot.create(:user, 
-    age: 40, 
+  @non_matching_user = FactoryBot.create(:user,
+    age: 40,
     gender: "Male",
     username: "NonMatchingUser"
   )

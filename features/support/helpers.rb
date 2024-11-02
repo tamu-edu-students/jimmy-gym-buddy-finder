@@ -9,6 +9,6 @@ module Helpers
         []
       end
     end
-  end
-  
+end
+
   World(Helpers)

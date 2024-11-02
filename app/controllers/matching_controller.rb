@@ -4,11 +4,11 @@ class MatchingController < ApplicationController
       user_matches_controller = UserMatchesController.new
       user_matches_controller.request = request
       user_matches_controller.response = response
-  
+
       # Call the prospective_users method
       @prospective_users = user_matches_controller.prospective_users
       Rails.logger.info(@prospective_users)
-  
-      render 'profileswipe'
+
+      render "profileswipe"
     end
-  end
+end

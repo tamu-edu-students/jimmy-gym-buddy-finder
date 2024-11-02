@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resource :fitness_profile, only: [ :new, :create, :show, :edit, :update ]
   end
 
-  get 'matching/:user_id/profileswipe', to: 'matching#profileswipe', as: 'matching_profileswipe'
+  get "matching/:user_id/profileswipe", to: "matching#profileswipe", as: "matching_profileswipe"
   get "users/:user_id/prospective_users", to: "user_matches#prospective_users"
 
 
@@ -38,6 +38,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'buddies', to: 'buddies#index', as: 'buddies'
-  get 'chatrooms/:buddy_name', to: 'chatrooms#show', as: 'chatroom'
+  get "buddies", to: "buddies#index", as: "buddies"
+  get "chatrooms/:buddy_name", to: "chatrooms#show", as: "chatroom"
 end
