@@ -1,0 +1,274 @@
+/* app/assets/stylesheets/fitness_profiles.scss */
+
+#genderButton,
+#gymLocationButton {
+  width: 100%;
+  padding: 8px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: left;
+  background-color: #fff;
+}
+
+.dropdown-content {
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  display: none; /* Initially hidden */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dropdown.active .dropdown-content {
+  display: block;
+}
+
+.dropdown-content label {
+  display: block;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.dropdown-content label:hover {
+  background-color: #f1f1f1;
+}
+
+.form-group {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  select,
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+}
+
+.age-select-group,
+.activity-experience-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+
+  select {
+    flex: 1;
+  }
+}
+
+.activity-list,
+.workout-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+
+  li {
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    border-radius: 4px;
+  }
+}
+
+.add-button-activity, .add-button-workout {
+  display: inline-block;
+  margin: 10px 0;
+  background-color: #9eba00;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #9eba00;
+  }
+}
+
+.workout-schedule-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Style the day select dropdown */
+  .day-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .day-select:hover {
+    border-color: #a3bb33;
+  }
+  
+  .day-select:focus {
+    outline: none;
+    border-color: #a3bb33;
+    box-shadow: 0 0 0 2px rgba(163, 187, 51, 0.2);
+  }
+  
+  /* Style the schedule items */
+  .schedule-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .schedule-item:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  /* Style the day label */
+  .day-label {
+    width: 100px;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Style the time select dropdowns */
+  .time-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    background-color: white;
+    transition: all 0.3s ease;
+    min-width: 120px;
+  }
+  
+  .time-select:hover {
+    border-color: #a3bb33;
+  }
+  
+  .time-select:focus {
+    outline: none;
+    border-color: #a3bb33;
+    box-shadow: 0 0 0 2px rgba(163, 187, 51, 0.2);
+  }
+  
+  /* Style the remove button */
+  .remove-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 8px;
+    margin-left: auto;
+    transition: all 0.3s ease;
+  }
+  
+  .remove-btn:hover {
+    color: #c82333;
+    transform: scale(1.1);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .schedule-item {
+      flex-wrap: wrap;
+      padding: 10px;
+    }
+    
+    .day-label {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+    
+    .time-select {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .remove-btn {
+      padding: 4px;
+    }
+    
+    .workout-schedule-container {
+      margin: 0 10px;
+    }
+  }
+  
+  /* Add your custom button styling */
+  .btn-add-schedule {
+    background-color: #a3bb33;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .btn-add-schedule:hover {
+    background-color: #92c74f;
+    transform: scale(1.05);
+  }
+  
+  /* Style the time separator */
+  .time-separator {
+    color: #333;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Add shadows to dropdowns when active */
+  .time-select:focus,
+  .day-select:focus {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style option elements in dropdowns */
+  .time-select option,
+  .day-select option {
+    font-family: 'Poppins', sans-serif;
+    padding: 8px;
+  }
+  
+  /* Container for time selectors */
+  .time-selectors-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+  }

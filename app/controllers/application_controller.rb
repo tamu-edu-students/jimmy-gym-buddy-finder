@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :require_login
   before_action :check_profile_completion
   before_action :ensure_fitness_profile
+  before_action :load_notifications
 
   private
 
@@ -34,6 +35,14 @@ class ApplicationController < ActionController::Base
   def ensure_fitness_profile
     if @user && @user.fitness_profile.nil?
       @user.create_fitness_profile
+    end
+  end
+
+  def load_notifications
+    if session[:user_id]
+      @notifications = Notification.where(user_id: session[:user_id]).includes(:matched_user)
+    else
+      @notifications = []
     end
   end
 end
