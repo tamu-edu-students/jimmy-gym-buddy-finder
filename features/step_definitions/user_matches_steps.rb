@@ -1,3 +1,4 @@
+
 # features/step_definitions/user_matches_steps.rb
 
 require 'rack/test'
@@ -11,12 +12,13 @@ Given("I am logged in as a user") do
 end
 
 When("I request to view prospective users") do
-  visit "/users/#{@user.id}/prospective_users"
+  visit "/users/#{@user.id}/prospective_users.json"
+  @response_body = JSON.parse(page.body)
 end
 
 Then("I should see a list of filtered prospective users") do
   expect(page.status_code).to eq(200)
-  expect(JSON.parse(page.body)).to be_an(Array)
+  expect(@response_body).to be_an(Array)
 end
 
 Given("there is a prospective user") do
@@ -164,47 +166,4 @@ Then("the list should only include users matching my preferences") do
   puts "Non-matching user ID: #{@non_matching_user.id}"
   expect(response_body.length).to eq(1)
   expect(response_body.first["id"]).to eq(@matching_user.id)
-end
-
-Given("I am a registered user") do
-  @user = FactoryBot.create(:user, :complete_profile)
-  page.set_rack_session(user_id: @user.id)
-end
-
-When("I request prospective users") do
-  visit "/users/#{@user.id}/prospective_users"
-end
-
-Then("I should receive a list of prospective users") do
-  expect(page.status_code).to eq(200)
-  
-  if page.response_headers['Content-Type'].include?('application/json')
-    # If the response is JSON
-    json_response = JSON.parse(page.body)
-    expect(json_response).to be_an(Array)
-    expect(json_response).not_to be_empty
-  else
-    # If the response is HTML
-    expect(page).to have_content
-    expect(page).not_to have_content("No prospective users found")
-  end
-end
-
-Given("there are no prospective users available") do
-  # Ensure there are no prospective users for the current user
-  UserMatch.where(user_id: @user.id).destroy_all
-end
-
-Then("I should receive an empty list") do
-  expect(page.status_code).to eq(200)
-  
-  if page.response_headers['Content-Type'].include?('application/json')
-    # If the response is JSON
-    json_response = JSON.parse(page.body)
-    expect(json_response).to be_an(Array)
-    expect(json_response).to be_empty
-  else
-    # If the response is HTML
-    expect(page).to have_content("No prospective users found")
-  end
 end

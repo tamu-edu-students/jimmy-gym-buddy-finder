@@ -34,7 +34,11 @@ class UserMatchesController < ApplicationController
       end.compact
 
       @prospective_users = sorted_prospective_users
-      sorted_prospective_users
+      if request.format.json?
+        render json: @prospective_users
+      else
+        @prospective_users
+      end
     end
 
     # Match a prospective user
@@ -113,6 +117,10 @@ class UserMatchesController < ApplicationController
 
     def filter_prospective_users(user, prospective_users)
         fitness_profile = user.fitness_profile
+        if fitness_profile.nil?
+          Rails.logger.warn("Fitness profile is nil for user")
+          return []  # or handle this case appropriately
+        end
 
         prospective_users.select do |prospective_user|
         prospective_fitness_profile = prospective_user.fitness_profile
