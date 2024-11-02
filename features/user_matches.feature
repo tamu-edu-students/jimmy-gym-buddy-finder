@@ -69,3 +69,4 @@ Feature: User Matches
     When I request to view prospective users
     Then I should see a list of filtered prospective users
     And the list should only include users matching my preferences  
+    

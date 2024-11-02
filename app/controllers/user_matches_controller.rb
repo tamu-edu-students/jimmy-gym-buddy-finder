@@ -3,10 +3,14 @@ class UserMatchesController < ApplicationController
 
     # Existing method to get prospective users
     def prospective_users
-      user_id = params[:id]
+      user_id = params[:user_id]
+      Rails.logger.info(user_id)
 
       new_user_ids = UserMatch.where(user_id: user_id, status: "new").pluck(:prospective_user_id)
       skipped_user_ids = UserMatch.where(user_id: user_id, status: "skipped").pluck(:prospective_user_id)
+
+      Rails.logger.info(new_user_ids)
+      Rails.logger.info(skipped_user_ids)
 
       # Combine IDs in the desired order (new first, then skipped)
       ordered_ids = new_user_ids + skipped_user_ids
@@ -19,10 +23,22 @@ class UserMatchesController < ApplicationController
 
       # Sort users based on the original ordered_ids to maintain the correct order
       sorted_prospective_users = ordered_ids.map do |id|
-        filtered_users.find { |user| user.id == id }
-      end.compact # Remove nil values if there are any IDs not found
+        user = filtered_users.find { |u| u.id == id }
+        if user
+          user_data = user.as_json(only: [:id, :username, :email, :age, :gender, :photo])
+          if user.fitness_profile
+            user_data['fitness_profile'] = user.fitness_profile.as_json(only: [:activities_with_experience, :gym_locations, :workout_schedule, :workout_types])
+          end
+          user_data
+        end
+      end.compact
 
-      render json: sorted_prospective_users
+      @prospective_users = sorted_prospective_users
+      if request.format.json?
+        render json: @prospective_users
+      else
+        @prospective_users
+      end
     end
 
     # Match a prospective user
@@ -101,6 +117,10 @@ class UserMatchesController < ApplicationController
 
     def filter_prospective_users(user, prospective_users)
         fitness_profile = user.fitness_profile
+        if fitness_profile.nil?
+          Rails.logger.warn("Fitness profile is nil for user")
+          return []  # or handle this case appropriately
+        end
 
         prospective_users.select do |prospective_user|
         prospective_fitness_profile = prospective_user.fitness_profile

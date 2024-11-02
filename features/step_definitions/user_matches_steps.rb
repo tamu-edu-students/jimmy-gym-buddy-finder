@@ -1,3 +1,4 @@
+
 # features/step_definitions/user_matches_steps.rb
 
 require 'rack/test'
@@ -11,12 +12,13 @@ Given("I am logged in as a user") do
 end
 
 When("I request to view prospective users") do
-  visit "/users/#{@user.id}/prospective_users"
+  visit "/users/#{@user.id}/prospective_users.json"
+  @response_body = JSON.parse(page.body)
 end
 
 Then("I should see a list of filtered prospective users") do
   expect(page.status_code).to eq(200)
-  expect(JSON.parse(page.body)).to be_an(Array)
+  expect(@response_body).to be_an(Array)
 end
 
 Given("there is a prospective user") do
