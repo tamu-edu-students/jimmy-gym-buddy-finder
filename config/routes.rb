@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get 'matching/:user_id/profileswipe', to: 'matching#profileswipe', as: 'matching_profileswipe'
   get "users/:user_id/prospective_users", to: "user_matches#prospective_users"
 
+
   # Routes for handling user actions on prospective users
   get "users/:user_id/match/:prospective_user_id", to: "user_matches#match"
   post "users/:user_id/skip/:prospective_user_id", to: "user_matches#skip"
@@ -36,4 +37,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  get 'buddies', to: 'buddies#index', as: 'buddies'
+  get 'chatrooms/:buddy_name', to: 'chatrooms#show', as: 'chatroom'
 end
