@@ -1,23 +1,58 @@
 <h1 class="text-center mb-5 display-4">Fitness Profile</h1>
+<style>
+  /* Custom styling if Bootstrap's `list-unstyled` is unavailable */
+  .list-unstyled {
+    list-style-type: none;
+    padding-left: 0;
+  }
+</style>
 
 <div class="container">
   <div class="card shadow-lg mb-5 profile-card" style="max-width: 700px; margin: 0 auto; border-radius: 15px;">
     <div class="card-body">
       <h4 class="card-title mb-3"><strong><%= @user.username %>'s Fitness Profile</strong></h4>
+      
       <ul class="list-group list-group-flush">
         <li class="list-group-item bg-transparent text-dark">
           <i class="bi bi-calendar"></i> <strong>Age Range:</strong> <%= @fitness_profile.age_range_start %> - <%= @fitness_profile.age_range_end %>
         </li>
+
         <li class="list-group-item bg-transparent text-dark">
-          <i class="bi bi-graph-up"></i> <strong>Fitness Goals:</strong> <%= @fitness_profile.fitness_goals %>
+          <i class="bi bi-fitness"></i> <strong>Workout Types:</strong> <%= @fitness_profile.workout_types_array.join(', ') %>
         </li>
+
         <li class="list-group-item bg-transparent text-dark">
-          <i class="bi bi-fitness"></i> <strong>Workout Types:</strong> <%= @fitness_profile.workout_types %>
+          <i class="bi bi-gender-ambiguous"></i> <strong>Buddy Gender Preference:</strong> <%= @fitness_profile.gender_preferences_array.join(', ') %>
         </li>
+
         <li class="list-group-item bg-transparent text-dark">
-          <i class="bi bi-gender-ambiguous"></i> <strong>Buddy Gender Preference:</strong> <%= @fitness_profile.gender %>
+          <i class="bi bi-geo-alt"></i> <strong>Preferred Gym Locations:</strong> <%= @fitness_profile.gym_locations_array.join(', ') %>
+        </li>
+
+        <li class="list-group-item bg-transparent text-dark">
+          <i class="bi bi-activity"></i> <strong>Preferred Activities and Experience Level:</strong>
+          <ul class="list-unstyled">
+            <% @fitness_profile.activities_array.each do |activity| %>
+              <li><%= activity['activity'] %> - <%= activity['experience'] %></li>
+            <% end %>
+          </ul>
+        </li>
+
+        <li class="list-group-item bg-transparent text-dark">
+          <i class="bi bi-clock"></i> <strong>Workout Days and Time Range:</strong>
+          <ul class="list-unstyled">
+            <% @fitness_profile.schedule_hash.each do |day, times| %>
+              <li><%= day %>: <%= times['start'] %> to <%= times['end'] %></li>
+            <% end %>
+          </ul>
+        </li>
+
+        <!-- New Section for Preferred Workouts -->
+        <li class="list-group-item bg-transparent text-dark">
+          <i class="bi bi-heart-pulse"></i> <strong>Preferred Workouts:</strong> <%= @fitness_profile.workout_types_array.join(', ') %>
         </li>
       </ul>
+      
       <div class="mt-4 text-center">
         <a href="<%= edit_user_fitness_profile_path(@user, @fitness_profile) %>" class="btn custom-btn text-white">Edit Profile</a>
       </div>

@@ -1,5 +1,13 @@
 @import "bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import 'fitness_profiles';
+@import 'chat';
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   background-image: url('./bg-image-gym-buddies.png');
@@ -24,7 +32,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(150, 0, 0, 0.2));
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(150, 0, 0, 0.2));
   z-index: 1;
 }
 

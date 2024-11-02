@@ -82,6 +82,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "cuprite"
   gem "cucumber-rails", require: false
   gem "database_cleaner"
   gem "rails-controller-testing"
@@ -92,7 +93,7 @@ group :test do
   gem "rack_session_access"
   gem "omniauth-test"
 
-  # gem "codeclimate-test-reporter", require: nil
+  gem "codeclimate-test-reporter", require: nil
 end
 
 group :production do
