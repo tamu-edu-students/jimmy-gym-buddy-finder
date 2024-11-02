@@ -11,24 +11,31 @@ document.addEventListener("turbo:load", function() {
   });
   
 
-  function showChat() {
-    document.getElementById("chat-tab").classList.add("active");
-    document.getElementById("profile-tab").classList.remove("active");
-    document.getElementById("chat-tab").style.color = "orange";
-    document.getElementById("profile-tab").style.color = "black";
-    document.getElementById("chat-area").style.display = "flex";
-    document.getElementById("profile-area").style.display = "none";
+  function switchTab(tab) {
+    if (tab === 'chat') {
+        document.getElementById("chat-tab").classList.add("active");
+        document.getElementById("profile-tab").classList.remove("active");
+        document.getElementById("chat-tab").style.color = "orange";
+        document.getElementById("profile-tab").style.color = "black";
+        document.getElementById("chat-area").style.display = "flex";
+        document.getElementById("profile-area").style.display = "none";
+    } else if (tab === 'profile') {
+        document.getElementById("profile-tab").classList.add("active");
+        document.getElementById("chat-tab").classList.remove("active");
+        document.getElementById("profile-tab").style.color = "orange";
+        document.getElementById("chat-tab").style.color = "black";
+        document.getElementById("profile-area").style.display = "block";
+        document.getElementById("chat-area").style.display = "none";
+    }
     document.getElementById("input-area").style.display = "flex";
   }
-  
+
+  function showChat() {
+      switchTab('chat');
+  }
+
   function showProfile() {
-    document.getElementById("profile-tab").classList.add("active");
-    document.getElementById("chat-tab").classList.remove("active");
-    document.getElementById("profile-tab").style.color = "orange";
-    document.getElementById("chat-tab").style.color = "black";
-    document.getElementById("profile-area").style.display = "block";
-    document.getElementById("chat-area").style.display = "none";
-    document.getElementById("input-area").style.display = "flex";
+      switchTab('profile');
   }
   
   function toggleMenu() {
