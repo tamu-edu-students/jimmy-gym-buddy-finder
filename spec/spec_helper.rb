@@ -6,7 +6,7 @@ SimpleCov.start 'rails' do
   add_group "Long files" do |src_file|
     src_file.lines.count > 100
   end
-  add_group "Multiple Files", ["app/models", "app/controllers"] # You can also pass in an array
+  add_group "Multiple Files", [ "app/models", "app/controllers" ] # You can also pass in an array
   track_files 'app/helpers/*/.rb'  # Ensure helpers are tracked
 end
 

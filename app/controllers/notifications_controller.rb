@@ -6,7 +6,7 @@ class NotificationsController < ApplicationController
       notifications = user.notifications.order(created_at: :desc)
       render json: notifications, status: :ok
     end
-  
+
     def mark_as_read
       notification = user.notifications.find(params[:id])
       notification.update(read: true)
@@ -26,7 +26,7 @@ class NotificationsController < ApplicationController
         format.html { redirect_to notifications_path, notice: "Notification updated." }
       end
     end
-  
+
     def mark_as_unread
       notification = user.notifications.find(params[:id])
       notification.update(read: false)
