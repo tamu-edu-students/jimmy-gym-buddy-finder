@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   # Routes for handling user actions on prospective users
   get "users/:user_id/match/:prospective_user_id", to: "user_matches#match"
   post "users/:user_id/skip/:prospective_user_id", to: "user_matches#skip"
-  post "users/:user_id/block/:prospective_user_id", to: "user_matches#block"
+  post "users/:user_id/block/:prospective_user_id", to: "user_matches#block", as: "block_user"
 
   resources :users do
     resources :notifications, only: [ :index, :create ] do
@@ -40,4 +40,7 @@ Rails.application.routes.draw do
 
   get "buddies", to: "buddies#index", as: "buddies"
   get "chatrooms/:buddy_name", to: "chatrooms#show", as: "chatroom"
+
+  get 'users/:user_id/matched_users', to: 'user_matches#matched_users', as: 'matched_users'
+
 end
