@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :check_profile_completion
   before_action :ensure_fitness_profile
   before_action :load_notifications
+  helper_method :current_user
 
   private
 
@@ -44,5 +45,10 @@ class ApplicationController < ActionController::Base
     else
       @notifications = []
     end
+  end
+
+  def current_user
+    return unless session[:user_id]
+    @current_user ||= User.find(session[:user_id])
   end
 end

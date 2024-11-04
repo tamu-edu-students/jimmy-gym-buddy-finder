@@ -43,6 +43,11 @@ class UserMatchesController < ApplicationController
     render json: result, status: result[:status]
   end
 
+  def block_from_profile
+    result = MatchingService.perform_action("block", current_user, prospective_user)
+    redirect_to matched_users_path(@user), notice: "User has been blocked."
+  end
+
   private
 
   def log_user_info(user_id)

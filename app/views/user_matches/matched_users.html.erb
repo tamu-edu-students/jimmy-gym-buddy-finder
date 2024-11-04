@@ -16,10 +16,12 @@
     <div class="user-list">
       <% @matched_users.each do |user| %>
         <div class="d-flex justify-content-between align-items-center user-card py-2">
-          <!-- Only showing username -->
-          <div class="user-information" onclick="location.href='<%= user_path(user) %>';" style="cursor: pointer;">
-            <span class="user-name fw-bold text-dark"><%= user.username %></span>
-          </div>
+          <!-- Corrected link_to for user profile -->
+          <%= link_to user_matched_user_profile_path(user_id: current_user.id, id: user.id), class: "user-information", style: "cursor: pointer; text-decoration: none;" do %>
+            <div>
+              <span class="user-name fw-bold text-dark"><%= user.username %></span>
+            </div>
+          <% end %>
           <!-- Message button -->
           <button class="btn btn-outline-dark btn-sm message-btn" data-user-id="<%= user.id %>">
             Message
@@ -28,7 +30,7 @@
       <% end %>
     </div>
   <% else %>
-    <div class="alert alert-info text-center mt-3">
+    <div class="alert alert-custom text-center mt-3">
       No matched users found.
     </div>
   <% end %>
@@ -91,9 +93,18 @@
   }
 
   h1 {
-  color: #a3bb33;; /* Bright color for visibility */
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0); /* Optional text shadow */
-  font-weight: bold; /* Make the text bold */
+    color: #a3bb33;; /* Bright color for visibility */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0); /* Optional text shadow */
+    font-weight: bold; /* Make the text bold */
+  }
+
+  .alert-custom {
+    background-color: #a3bb33;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 20px;
 }
 </style>
 
