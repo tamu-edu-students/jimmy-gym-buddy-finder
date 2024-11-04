@@ -57,95 +57,106 @@
 
   <!-- JavaScript for profile swipe functionality -->
   <script>
-    document.addEventListener("turbo:load", function () {
-      let currentCardIndex = 0;
-      const cards = document.querySelectorAll(".profile-card");
+  document.addEventListener("turbo:load", function () {
+  let currentCardIndex = 0;
+  const cards = document.querySelectorAll(".profile-card");
+  let availableCards = [...cards];
 
-      function initializeCards() {
-        cards.forEach((card, index) => {
-          card.style.display = index === 0 ? "block" : "none";
-        });
-      }
-
-      initializeCards();
-
-      function animateCard(action) {
-        const card = cards[currentCardIndex];
-        if (!card) return;
-
-        card.classList.add(`animate-${action}`);
-        
-        setTimeout(() => {
-          card.classList.remove(`animate-${action}`);
-          card.style.display = "none";
-
-          // Move to next card
-          currentCardIndex = (currentCardIndex + 1) % cards.length;
-          const nextCard = cards[currentCardIndex];
-          if (nextCard) nextCard.style.display = "block";
-        }, 500); // Time to match CSS transition duration
-      }
-
-      window.handleAction = function (action) {
-        const card = cards[currentCardIndex];
-        const userId = <%= @user_id %>;
-        const prospectiveUserId = card.dataset.userId;
-
-        let url;
-        let method;
-
-        switch (action) {
-          case 'like':
-            url = `/users/${userId}/match/${prospectiveUserId}`;
-            method = 'GET';
-            break;
-          case 'skip':
-            url = `/users/${userId}/skip/${prospectiveUserId}`;
-            method = 'POST';
-            break;
-          case 'block':
-            url = `/users/${userId}/block/${prospectiveUserId}`;
-            method = 'POST';
-            break;
-        }
-
-        fetch(url, { 
-          method: method, 
-          headers: { 
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
-            'Content-Type': 'application/json'
-          }
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log(data.message);
-            animateCard(action);
-          })
-          .catch(error => console.error('Error:', error));
-      };
-
-      window.filterProfiles = function () {
-        const searchTerm = document.getElementById("search").value.toLowerCase();
-        let found = false;
-
-        cards.forEach((card, index) => {
-          const profileText = card.innerText.toLowerCase();
-          if (profileText.includes(searchTerm)) {
-            if (!found) {
-              currentCardIndex = index;
-              card.style.display = "block";
-              found = true;
-            } else {
-              card.style.display = "none";
-            }
-          } else {
-            card.style.display = "none";
-          }
-        });
-
-        if (!found) currentCardIndex = -1;
-      };
+  function initializeCards() {
+    cards.forEach((card, index) => {
+      card.style.display = "none";
     });
+    displayCurrentCard();
+  }
+
+  function displayCurrentCard() {
+    const container = document.querySelector('.profile-cards');
+    container.innerHTML = '<div class="alert alert-info" style="display: none;">No profiles to display.</div>';
+    
+    if (availableCards.length > 0) {
+      const currentCard = availableCards[currentCardIndex];
+      container.appendChild(currentCard);
+      currentCard.style.display = "block";
+    } else {
+      container.querySelector('.alert').style.display = "block";
+    }
+  }
+
+  initializeCards();
+
+  function animateCard(action) {
+    const card = availableCards[currentCardIndex];
+    if (!card) return;
+
+    card.classList.add(`animate-${action}`);
+    
+    setTimeout(() => {
+      card.classList.remove(`animate-${action}`);
+
+      if (action !== 'skip') {
+        // Remove the current card from availableCards for 'like' and 'block'
+        availableCards.splice(currentCardIndex, 1);
+      } else {
+        // For 'skip', move the current card to the end of the array
+        availableCards.push(availableCards.splice(currentCardIndex, 1)[0]);
+      }
+
+      // Move to next card, wrapping around if necessary
+      currentCardIndex = currentCardIndex % availableCards.length;
+      displayCurrentCard();
+    }, 500); // Time to match CSS transition duration
+  }
+
+  window.handleAction = function (action) {
+    const card = availableCards[currentCardIndex];
+    if (!card) return;
+
+    const userId = <%= @user_id %>;
+    const prospectiveUserId = card.dataset.userId;
+
+    let url;
+    let method;
+
+    switch (action) {
+      case 'like':
+        url = `/users/${userId}/match/${prospectiveUserId}`;
+        method = 'GET';
+        break;
+      case 'skip':
+        url = `/users/${userId}/skip/${prospectiveUserId}`;
+        method = 'POST';
+        break;
+      case 'block':
+        url = `/users/${userId}/block/${prospectiveUserId}`;
+        method = 'POST';
+        break;
+    }
+
+    fetch(url, { 
+      method: method, 
+      headers: { 
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message);
+        animateCard(action);
+      })
+      .catch(error => console.error('Error:', error));
+  };
+
+  window.filterProfiles = function () {
+    const searchTerm = document.getElementById("search").value.toLowerCase();
+    availableCards = [...cards].filter(card => 
+      card.innerText.toLowerCase().includes(searchTerm)
+    );
+
+    currentCardIndex = 0;
+    displayCurrentCard();
+  };
+});
   </script>
 
   <!-- Bootstrap JS and dependencies -->
