@@ -20,9 +20,10 @@
     <!-- Tinder-like Cards -->
     <div class="profile-cards w-100 d-flex flex-column align-items-center">
       <% @prospective_users.each_with_index do |user, index| %>
+         <% user_ = User.find_by(username: user['username']) %>
         <div class="profile-card card shadow mb-2" style="display:<%= index == 0 ? 'block' : 'none' %>;" data-user-id="<%= user['id'] %>">
-        <% if user['photo'].present? %>
-          <%= image_tag user['photo'], class: "card-img-top", alt: user['username'] %>
+        <% if user_.photo.attached? %>
+          <%= image_tag user_.photo, class: "card-img-top", alt: user['username'] %>
         <% else %>
           <%= image_tag 'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg', class: "card-img-top", alt: user['username'] %>
         <% end %>
