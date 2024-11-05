@@ -36,27 +36,28 @@
     </div>
 
     <!-- Action Buttons -->
-    <div class="row justify-content-center mt-2 w-100">
-      <div class="col-auto">
-        <button class="btn btn-warning" onclick="handleAction('block')" title="Block">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="col-auto">
-        <button class="btn btn-warning" onclick="handleAction('skip')" title="Skip">
-          <i class="fas fa-ban"></i>
-        </button>
-      </div>
-      <div class="col-auto">
-        <button class="btn btn-warning" onclick="handleAction('like')" title="Like">
-          <i class="fas fa-thumbs-up"></i>
-        </button>
-      </div>
-    </div>
+    <!-- Action Buttons -->
+<div id="action-buttons" class="row justify-content-center mt-2 w-100">
+  <div class="col-auto">
+    <button class="btn btn-warning" onclick="handleAction('block')" title="Block">
+      <i class="fas fa-times"></i>
+    </button>
   </div>
+  <div class="col-auto">
+    <button class="btn btn-warning" onclick="handleAction('skip')" title="Skip">
+      <i class="fas fa-ban"></i>
+    </button>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-warning" onclick="handleAction('like')" title="Like">
+      <i class="fas fa-thumbs-up"></i>
+    </button>
+  </div>
+</div>
 
   <!-- JavaScript for profile swipe functionality -->
   <script>
+  
   document.addEventListener("turbo:load", function () {
   let currentCardIndex = 0;
   const cards = document.querySelectorAll(".profile-card");
@@ -71,14 +72,17 @@
 
   function displayCurrentCard() {
     const container = document.querySelector('.profile-cards');
-    container.innerHTML = '<div class="alert alert-info" style="display: none;">No profiles to display.</div>';
+    const actionButtons = document.getElementById('action-buttons');
+    container.innerHTML = '<div class="alert alert-warning" style="display: none;">No profiles to display.</div>';
     
     if (availableCards.length > 0) {
       const currentCard = availableCards[currentCardIndex];
       container.appendChild(currentCard);
       currentCard.style.display = "block";
+      actionButtons.style.display = "flex"; // Show buttons
     } else {
       container.querySelector('.alert').style.display = "block";
+      actionButtons.style.display = "none"; // Hide buttons
     }
   }
 
