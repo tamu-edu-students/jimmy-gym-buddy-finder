@@ -45,7 +45,7 @@ class UserMatchesController < ApplicationController
 
   def block_from_profile
     result = MatchingService.perform_action("block", current_user, prospective_user)
-    redirect_to matched_users_path(@user), notice: "User has been blocked."
+    redirect_to matched_users_path(@user), notice: "User has been blocked.", status: :see_other
   end
 
   private

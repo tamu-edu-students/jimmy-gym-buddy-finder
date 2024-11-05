@@ -9,32 +9,71 @@
   <!-- Search Bar -->
   <div class="input-group mb-3">
     <span class="input-group-text bg-light border-0"><i class="bi bi-search text-muted"></i></span>
-    <input type="text" class="form-control bg-light text-dark border-0" placeholder="Search" aria-label="Search">
+    <input type="text" id="userSearch" class="form-control bg-light text-dark border-0" placeholder="Search" aria-label="Search">
   </div>
 
-  <% if @matched_users.any? %>
-    <div class="user-list">
-      <% @matched_users.each do |user| %>
-        <div class="d-flex justify-content-between align-items-center user-card py-2">
-          <!-- Corrected link_to for user profile -->
-          <%= link_to user_matched_user_profile_path(user_id: current_user.id, id: user.id), class: "user-information", style: "cursor: pointer; text-decoration: none;" do %>
-            <div>
-              <span class="user-name fw-bold text-dark"><%= user.username %></span>
-            </div>
-          <% end %>
-          <!-- Message button -->
-          <button class="btn btn-outline-dark btn-sm message-btn" data-user-id="<%= user.id %>">
-            Message
-          </button>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <div class="alert alert-custom text-center mt-3">
-      No matched users found.
-    </div>
-  <% end %>
+  <div id="userList">
+    <% if @matched_users.any? %>
+      <div class="user-list">
+        <% @matched_users.each do |user| %>
+          <div class="d-flex justify-content-between align-items-center user-card py-2" data-username="<%= user.username.downcase %>">
+            <!-- Corrected link_to for user profile -->
+            <%= link_to user_matched_user_profile_path(user_id: current_user.id, id: user.id), class: "user-information", style: "cursor: pointer; text-decoration: none;" do %>
+              <div>
+                <span class="user-name fw-bold text-dark"><%= user.username %></span>
+              </div>
+            <% end %>
+            <!-- Message button -->
+            <button class="btn btn-outline-dark btn-sm message-btn" data-user-id="<%= user.id %>">
+              Message
+            </button>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="alert alert-custom text-center mt-3">
+        No matched users found.
+      </div>
+    <% end %>
+  </div>
 </div>
+
+<script>
+document.addEventListener('turbo:load', function() {
+  const userSearch = document.getElementById('userSearch');
+  const userList = document.getElementById('userList');
+  const allUsers = Array.from(userList.querySelectorAll('.user-card')); // Capture all initial user cards
+  const noUsersMessage = document.createElement('div');
+  noUsersMessage.className = 'alert alert-custom text-center mt-3';
+  noUsersMessage.textContent = 'No matched users found.';
+
+  function updateUserList() {
+    const searchTerm = userSearch.value.toLowerCase();
+
+    // Clear userList contents to repopulate it with matched users
+    userList.innerHTML = '';
+
+    // Filter users based on the search term
+    const matchedUsers = allUsers.filter(card => {
+      const username = card.getAttribute('data-username');
+      return username.includes(searchTerm);
+    });
+
+    // If there are matched users, display them; otherwise, show "No matched users found."
+    if (matchedUsers.length > 0) {
+      matchedUsers.forEach(card => {
+        userList.appendChild(card);
+      });
+    } else {
+      userList.appendChild(noUsersMessage);
+    }
+  }
+
+  // Add event listener to search input
+  userSearch.addEventListener('input', updateUserList);
+});
+</script>
+
 
 <style scoped>
   /* Custom container to center content and define max-width */
@@ -107,18 +146,3 @@
     margin-top: 20px;
 }
 </style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const messageButtons = document.querySelectorAll('.message-btn');
-  
-  messageButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const userId = this.getAttribute('data-user-id');
-      // Implement your message functionality here
-      alert(`Messaging user with ID: ${userId}`);
-    });
-  });
-});
-</script>
