@@ -1,4 +1,4 @@
-<div id="notification_<%= notification.id %>" class="notification-item d-flex align-items-center mb-3 p-2 border rounded">
+<div id="notification_<%= notification.id %>" class="notification-item d-flex align-items-center mb-3 p-2 border rounded <%= 'bg-light-green' unless notification.read? %>">
   <!-- Match Photo -->
   <img src="https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg" alt="Match Photo" class="rounded-circle me-3" style="width: 50px; height: 50px;">
 
@@ -7,10 +7,12 @@
     <p class="mb-1"><strong>You have a match with <%= notification.matched_user_name %></strong></p>
     <div id="mark-button-<%= notification.id %>">
       <% if notification.read? %>
-        <%= button_to "Mark as Unread", mark_as_unread_user_notification_path(user_id: @user.id, id: notification.id), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true %>
+        <!-- <%= button_to "Mark as Unread", mark_as_unread_user_notification_path(user_id: @user.id, id: notification.id), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true %> -->
+        <%= button_to "Mark as Unread", mark_as_unread_user_notification_path(user_id: @user.id, id: notification.id), method: :post, class: "btn btn-sm btn-outline-secondary d-none", remote: true %>
       <% else %>
-        <%= button_to "Mark as Read", mark_as_read_user_notification_path(user_id: @user.id, id: notification.id), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true %>
+        <%= button_to "Mark as Read", mark_as_read_user_notification_path(user_id: @user.id, id: notification.id), method: :post, class: "btn btn-sm btn-outline-secondary", class: "btn btn-sm btn-yellow", remote: true %>
       <% end %>
     </div>
   </div>
 </div>
+

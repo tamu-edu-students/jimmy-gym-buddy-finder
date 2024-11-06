@@ -409,7 +409,7 @@ body, html {
   font-size: 32px;
   cursor: pointer;
 }
-
+modal-content
 .tinder--buttons button:focus {
   outline: 0;
 }
@@ -420,4 +420,24 @@ body, html {
 
 .fa-remove {
   color: #CDD6DD;
+}
+
+.bg-light-green {
+  background-color: #8aa92c;
+}
+
+#notificationModal .modal-content {
+  background-color: #ffffffcd;
+}
+
+.btn-yellow {
+  background-color: #ffc107;
+  color: #000000;
+  border-color: #ffc107;
+}
+
+.btn-yellow:hover {
+  background-color: #e0a800;
+  color: #000000;
+  border-color: #e0a800;
 }
