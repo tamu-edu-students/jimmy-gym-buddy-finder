@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
   def load_notifications
     if session[:user_id]
       @notifications = Notification.where(user_id: session[:user_id]).includes(:matched_user)
+      @notifications = user.notifications.order(read: :asc, created_at: :desc)
     else
       @notifications = []
     end

@@ -8,6 +8,7 @@
     <div id="mark-button-<%= notification.id %>">
       <% if notification.read? %>
         <%= button_to "Mark as Unread", mark_as_unread_user_notification_path(user_id: @user.id, id: notification.id), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true %>
+        <!-- <%= button_to "Mark as Unread", mark_as_unread_user_notification_path(user_id: @user.id, id: notification.id), method: :post, class: "btn btn-sm btn-outline-secondary d-none", remote: true %> -->
       <% else %>
         <%= button_to "Mark as Read", mark_as_read_user_notification_path(user_id: @user.id, id: notification.id), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true %>
       <% end %>

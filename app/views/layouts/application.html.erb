@@ -29,7 +29,7 @@
     <div class="navbar-nav">
       <% if session[:user_id] %>
         <!-- Notification Button -->
-        <button type="button" class="nav-item nav-link btn btn-outline-light fw-bold me-2" data-bs-toggle="modal" data-bs-target="#notificationModal">
+        <button type="button" class="nav-item nav-link btn btn-outline-light fw-bold me-2" data-bs-toggle="modal" data-bs-target="#notificationModal" onclick="refreshAndShowModal()">
           <i class="fas fa-bell"></i>
         </button>
 
@@ -86,3 +86,18 @@
 </body>
 
 </html>
+
+<script>
+  function refreshAndShowModal() {
+    localStorage.setItem("showModal", "true");
+    location.reload();
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    if (localStorage.getItem("showModal") === "true") {
+      localStorage.removeItem("showModal");
+      var notificationModal = new bootstrap.Modal(document.getElementById("notificationModal"));
+      notificationModal.show();
+    }
+  });
+</script>
