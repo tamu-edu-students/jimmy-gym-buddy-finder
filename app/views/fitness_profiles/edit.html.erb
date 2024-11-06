@@ -224,8 +224,20 @@
 let workoutSchedule = {};
 
 function toggleDropdown(dropdownId) {
-    document.getElementById(dropdownId).classList.toggle('active');
+    const clickedDropdown = document.getElementById(dropdownId);
+    clickedDropdown.classList.toggle('active');
 }
+
+// Add this outside of any other function
+document.addEventListener('click', function(event) {
+    const allDropdowns = document.querySelectorAll('.dropdown');
+    
+    allDropdowns.forEach(dropdown => {
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+});
 
 function updateSelectedOptions(optionName, buttonId) {
     const checkboxes = document.querySelectorAll(`input[name="${optionName}"]:checked`);
