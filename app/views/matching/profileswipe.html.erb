@@ -37,154 +37,199 @@
     </div>
 
     <!-- Action Buttons -->
-    <!-- Action Buttons -->
-<div id="action-buttons" class="row justify-content-center mt-2 w-100">
-  <div class="col-auto">
-    <button class="btn btn-warning" onclick="handleAction('block')" title="Block">
-      <i class="fas fa-times"></i>
-    </button>
+    <div id="action-buttons" class="row justify-content-center mt-2 w-100">
+      <div class="col-auto">
+        <button class="btn btn-warning" onclick="handleAction('block')" title="Block">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-warning" onclick="handleAction('skip')" title="Skip">
+          <i class="fas fa-ban"></i>
+        </button>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-warning" onclick="handleAction('like')" title="Like">
+          <i class="fas fa-thumbs-up"></i>
+        </button>
+      </div>
+    </div>
   </div>
-  <div class="col-auto">
-    <button class="btn btn-warning" onclick="handleAction('skip')" title="Skip">
-      <i class="fas fa-ban"></i>
-    </button>
-  </div>
-  <div class="col-auto">
-    <button class="btn btn-warning" onclick="handleAction('like')" title="Like">
-      <i class="fas fa-thumbs-up"></i>
-    </button>
-  </div>
-</div>
+
+  <!-- Custom Confirm Modal -->
+  <%= render partial: 'shared/confirm_modal', locals: {
+  title: 'Confirm Action',
+  message: 'Are you sure you want to block this user?',
+  cancel_text: 'Cancel',
+  confirm_text: 'Yes, Block User'
+} %>
 
   <!-- JavaScript for profile swipe functionality -->
   <script>
-  
   document.addEventListener("turbo:load", function () {
-  let currentCardIndex = 0;
-  const cards = document.querySelectorAll(".profile-card");
-  let availableCards = [...cards];
+    let currentCardIndex = 0;
+    const cards = document.querySelectorAll(".profile-card");
+    let availableCards = [...cards];
 
-  function initializeCards() {
-    cards.forEach((card, index) => {
-      card.style.display = "none";
-    });
-    displayCurrentCard();
-  }
-
-  function displayCurrentCard() {
-    const container = document.querySelector('.profile-cards');
-    const actionButtons = document.getElementById('action-buttons');
-    container.innerHTML = '<div class="alert alert-warning" style="display: none;">No profiles to display.</div>';
-    
-    if (availableCards.length > 0) {
-      const currentCard = availableCards[currentCardIndex];
-      container.appendChild(currentCard);
-      currentCard.style.display = "block";
-      actionButtons.style.display = "flex"; // Show buttons
-    } else {
-      container.querySelector('.alert').style.display = "block";
-      actionButtons.style.display = "none"; // Hide buttons
-    }
-  }
-
-  initializeCards();
-
-  function animateCard(action) {
-    const card = availableCards[currentCardIndex];
-    if (!card) return;
-
-    card.classList.add(`animate-${action}`);
-    
-    setTimeout(() => {
-      card.classList.remove(`animate-${action}`);
-
-      if (action !== 'skip') {
-        // Remove the current card from availableCards for 'like' and 'block'
-        availableCards.splice(currentCardIndex, 1);
-      } else {
-        // For 'skip', move the current card to the end of the array
-        availableCards.push(availableCards.splice(currentCardIndex, 1)[0]);
-      }
-
-      // Move to next card, wrapping around if necessary
-      currentCardIndex = currentCardIndex % availableCards.length;
+    function initializeCards() {
+      cards.forEach((card, index) => {
+        card.style.display = "none";
+      });
       displayCurrentCard();
-    }, 500); // Time to match CSS transition duration
-  }
-
-  window.handleAction = function (action) {
-    const card = availableCards[currentCardIndex];
-    if (!card) return;
-
-    const userId = <%= @user_id %>;
-    const prospectiveUserId = card.dataset.userId;
-
-    let url;
-    let method;
-
-    switch (action) {
-      case 'like':
-        url = `/users/${userId}/match/${prospectiveUserId}`;
-        method = 'GET';
-        break;
-      case 'skip':
-        url = `/users/${userId}/skip/${prospectiveUserId}`;
-        method = 'POST';
-        break;
-      case 'block':
-        url = `/users/${userId}/block/${prospectiveUserId}`;
-        method = 'POST';
-        break;
     }
 
-    fetch(url, { 
-      method: method, 
-      headers: { 
-        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
-        'Content-Type': 'application/json'
+    function displayCurrentCard() {
+      const container = document.querySelector('.profile-cards');
+      const actionButtons = document.getElementById('action-buttons');
+      container.innerHTML = '<div class="alert alert-warning" style="display: none;">No profiles to display.</div>';
+      
+      if (availableCards.length > 0) {
+        const currentCard = availableCards[currentCardIndex];
+        container.appendChild(currentCard);
+        currentCard.style.display = "block";
+        actionButtons.style.display = "flex"; // Show buttons
+      } else {
+        container.querySelector('.alert').style.display = "block";
+        actionButtons.style.display = "none"; // Hide buttons
       }
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.message);
-        animateCard(action);
+    }
+
+    initializeCards();
+
+    function animateCard(action) {
+      const card = availableCards[currentCardIndex];
+      if (!card) return;
+
+      card.classList.add(`animate-${action}`);
+      
+      setTimeout(() => {
+        card.classList.remove(`animate-${action}`);
+
+        if (action !== 'skip') {
+          // Remove the current card from availableCards for 'like' and 'block'
+          availableCards.splice(currentCardIndex, 1);
+        } else {
+          // For 'skip', move the current card to the end of the array
+          availableCards.push(availableCards.splice(currentCardIndex, 1)[0]);
+        }
+
+        // Move to next card, wrapping around if necessary
+        currentCardIndex = currentCardIndex % availableCards.length;
+        displayCurrentCard();
+      }, 500); // Time to match CSS transition duration
+    }
+
+    window.handleAction = function (action) {
+      const card = availableCards[currentCardIndex];
+      if (!card) return;
+
+      const userId = <%= @user_id %>;
+      const prospectiveUserId = card.dataset.userId;
+
+      let url;
+      let method;
+
+      switch (action) {
+        case 'like':
+          url = `/users/${userId}/match/${prospectiveUserId}`;
+          method = 'GET';
+          performAction(url, method, action);
+          break;
+        case 'skip':
+          url = `/users/${userId}/skip/${prospectiveUserId}`;
+          method = 'POST';
+          performAction(url, method, action);
+          break;
+        case 'block':
+          // Show the modal for the block action
+          const modal = new bootstrap.Modal(document.getElementById('customConfirmModal'));
+          modal.show();
+          break;
+      }
+    };
+
+    function performAction(url, method, action) {
+      fetch(url, { 
+        method: method, 
+        headers: { 
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
+          'Content-Type': 'application/json'
+        }
       })
-      .catch(error => console.error('Error:', error));
-  };
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.message);
+          animateCard(action);
+        })
+        .catch(error => console.error('Error:', error));
+    }
 
-  window.filterProfiles = function () {
-    const searchTerm = document.getElementById("search").value.toLowerCase();
-    availableCards = [...cards].filter(card => 
-      card.innerText.toLowerCase().includes(searchTerm)
-    );
+    window.filterProfiles = function () {
+      const searchTerm = document.getElementById("search").value.toLowerCase();
+      availableCards = [...cards].filter(card => 
+        card.innerText.toLowerCase().includes(searchTerm)
+      );
 
-    currentCardIndex = 0;
-    displayCurrentCard();
-  };
-});
+      currentCardIndex = 0;
+      displayCurrentCard();
+    };
+
+    document.getElementById('confirmAction').addEventListener('click', function() {
+      const card = availableCards[currentCardIndex];
+      const userId = <%= @user_id %>;
+      const prospectiveUserId = card.dataset.userId;
+      const url = `/users/${userId}/block/${prospectiveUserId}`;
+      const method = 'POST';
+      performAction(url, method, 'block');
+      // Close the modal after confirming
+      const modal = bootstrap.Modal.getInstance(document.getElementById('customConfirmModal'));
+      modal.hide();
+    });
+  });
   </script>
 
   <!-- Bootstrap JS and dependencies -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.0/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
   <style>
-    .profile-cards {
+      .profile-cards {
       max-width: 400px;
       width: 100%;
       margin: 0 auto;
     }
 
     .profile-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
       border-radius: 10px;
       overflow: hidden;
       width: 100%;
       max-height: 350px;
+      height: 350px;
       transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .profile-card img {
+      height: 70%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      object-fit: fill;
+    }
+
+    .card-body {
+      height: 30%;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
     }
 
     .profile-card.animate-like {
@@ -210,36 +255,14 @@
     }
 
     
-      .profile-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  border-radius: 10px;
-  overflow: hidden;
-  width: 100%;
-  max-height: 350px;
-  height: 350px; /* Set fixed height for consistent layout */
-  transition: transform 0.5s ease, opacity 0.5s ease;
-}
+    .modal-backdrop {
+      --bs-backdrop-zindex: 0 !important;
+      z-index: 0 !important;
+    }
 
-.profile-card img {
-  height: 70%; /* Image takes 80% of the card */
-  width: 100%;
-  
-  margin: 0;
-  padding:0;
-  object-fit: fill;
-}
-
-.card-body {
-  height: 30%; /* Card body takes 20% */
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
+    .modal-content {
+      z-index: 0 !important;
+    }
   </style>
 </body>
 </html>
