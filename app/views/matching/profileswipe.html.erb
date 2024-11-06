@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
   <title>Profile Swipe</title>
   
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -18,126 +19,149 @@
     </div>
     <!-- Tinder-like Cards -->
     <div class="profile-cards w-100 d-flex flex-column align-items-center">
-      <!-- Profile Cards -->
-      <div class="profile-card card shadow mb-2" style="display:none;">
-        <img src="https://randomuser.me/api/portraits/men/1.jpg" class="card-img-top" alt="John">
-        <div class="card-body text-center">
-          <h5 class="card-title">John</h5>
-          <p class="card-text">Age: 30</p>
-          <p class="card-text">Activities: Running, Soccer</p>
+      <% @prospective_users.each_with_index do |user, index| %>
+         <% user_ = User.find_by(username: user['username']) %>
+        <div class="profile-card card shadow mb-2" style="display:<%= index == 0 ? 'block' : 'none' %>;" data-user-id="<%= user['id'] %>">
+        <% if user_.photo.attached? %>
+          <%= image_tag user_.photo, class: "card-img-top", alt: user['username'] %>
+        <% else %>
+          <%= image_tag 'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg', class: "card-img-top", alt: user['username'] %>
+        <% end %>
+          <div class="card-body text-center">
+            <h5 class="card-title"><%= user['username'] %></h5>
+            <p class="card-text">Age: <%= user['age'] %></p>
+            <p class="card-text">Activities: <%= user['fitness_profile']['activities_with_experience'].split('|').map { |a| a.split(':').first }.join(', ') %></p>
+          </div>
         </div>
-      </div>
-      <div class="profile-card card shadow mb-2" style="display:none;">
-        <img src="https://randomuser.me/api/portraits/women/2.jpg" class="card-img-top" alt="Sarah">
-        <div class="card-body text-center">
-          <h5 class="card-title">Sarah</h5>
-          <p class="card-text">Age: 25</p>
-          <p class="card-text">Activities: Cardio, Yoga</p>
-        </div>
-      </div>
-      <div class="profile-card card shadow mb-2" style="display:none;">
-        <img src="https://randomuser.me/api/portraits/men/3.jpg" class="card-img-top" alt="Mike">
-        <div class="card-body text-center">
-          <h5 class="card-title">Mike</h5>
-          <p class="card-text">Age: 28</p>
-          <p class="card-text">Activities: Soccer</p>
-        </div>
-      </div>
-      <div class="profile-card card shadow mb-2" style="display:none;">
-        <img src="https://randomuser.me/api/portraits/women/4.jpg" class="card-img-top" alt="Emma">
-        <div class="card-body text-center">
-          <h5 class="card-title">Emma</h5>
-          <p class="card-text">Age: 22</p>
-          <p class="card-text">Activities: Calisthenics</p>
-        </div>
-      </div>
-      <div class="profile-card card shadow mb-2" style="display:none;">
-        <img src="https://randomuser.me/api/portraits/men/5.jpg" class="card-img-top" alt="Alex">
-        <div class="card-body text-center">
-          <h5 class="card-title">Alex</h5>
-          <p class="card-text">Age: 27</p>
-          <p class="card-text">Activities: HIIT, Tennis</p>
-        </div>
-      </div>
+      <% end %>
     </div>
 
     <!-- Action Buttons -->
-    <div class="row justify-content-center mt-2 w-100">
-      <div class="col-auto">
-        <button class="btn btn-warning" onclick="handleAction('block')" title="Block">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="col-auto">
-        <button class="btn btn-warning" onclick="handleAction('skip')" title="Skip">
-          <i class="fas fa-ban"></i>
-        </button>
-      </div>
-      <div class="col-auto">
-        <button class="btn btn-warning" onclick="handleAction('like')" title="Like">
-          <i class="fas fa-thumbs-up"></i>
-        </button>
-      </div>
-    </div>
+    <!-- Action Buttons -->
+<div id="action-buttons" class="row justify-content-center mt-2 w-100">
+  <div class="col-auto">
+    <button class="btn btn-warning" onclick="handleAction('block')" title="Block">
+      <i class="fas fa-times"></i>
+    </button>
   </div>
+  <div class="col-auto">
+    <button class="btn btn-warning" onclick="handleAction('skip')" title="Skip">
+      <i class="fas fa-ban"></i>
+    </button>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-warning" onclick="handleAction('like')" title="Like">
+      <i class="fas fa-thumbs-up"></i>
+    </button>
+  </div>
+</div>
 
   <!-- JavaScript for profile swipe functionality -->
   <script>
+  
   document.addEventListener("turbo:load", function () {
-    let currentCardIndex = 0;
-    const cards = document.querySelectorAll(".profile-card");
+  let currentCardIndex = 0;
+  const cards = document.querySelectorAll(".profile-card");
+  let availableCards = [...cards];
 
-    function initializeCards() {
-      cards.forEach((card, index) => {
-        card.style.display = index === 0 ? "block" : "none";
-      });
+  function initializeCards() {
+    cards.forEach((card, index) => {
+      card.style.display = "none";
+    });
+    displayCurrentCard();
+  }
+
+  function displayCurrentCard() {
+    const container = document.querySelector('.profile-cards');
+    const actionButtons = document.getElementById('action-buttons');
+    container.innerHTML = '<div class="alert alert-warning" style="display: none;">No profiles to display.</div>';
+    
+    if (availableCards.length > 0) {
+      const currentCard = availableCards[currentCardIndex];
+      container.appendChild(currentCard);
+      currentCard.style.display = "block";
+      actionButtons.style.display = "flex"; // Show buttons
+    } else {
+      container.querySelector('.alert').style.display = "block";
+      actionButtons.style.display = "none"; // Hide buttons
+    }
+  }
+
+  initializeCards();
+
+  function animateCard(action) {
+    const card = availableCards[currentCardIndex];
+    if (!card) return;
+
+    card.classList.add(`animate-${action}`);
+    
+    setTimeout(() => {
+      card.classList.remove(`animate-${action}`);
+
+      if (action !== 'skip') {
+        // Remove the current card from availableCards for 'like' and 'block'
+        availableCards.splice(currentCardIndex, 1);
+      } else {
+        // For 'skip', move the current card to the end of the array
+        availableCards.push(availableCards.splice(currentCardIndex, 1)[0]);
+      }
+
+      // Move to next card, wrapping around if necessary
+      currentCardIndex = currentCardIndex % availableCards.length;
+      displayCurrentCard();
+    }, 500); // Time to match CSS transition duration
+  }
+
+  window.handleAction = function (action) {
+    const card = availableCards[currentCardIndex];
+    if (!card) return;
+
+    const userId = <%= @user_id %>;
+    const prospectiveUserId = card.dataset.userId;
+
+    let url;
+    let method;
+
+    switch (action) {
+      case 'like':
+        url = `/users/${userId}/match/${prospectiveUserId}`;
+        method = 'GET';
+        break;
+      case 'skip':
+        url = `/users/${userId}/skip/${prospectiveUserId}`;
+        method = 'POST';
+        break;
+      case 'block':
+        url = `/users/${userId}/block/${prospectiveUserId}`;
+        method = 'POST';
+        break;
     }
 
-    initializeCards();
+    fetch(url, { 
+      method: method, 
+      headers: { 
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message);
+        animateCard(action);
+      })
+      .catch(error => console.error('Error:', error));
+  };
 
-    function animateCard(action) {
-      const card = cards[currentCardIndex];
-      if (!card) return;
+  window.filterProfiles = function () {
+    const searchTerm = document.getElementById("search").value.toLowerCase();
+    availableCards = [...cards].filter(card => 
+      card.innerText.toLowerCase().includes(searchTerm)
+    );
 
-      card.classList.add(`animate-${action}`);
-      
-      setTimeout(() => {
-        card.classList.remove(`animate-${action}`);
-        card.style.display = "none";
-
-        // Move to next card
-        currentCardIndex = (currentCardIndex + 1) % cards.length;
-        const nextCard = cards[currentCardIndex];
-        if (nextCard) nextCard.style.display = "block";
-      }, 500); // Time to match CSS transition duration
-    }
-
-    window.handleAction = function (action) {
-      animateCard(action);
-    };
-
-    window.filterProfiles = function () {
-      const searchTerm = document.getElementById("search").value.toLowerCase();
-      let found = false;
-
-      cards.forEach((card, index) => {
-        const profileText = card.innerText.toLowerCase();
-        if (profileText.includes(searchTerm)) {
-          if (!found) {
-            currentCardIndex = index;
-            card.style.display = "block";
-            found = true;
-          } else {
-            card.style.display = "none";
-          }
-        } else {
-          card.style.display = "none";
-        }
-      });
-
-      if (!found) currentCardIndex = -1;
-    };
-  });
+    currentCardIndex = 0;
+    displayCurrentCard();
+  };
+});
   </script>
 
   <!-- Bootstrap JS and dependencies -->

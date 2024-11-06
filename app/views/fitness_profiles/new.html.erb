@@ -128,7 +128,7 @@
                   options_for_select(['Beginner', 'Amateur', 'Expert']), 
                   prompt: "Experience Level", class: "form-control" %>
             </div>
-            <div class="add-button" onclick="addActivityToList()">+ Add Activity</div>
+            <div class="add-button-activity" onclick="addActivityToList()">+ Add Activity</div>
             <div class="invalid-feedback" id="activityFeedback"></div>
           </div>
       
@@ -171,7 +171,7 @@
             <%= select_tag 'workoutTypeSelect', 
                 options_for_select(['Weight Loss', 'Muscle Gain', 'Cardio', 'Strength Training']), 
                 prompt: "Workout Type", class: "form-control" %>
-            <div class="add-button" onclick="addWorkoutTypeToList()">+ Add Workout Type</div>
+            <div class="add-button-workout" onclick="addWorkoutTypeToList()">+ Add Workout Type</div>
             <div class="invalid-feedback" id="workoutTypeFeedback"></div>
           </div>
 
@@ -197,9 +197,22 @@
 
 
 <script>
+
 function toggleDropdown(dropdownId) {
-    document.getElementById(dropdownId).classList.toggle('active');
+    const clickedDropdown = document.getElementById(dropdownId);
+    clickedDropdown.classList.toggle('active');
 }
+
+// Add this as a separate event listener outside the toggleDropdown function
+document.addEventListener('click', function(event) {
+    const allDropdowns = document.querySelectorAll('.dropdown');
+    
+    allDropdowns.forEach(dropdown => {
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+});
 
 function updateSelectedOptions(optionName, buttonId) {
     const checkboxes = document.querySelectorAll(`input[name="${optionName}"]:checked`);

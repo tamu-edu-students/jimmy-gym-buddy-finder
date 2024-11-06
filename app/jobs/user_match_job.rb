@@ -10,12 +10,12 @@ class UserMatchJob < ApplicationJob
     prospective_users.each do |prospective_user|
       # Create match for the new user
       UserMatch.find_or_create_by(user_id: user.id, prospective_user_id: prospective_user.id) do |match|
-        match.status = 'new'
+        match.status = "new"
       end
 
       # Create reciprocal match if it doesn't already exist
       UserMatch.find_or_create_by(user_id: prospective_user.id, prospective_user_id: user.id) do |reciprocal_match|
-        reciprocal_match.status = 'new'
+        reciprocal_match.status = "new"
       end
     end
   end
