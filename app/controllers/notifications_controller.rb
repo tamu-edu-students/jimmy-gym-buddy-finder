@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
     before_action :require_login
     before_action :load_notifications
-  
+
     def index
       notifications = user.notifications.order(created_at: :desc)
       render json: notifications, status: :ok
@@ -10,7 +10,7 @@ class NotificationsController < ApplicationController
     def mark_as_read
       notification = user.notifications.find(params[:id])
       notification.update(read: true)
-      #render json: user.notifications, status: :ok
+      # render json: user.notifications, status: :ok
       # if notification.update(read: true)
       #   #load_notifications
       #   respond_to do |format|
@@ -30,7 +30,7 @@ class NotificationsController < ApplicationController
     def mark_as_unread
       notification = user.notifications.find(params[:id])
       notification.update(read: false)
-      #render json: user.notifications, status: :ok
+    # render json: user.notifications, status: :ok
     #   if notification.update(read: false)
     #     #load_notifications
     #     respond_to do |format|

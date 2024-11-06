@@ -88,14 +88,14 @@ class UserMatchesController < ApplicationController
     user = filtered_users.find { |u| u.id == id }
     return nil unless user
 
-    user_data = user.as_json(only: [:id, :username, :email, :age, :gender, :photo])
+    user_data = user.as_json(only: [ :id, :username, :email, :age, :gender, :photo ])
     add_fitness_profile_data(user_data, user)
     user_data
   end
 
   def add_fitness_profile_data(user_data, user)
     if user.fitness_profile
-      user_data["fitness_profile"] = user.fitness_profile.as_json(only: [:activities_with_experience, :gym_locations, :workout_schedule, :workout_types])
+      user_data["fitness_profile"] = user.fitness_profile.as_json(only: [ :activities_with_experience, :gym_locations, :workout_schedule, :workout_types ])
     end
   end
 
@@ -106,5 +106,4 @@ class UserMatchesController < ApplicationController
   def prospective_user
     @prospective_user ||= User.find(params[:prospective_user_id])
   end
-  
 end

@@ -7,16 +7,16 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-  
+
     if @user.update(update_user_params)
       handle_successful_update
     else
       handle_failed_update
     end
   end
-  
+
   private
-  
+
   def handle_successful_update
     if @user.valid?(:profile_update)
       redirect_to profile_user_path(@user), notice: "Profile successfully updated and is complete!"
@@ -25,12 +25,12 @@ class UsersController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
-  
+
   def handle_failed_update
     flash.now[:alert] = get_error_message
     render :edit, status: :unprocessable_entity
   end
-  
+
   def get_error_message
     if @user.errors[:photo].include?("must be less than 500KB in size.")
       "Photo must be less than 500KB in size."

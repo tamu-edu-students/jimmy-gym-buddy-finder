@@ -20,7 +20,7 @@ class ChatroomsController < ApplicationController
       { sender: "You", content: "test" },
       { sender: "You", content: "test" },
       { sender: "You", content: "test" },
-      { sender: "You", content: "test" },
+      { sender: "You", content: "test" }
     ]
   end
 end
