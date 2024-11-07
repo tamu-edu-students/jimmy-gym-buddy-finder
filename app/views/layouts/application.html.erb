@@ -57,7 +57,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <% if @notifications && @notifications.any? %>
@@ -77,11 +76,16 @@
 <div class="overlay"></div>
   <%= render partial: 'shared/display_flash' if flash.any? %>
 
-<div class="container">
+<div class="container main-content">
   <%= yield %>
 </div>
 
 <%= yield :javascript %>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2024 Your Company. All rights reserved.</p>
+  </footer>
 
 </body>
 
