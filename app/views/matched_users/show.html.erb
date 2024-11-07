@@ -47,25 +47,13 @@
   </div><!-- End of Card -->
 </div><!-- End of Container -->
 
-<!-- Custom Confirm Modal -->
-<div class="modal fade" id="customConfirmModal" tabindex="-1" aria-labelledby="customConfirmModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="customConfirmModalLabel">Confirm Action</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to block this user?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <!-- Confirmation button -->
-        <button type="button" class="btn btn-danger" id="confirmAction">Yes, Block User</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- In app/views/users/show.html.erb -->
+<%= render partial: 'shared/confirm_modal', locals: {
+  title: 'Confirm Action',
+  message: 'Are you sure you want to block this user?',
+  cancel_text: 'Cancel',
+  confirm_text: 'Yes, Block User'
+} %>
 
 <%= content_for :head do %>
   <style>
