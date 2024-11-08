@@ -8,8 +8,6 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
 }
 
 body {
@@ -26,27 +24,6 @@ body {
   // background-repeat: no-repeat;
   // height: 100vh;
 
-}
-
-.main-content {
-  flex: 1; /* Takes up remaining space in the container */
-  overflow: auto; /* Allows scrolling if the content exceeds the screen height */
-}
-
-.footer {
-  background-color: #333; /* Customize as needed */
-  color: white; /* Text color */
-  padding: 10px 20px; /* Adjust padding */
-  text-align: center; /* Center the text */
-  position: relative;
-  width: 100%;
-  bottom: 0;
-}
-
-@media (max-width: 768px) {
-  .footer {
-    padding: 15px; /* Adjust padding for mobile screens */
-  }
 }
 
 .overlay {
@@ -464,3 +441,5 @@ modal-content
   color: #000000;
   border-color: #e0a800;
 }
+
+
