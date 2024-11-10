@@ -24,7 +24,7 @@
               </div>
             <% end %>
             <!-- Message button -->
-            <button class="btn btn-outline-dark btn-sm message-btn" data-user-id="<%= user.id %>">
+            <button class="btn btn-outline-dark btn-sm message-btn" data-user-id="<%= user.id %>" data-chat-url="<%= chat_user_path(current_user, user) %>">
               Message
             </button>
           </div>
@@ -71,6 +71,16 @@ document.addEventListener('turbo:load', function() {
 
   // Add event listener to search input
   userSearch.addEventListener('input', updateUserList);
+
+  document.querySelectorAll('.message-btn').forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      const chatUrl = this.getAttribute('data-chat-url');
+      if (chatUrl) {
+        window.location.href = chatUrl;
+      }
+    });
+  });
 });
 </script>
 
