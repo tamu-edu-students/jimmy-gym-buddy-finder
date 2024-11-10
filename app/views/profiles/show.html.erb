@@ -36,6 +36,10 @@
           <div class="mt-4 text-center">
             <%= link_to "Edit Profile", edit_user_path(@user), class: "btn custom-btn text-white" %>
           </div>
+          <div class="mt-2 text-center">
+            <!-- Button to initiate chat with the profile -->
+            <%= button_to "Message", create_chat_profile_path(@user), method: :post, class: "btn btn-primary" %>
+          </div>
         </div>
       </div>
     </div>

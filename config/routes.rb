@@ -40,4 +40,11 @@ Rails.application.routes.draw do
 
   get "buddies", to: "buddies#index", as: "buddies"
   get "chatrooms/:buddy_name", to: "chatrooms#show", as: "chatroom"
+
+  resources :profiles do
+    post "create_chat", on: :member
+    resources :private_chats, only: [ :index, :show ] do
+      resources :messages, only: [ :create ]
+    end
+  end
 end

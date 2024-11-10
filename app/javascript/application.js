@@ -6,3 +6,4 @@ import "popper";
 import "bootstrap";
 
 'use strict';
+import "./channels"
