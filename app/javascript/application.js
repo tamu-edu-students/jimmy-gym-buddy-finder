@@ -24,3 +24,4 @@ document.addEventListener("ajax:success", (event) => {
         </form>`;
     }
   });
+import "channels"

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  get "messages/create"
+  get "conversations/show"
   root "welcome#index"
   get "welcome/index", to: "welcome#index", as: "welcome"
 
@@ -44,4 +47,16 @@ Rails.application.routes.draw do
   get "users/:user_id/matched_users", to: "user_matches#matched_users", as: "matched_users"
   post "users/:user_id/matched_users/block/:prospective_user_id", to: "user_matches#block_from_profile", as: "block_from_profile_user"
   get "users/:user_id/matched_users/profile/:id", to: "matched_users#show", as: "user_matched_user_profile"
+
+  resources :users do
+    member do
+      get 'chat/:id', to: 'conversations#show', as: :chat
+    end
+  end
+
+  resources :conversations, only: [:show] do
+    resources :messages, only: [:create]
+  end
+
+  mount ActionCable.server => '/cable'
 end
