@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
     if @message.save
       html = ApplicationController.render(
         partial: 'messages/message',
-        locals: { message: @message }
+        locals: { message: @message, current_user: current_user }
       )
       ActionCable.server.broadcast(
         "conversation_channel_#{@conversation.id}",

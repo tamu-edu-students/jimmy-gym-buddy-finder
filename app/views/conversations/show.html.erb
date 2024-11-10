@@ -1,34 +1,66 @@
-<h1>Chat with <%= @other_user.username %></h1>
-
-<div id="messages" data-conversation-id="<%= @conversation.id %>">
-  <%= render @messages %>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Chat with <%= @other_user.username %></h5>
+        </div>
+        <div class="card-body">
+          <div id="messages" data-conversation-id="<%= @conversation.id %>" style="height: 400px; overflow-y: auto;">
+            <%= render @messages, current_user: current_user %>
+          </div>
+        </div>
+        <div class="card-footer">
+          <%= form_with(model: [@conversation, @message], local: false, id: 'new-message-form') do |f| %>
+            <div class="input-group">
+              <%= f.text_field :content, placeholder: 'Type your message...', required: true, class: 'form-control' %>
+              <%= f.submit 'Send', class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<%= form_with(model: [@conversation, @message], local: false, id: 'new-message-form') do |f| %>
-  <%= f.text_field :content, placeholder: 'Type your message...', required: true %>
-  <%= f.submit 'Send' %>
-<% end %>
-
-<script>
-document.addEventListener('turbo:load', () => {
-  const form = document.getElementById('new-message-form');
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const formData = new FormData(form);
-    fetch(form.action, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'X-CSRF-Token': document.querySelector("meta[name='csrf-token']").content,
-        'Accept': 'application/json'
-      }
-    }).then(response => {
-      if (response.ok) {
-        form.reset();
-      } else {
-        console.error('Error sending message');
-      }
+<%= javascript_tag do %>
+  document.addEventListener('turbo:load', () => {
+    const form = document.getElementById('new-message-form');
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'X-CSRF-Token': document.querySelector("meta[name='csrf-token']").content,
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          form.reset();
+        } else {
+          console.error('Error sending message');
+        }
+      });
     });
   });
-});
-</script>
+<% end %>
+
+<style>
+.bg-primary {
+  background-color: #007bff !important;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.text-white {
+  color: #fff !important;
+}
+
+.text-dark {
+  color: #343a40 !important;
+}
+</style>
