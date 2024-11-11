@@ -1,11 +1,11 @@
 <div class="container mt-4">
   <div class="row">
-    <div class="col-md-8 offset-md-2">
+    <div class="col-md-6 offset-md-3">
       <div class="card">
         <div class="card-header bg-primary text-white">
           <h5 class="mb-0">Chat with <%= @other_user.username %></h5>
         </div>
-        <div class="card-body">
+        <div class="card-body-chat card-body">
           <div id="messages" data-conversation-id="<%= @conversation.id %>" style="height: 400px; overflow-y: auto;">
             <%= render @messages, current_user: current_user %>
           </div>
@@ -14,7 +14,7 @@
           <%= form_with(model: [@conversation, @message], local: false, id: 'new-message-form') do |f| %>
             <div class="input-group">
               <%= f.text_field :content, placeholder: 'Type your message...', required: true, class: 'form-control' %>
-              <%= f.submit 'Send', class: 'btn btn-primary' %>
+              <%= f.submit 'Send', class: 'btn btn-send' %>
             </div>
           <% end %>
         </div>
@@ -49,7 +49,11 @@
 
 <style>
 .bg-primary {
-  background-color: #007bff !important;
+  background-color: #8aa92c !important;
+}
+
+.btn-send {
+  background-color: #8aa92c !important;
 }
 
 .bg-light {
@@ -62,5 +66,16 @@
 
 .text-dark {
   color: #343a40 !important;
+}
+
+.text-end {
+  margin-left: 8px !important;
+}
+
+.card-body-chat{
+  padding: 0 !important;
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+  
 }
 </style>

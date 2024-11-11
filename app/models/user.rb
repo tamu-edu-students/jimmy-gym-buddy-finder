@@ -2,8 +2,8 @@ class User < ApplicationRecord
   has_many :user_matches, dependent: :destroy
   has_one :fitness_profile, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :conversations_as_user1, class_name: 'Conversation', foreign_key: 'user1_id'
-  has_many :conversations_as_user2, class_name: 'Conversation', foreign_key: 'user2_id'
+  has_many :conversations_as_user1, class_name: "Conversation", foreign_key: "user1_id"
+  has_many :conversations_as_user2, class_name: "Conversation", foreign_key: "user2_id"
   has_many :messages
 
   # Include default devise modules. Others available are:

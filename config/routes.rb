@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get "messages/create"
   get "conversations/show"
   root "welcome#index"
@@ -50,13 +49,13 @@ Rails.application.routes.draw do
 
   resources :users do
     member do
-      get 'chat/:id', to: 'conversations#show', as: :chat
+      get "chat/:id", to: "conversations#show", as: :chat
     end
   end
 
-  resources :conversations, only: [:show] do
-    resources :messages, only: [:create]
+  resources :conversations, only: [ :show ] do
+    resources :messages, only: [ :create ]
   end
 
-  mount ActionCable.server => '/cable'
+  mount ActionCable.server => "/cable"
 end

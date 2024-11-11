@@ -6,14 +6,14 @@ class MessagesController < ApplicationController
 
     if @message.save
       html = ApplicationController.render(
-        partial: 'messages/message',
+        partial: "messages/message",
         locals: { message: @message, current_user: current_user }
       )
       ActionCable.server.broadcast(
         "conversation_channel_#{@conversation.id}",
         { message: html }
       )
-      render json: { status: 'success' }, status: :created
+      render json: { status: "success" }, status: :created
     else
       render json: { error: @message.errors.full_messages }, status: :unprocessable_entity
     end
