@@ -23,30 +23,6 @@
   </div>
 </div>
 
-<%= javascript_tag do %>
-  document.addEventListener('turbo:load', () => {
-    const form = document.getElementById('new-message-form');
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const formData = new FormData(form);
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'X-CSRF-Token': document.querySelector("meta[name='csrf-token']").content,
-          'Accept': 'application/json'
-        }
-      }).then(response => {
-        if (response.ok) {
-          form.reset();
-        } else {
-          console.error('Error sending message');
-        }
-      });
-    });
-  });
-<% end %>
-
 <style>
 .bg-primary {
   background-color: #8aa92c !important;

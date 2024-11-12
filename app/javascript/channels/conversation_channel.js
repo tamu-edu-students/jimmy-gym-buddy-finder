@@ -1,52 +1,97 @@
 import consumer from "channels/consumer";
 
-document.addEventListener('turbo:load', () => {
-  const messagesContainer = document.getElementById('messages');
+let currentSubscription = null;
 
-  if (messagesContainer) {
-    const conversationId = messagesContainer.dataset.conversationId;
-    const currentUserId = document.body.dataset.currentUserId; // Ensure currentUserId is available
+function createSubscription(conversationId) {
+  if (currentSubscription) {
+    consumer.subscriptions.remove(currentSubscription);
+    console.log(`Removed existing subscription for conversation ${conversationId}`);
+  }
 
-    console.log(`Creating subscription for conversation ${conversationId}`);
-
-    consumer.subscriptions.create({ channel: "ConversationChannel", conversation_id: conversationId }, {
+  currentSubscription = consumer.subscriptions.create(
+    { channel: "ConversationChannel", conversation_id: conversationId },
+    {
       connected() {
         console.log(`Connected to ConversationChannel for conversation ${conversationId}`);
       },
-
       disconnected() {
         console.log(`Disconnected from ConversationChannel for conversation ${conversationId}`);
       },
-
       received(data) {
         console.log("Received data:", data);
+        const messagesContainer = document.getElementById('messages');
+        if (messagesContainer) {
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = data.message;
+          const messageDiv = tempDiv.firstElementChild;
+          const messageUserId = messageDiv.dataset.userId;
+          const currentUserId = document.body.dataset.currentUserId;
 
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = data.message;
-        const messageDiv = tempDiv.firstElementChild;
+          messageDiv.classList.add('text-end');
+          if (messageUserId === currentUserId) {
+            messageDiv.querySelector('.message-content').classList.add('bg-primary', 'text-white');
+          } else {
+            messageDiv.querySelector('.message-content').classList.add('bg-light', 'text-dark');
+          }
 
-        const messageUserId = messageDiv.dataset.userId; // Get user ID of the message sender
-
-        // Apply consistent right alignment for all messages
-        messageDiv.classList.add('text-end');
-
-        // Check if the message was sent by the current user or another user
-        if (messageUserId === currentUserId) {
-          // Sent by current user -> Blue background, white text
-          messageDiv.querySelector('.message-content').classList.add('bg-primary', 'text-white');
-        } else {
-          // Received from another user -> Light background, dark text
-          messageDiv.querySelector('.message-content').classList.add('bg-light', 'text-dark');
+          messagesContainer.appendChild(messageDiv);
+          messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
-
-        // Append the new message to the container
-        messagesContainer.appendChild(messageDiv);
-
-        // Scroll to the bottom of the chat container
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
       }
-    });
-  } else {
-    console.log("Messages container not found");
+    }
+  );
+
+  console.log(`Created new subscription for conversation ${conversationId}`);
+}
+
+let isSubmitting = false;
+
+function handleSubmit(event) {
+  event.preventDefault();
+  if (isSubmitting) return;
+
+  isSubmitting = true;
+  const form = event.target;
+  const formData = new FormData(form);
+
+  fetch(form.action, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'X-CSRF-Token': document.querySelector("meta[name='csrf-token']").content,
+      'Accept': 'application/json'
+    }
+  }).then(response => {
+    if (response.ok) {
+      form.reset();
+    } else {
+      console.error('Error sending message');
+    }
+  }).catch(error => {
+    console.error('Error:', error);
+  }).finally(() => {
+    isSubmitting = false;
+  });
+}
+
+document.addEventListener('turbo:load', () => {
+  const messagesContainer = document.getElementById('messages');
+  if (messagesContainer) {
+    const conversationId = messagesContainer.dataset.conversationId;
+    createSubscription(conversationId);
+  }
+
+  const form = document.getElementById('new-message-form');
+  if (form) {
+    form.removeEventListener('submit', handleSubmit);
+    form.addEventListener('submit', handleSubmit);
+  }
+});
+
+document.addEventListener('turbo:before-cache', () => {
+  if (currentSubscription) {
+    consumer.subscriptions.remove(currentSubscription);
+    currentSubscription = null;
+    console.log("Removed subscription before caching");
   }
 });
