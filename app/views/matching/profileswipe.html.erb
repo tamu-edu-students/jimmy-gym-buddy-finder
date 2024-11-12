@@ -12,11 +12,14 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-  <% if @user.fitness_profile.present? %>
-    <div class="alert alert-warning text-center w-100 mt-4">
-        Please create a fitness profile to view other users.
-      </div>
-    <% end %>
+
+<% if FitnessProfile.where(user_id: @user.id).exists? %>
+  <!-- User has a fitness profile -->
+<% else %>
+  <div class="alert alert-warning text-center w-100 mt-4">
+    Please create a fitness profile to view other users.
+  </div>
+<% end %>
   <div class="container d-flex flex-column align-items-center mt-4">
     <!-- Search Filter -->
     <div class="w-100 mb-3 d-flex justify-content-center">
