@@ -13,6 +13,7 @@ function createSubscription(conversationId) {
     {
       connected() {
         console.log(`Connected to ConversationChannel for conversation ${conversationId}`);
+        scrollToBottom(); // Scroll to bottom on connection
       },
       disconnected() {
         console.log(`Disconnected from ConversationChannel for conversation ${conversationId}`);
@@ -35,13 +36,21 @@ function createSubscription(conversationId) {
           }
 
           messagesContainer.appendChild(messageDiv);
-          messagesContainer.scrollTop = messagesContainer.scrollHeight;
+          scrollToBottom(); // Scroll to bottom after receiving a new message
         }
       }
     }
   );
 
   console.log(`Created new subscription for conversation ${conversationId}`);
+}
+
+// Function to scroll to the bottom of the messages container
+function scrollToBottom() {
+  const messagesContainer = document.getElementById('messages');
+  if (messagesContainer) {
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
 }
 
 let isSubmitting = false;
@@ -79,6 +88,7 @@ document.addEventListener('turbo:load', () => {
   if (messagesContainer) {
     const conversationId = messagesContainer.dataset.conversationId;
     createSubscription(conversationId);
+    scrollToBottom(); // Scroll to bottom on page load
   }
 
   const form = document.getElementById('new-message-form');
