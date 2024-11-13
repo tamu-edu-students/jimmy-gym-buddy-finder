@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   def create
+    Rails.logger.debug "MessagesController#create called with params: #{params.inspect}"
     @conversation = Conversation.find(params[:conversation_id])
     @message = @conversation.messages.new(message_params)
     @message.user = current_user
