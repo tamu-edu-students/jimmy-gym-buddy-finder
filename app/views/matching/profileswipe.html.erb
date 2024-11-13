@@ -150,8 +150,11 @@
           break;
         case 'block':
           // Show the modal for the block action
-          const modal = new bootstrap.Modal(document.getElementById('customConfirmModal'));
+          const modalElement = document.getElementById('customConfirmModal');
+          const modal = new bootstrap.Modal(modalElement);
           modal.show();
+
+          modalElement.focus();
           break;
       }
     };
@@ -276,6 +279,7 @@
     .modal-content {
       z-index: 0 !important;
     }
+
   </style>
 </body>
 </html>
