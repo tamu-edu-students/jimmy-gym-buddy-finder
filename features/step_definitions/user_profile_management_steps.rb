@@ -8,8 +8,10 @@ Then('I should be able to access my user profile') do
   find('a.btn', text: 'Profile').click
 end
 
-Then('I should see my user profile') do
-  expect(page).to have_content('User Profile')
+Then('I should see the title user profile') do
+  within("h1") do
+    expect(page).to have_content("User Profile")
+  end
 end
 
 Then('I should be able to edit my user profile') do
@@ -49,7 +51,9 @@ Then("I should be able to save these changes") do
 end
 
 Then("I should see a confirmation message when the updates are successfully saved") do
-  expect(page).to have_content('Profile successfully updated and is complete!')
+  within("#flash") do
+    expect(page).to have_content('Profile successfully updated and is complete!')
+  end
 end
 
 When('I try to upload photo with invalid format and save') do
@@ -58,7 +62,9 @@ When('I try to upload photo with invalid format and save') do
 end
 
 When('I should see error message of invalid photo format') do
-  expect(page).to have_content('Photo must be a JPEG, JPG, GIF, or PNG.')
+  within("#flash") do
+    expect(page).to have_content('Photo must be a JPEG, JPG, GIF, or PNG.')
+  end
 end
 
 When('I try to upload photo with invalid size and save') do
@@ -67,7 +73,9 @@ When('I try to upload photo with invalid size and save') do
 end
 
 When('I should see error message of invalid photo size') do
-  expect(page).to have_content('Photo must be less than 500KB in size.')
+  within("#flash") do
+    expect(page).to have_content('Photo must be less than 500KB in size.')
+  end
 end
 
 When('I try to leave my username blank and save') do
@@ -76,5 +84,7 @@ When('I try to leave my username blank and save') do
 end
 
 Then('I should see error message of incomplete user profile') do
-  expect(page).to have_content('Profile is incomplete. Please fill in all required fields.')
+  within("#flash") do
+    expect(page).to have_content('Profile is incomplete. Please fill in all required fields.')
+  end
 end

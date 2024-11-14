@@ -33,8 +33,10 @@ end
     # First time?
   end
 
-  Then("I should see introductions for each feature displayed on the screen") do
-    expect(page).to have_content("You must be logged in to access this section")
+  Then("I should see the text {string}") do |expected_text|
+    within("h1.display-3") do
+      expect(page).to have_content(expected_text)
+    end
   end
 
   When("I click the Profile icon") do
