@@ -9,7 +9,7 @@ class NotificationsController < ApplicationController
 
     def mark_as_read
       notification = user.notifications.find(params[:id])
-    
+
       if notification.update(read: true)
         respond_to do |format|
           format.turbo_stream do
@@ -19,13 +19,13 @@ class NotificationsController < ApplicationController
           format.json { render json: { id: notification.id, read: true }, status: :ok }
         end
       else
-        render json: { message: 'Failed to mark notification as read.' }, status: :unprocessable_entity
+        render json: { message: "Failed to mark notification as read." }, status: :unprocessable_entity
       end
     end
 
     def mark_as_unread
       notification = user.notifications.find(params[:id])
-    
+
       if notification.update(read: false)
         respond_to do |format|
           format.turbo_stream do
@@ -35,7 +35,7 @@ class NotificationsController < ApplicationController
           format.json { render json: { id: notification.id, read: false }, status: :ok }
         end
       else
-        render json: { message: 'Failed to mark notification as unread.' }, status: :unprocessable_entity
+        render json: { message: "Failed to mark notification as unread." }, status: :unprocessable_entity
       end
     end
 end

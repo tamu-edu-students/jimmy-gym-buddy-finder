@@ -36,7 +36,7 @@ RSpec.describe ConversationsController, type: :controller do
         message2 = FactoryBot.create(:message, conversation: conversation, user: other_user, content: "Hi!")
 
         get :show, params: { user_id: user.id, id: other_user.id }
-        expect(assigns(:messages)).to eq([message1, message2])
+        expect(assigns(:messages)).to eq([ message1, message2 ])
       end
 
       it "initializes a new message for the form" do
