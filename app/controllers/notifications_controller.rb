@@ -10,15 +10,7 @@ class NotificationsController < ApplicationController
     def mark_as_read
       notification = user.notifications.find(params[:id])
       notification.update(read: true)
-      # render json: user.notifications, status: :ok
-      # if notification.update(read: true)
-      #   #load_notifications
-      #   respond_to do |format|
-      #     format.json { render json: { id: notification.id, read: true } }
-      #   end
-      # else
-      #   render json: { message: 'Failed to mark notification as read.' }, status: :unprocessable_entity
-      # end
+      
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace("notification_#{notification.id}", partial: "notifications/notification", locals: { notification: notification })

@@ -15,14 +15,8 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-attachment: fixed; /* Keep the background fixed */
-  min-height: 100vh; /* Ensure it takes the full height of the viewport */
-
-  // opacity: 0.7; /* Adjust the opacity for transparency */
-  // position: relative; /* Maintain positioning for the overlay */
-  // background-size:100% 100%; 
-  // background-repeat: no-repeat;
-  // height: 100vh;
+  background-attachment: fixed; 
+  min-height: 100vh; 
   display: flex;
   flex-direction: column;
 }
@@ -55,15 +49,15 @@ body {
 
 h1.display-3 {
   font-size: 3rem;
-  font-family: 'Poppins', sans-serif; /* Custom font */
+  font-family: 'Poppins', sans-serif;
   color: #fff;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 h1 {
-  color: #a3bb33;; /* Bright color for visibility */
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Optional text shadow */
-  font-weight: bold; /* Make the text bold */
+  color: #a3bb33;; 
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); 
+  font-weight: bold; 
 }
 
 /* Subtitle Styling */
@@ -77,10 +71,10 @@ h1 {
 
 /* Google Login Button */
 .btn-google {
-  background-color: #a3bb33; /* Custom color */
+  background-color: #a3bb33; 
   color: #fff;
   font-size: 1.2rem;
-  font-family: 'Poppins', sans-serif; /* Improved font */
+  font-family: 'Poppins', sans-serif; 
   font-weight: 600;
   border: none;
   display: inline-flex;
@@ -98,7 +92,7 @@ h1 {
 
 /* Hover Effect */
 .btn-google:hover {
-  background-color: #8aa92c; /* Slightly darker shade on hover */
+  background-color: #8aa92c; 
   color: #fff;
 }
 
@@ -199,10 +193,10 @@ body, html {
 
 /* Profile Image Styling */
 .square-img {
-  width: 100%; /* Fill the available width */
-  height: auto; /* Maintain aspect ratio */
-  max-height: 100%; /* Ensure it fits in the card */
-  border: 4px solid #a3bb33; /* Border color */
+  width: 100%; 
+  height: auto; 
+  max-height: 100%; 
+  border: 4px solid #a3bb33; 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -213,20 +207,20 @@ body, html {
 }
 
 .card-title {
-  font-size: 2rem; /* Increased size */
-  color: #85a10a; /* Bright pink */
+  font-size: 2rem; 
+  color: #85a10a; 
 }
 
 .list-group-item {
   font-size: 1rem;
-  color: #ff4081; /* Bright pink for list items */
-  background-color: transparent; /* Make list items transparent */
+  color: #ff4081;
+  background-color: transparent; 
 }
 
 .list-group-item i {
   margin-right: 8px;
   font-size: 1.2rem;
-  color: #ff4081; /* Bright pink for icons */
+  color: #ff4081; 
 }
 
 /* Responsive Adjustments */
@@ -244,8 +238,8 @@ body, html {
   }
 
   .square-img {
-      width: 100%; /* Adjust to fill the space */
-      height: auto; /* Maintain aspect ratio */
+      width: 100%; 
+      height: auto; 
   }
 
   .custom-btn {
@@ -255,16 +249,16 @@ body, html {
 }
 
 .form-label {
-  font-weight: bold; /* Make form labels bold */
+  font-weight: bold; 
 }
 
 .btn.custom-btn {
-  background-color: #a3bb33; /* Keep your existing button color */
-  border: none; /* Remove border for a cleaner look */
+  background-color: #a3bb33; 
+  border: none; 
 }
 
 .btn.custom-btn:hover {
-  background-color: #92c03e; /* Slightly lighter color on hover */
+  background-color: #92c03e; 
 }
 
 #flash {
