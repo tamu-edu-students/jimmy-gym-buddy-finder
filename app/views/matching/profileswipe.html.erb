@@ -153,8 +153,7 @@
           const modalElement = document.getElementById('customConfirmModal');
           const modal = new bootstrap.Modal(modalElement);
           modal.show();
-
-          modalElement.focus();
+          
           break;
       }
     };
@@ -173,6 +172,7 @@
           animateCard(action);
         })
         .catch(error => console.error('Error:', error));
+      
     }
 
     window.filterProfiles = function () {
@@ -192,16 +192,12 @@
       const url = `/users/${userId}/block/${prospectiveUserId}`;
       const method = 'POST';
       performAction(url, method, 'block');
-      // Close the modal after confirming
-      const modal = bootstrap.Modal.getInstance(document.getElementById('customConfirmModal'));
-      modal.hide();
-
-      // Clean up the modal instance
-      const modalElement = document.getElementById('customConfirmModal');
-      const modalInstance = bootstrap.Modal.getInstance(modalElement);
-      modalInstance.dispose(); // Clean up any remaining instances
+      
+      // Hide the modal after confirming
+      modal.hide();  // Use hide() to close the modal
     });
   });
+  
   </script>
 
   <!-- Bootstrap JS and dependencies -->
