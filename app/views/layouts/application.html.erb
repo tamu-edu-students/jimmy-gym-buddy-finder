@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-
+  <%= action_cable_meta_tag %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   <%= javascript_importmap_tags %>
@@ -13,23 +14,25 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
-<body>
+<body data-current-user-id="<%= current_user&.id %>">
 <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
   <div class="container">
     <!-- Navbar Brand (Jimmy) -->
     <%= link_to "Jimmy", root_path, class: 'navbar-brand text-white fw-bold fs-3' %>
 
     <!-- Toggle Button for Mobile View -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <% if controller.controller_name != 'welcome' %>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <% end %>
 
   <!-- Navbar Links -->
   <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
     <div class="navbar-nav">
       <% if session[:user_id] %>
         <!-- Notification Button -->
-        <button type="button" class="nav-item nav-link btn btn-outline-light fw-bold me-2" data-bs-toggle="modal" data-bs-target="#notificationModal">
+        <button type="button" class="nav-item nav-link btn btn-outline-light fw-bold me-2" data-bs-toggle="modal" data-bs-target="#notificationModal" onclick="refreshAndShowModal()">
           <i class="fas fa-bell"></i>
         </button>
 
@@ -37,7 +40,7 @@
         <%= link_to "Dashboard", dashboard_user_path(@user), class: "nav-item nav-link btn btn-outline-light fw-bold me-2" %>
 
           <!-- Profile Link -->
-          <%= link_to "Profile", profile_user_path(@user), class: "nav-item nav-link btn btn-outline-light fw-bold me-2" %>
+          <%= link_to "Profile", profile_user_path(@user), data: { turbo: false }, class: "nav-item nav-link btn btn-outline-light fw-bold me-2" %>
 
         <!-- Log Out Button -->
         <%= link_to "Log Out", logout_path, method: :get, class: "nav-item nav-link btn btn-outline-danger fw-bold" %>
@@ -55,50 +58,62 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <% if @notifications && @notifications.any? %>
-          <% @notifications.each do |notification| %>
-            <div class="notification-item d-flex align-items-center mb-3 p-2 border rounded">
-              <!-- Match Photo -->
-              <img src="https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg" alt="Match Photo" class="rounded-circle me-3" style="width: 50px; height: 50px;">
-              
-              <!-- Notification Content -->
-              <div class="notification-content flex-grow-1">
-                <p class="mb-1"><strong>You have a match with <%= notification.matched_user_name %></strong></p>
-                <div id="mark-button-<%= notification.id %>">
-                <% if notification.read? %>
-                  <%= button_to "Mark as Unread", mark_as_unread_user_notification_path(user_id: notification.user_id, id: notification.id), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true, data: { action: "update-button##{notification.id}" } %>
-                <% else %>
-                  <%= button_to "Mark as Read", mark_as_read_user_notification_path(user_id: notification.user_id, id: notification.id), method: :post, class: "btn btn-sm btn-outline-secondary", remote: true, data: { action: "update-button##{notification.id}" } %>
-                <% end %>
-                </div>
-              </div>
-            </div>
-          <% end %>
+          <%= render partial: "notifications/notification", collection: @notifications, as: :notification %>
         <% else %>
           <p>No new notifications</p>
         <% end %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary btn-yellow" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 
 
-
 <div class="overlay"></div>
   <%= render partial: 'shared/display_flash' if flash.any? %>
 
-<div class="container">
+<div class="container main-content">
   <%= yield %>
 </div>
 
 <%= yield :javascript %>
 
+<footer class="footer mt-auto py-3 bg-transparent">
+  <div class="container">
+    <span class="text-muted">© <%= Date.current.year %> Jimmy - Gym Buddy Finder</span>
+  </div>
+</footer>
+
 </body>
 
 </html>
+
+<script>
+  function refreshAndShowModal() {
+    localStorage.setItem("showModal", "true");
+    showModalIfNeeded();
+  }
+  
+  function showModalIfNeeded() {
+    if (localStorage.getItem("showModal") === "true") {
+      localStorage.removeItem("showModal");
+      const modalElement = document.getElementById("notificationModal");
+      if (modalElement) {
+        const notificationModal = new bootstrap.Modal(modalElement);
+        notificationModal.show();
+        modalElement.addEventListener("hidden.bs.modal", function () {
+          document.querySelectorAll(".modal-backdrop").forEach((el) => el.remove());
+        });
+      }
+    }
+  }
+  
+  document.addEventListener("turbo:load", showModalIfNeeded);
+  document.addEventListener("DOMContentLoaded", showModalIfNeeded);
+  
+</script>

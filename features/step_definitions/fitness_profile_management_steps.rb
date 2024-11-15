@@ -1,9 +1,9 @@
 Then("I should be able to create a fitness profile") do
-  expect(page).to have_css("a.badge.bg-warning.text-dark.p-3", text: "Create Fitness Profile")
+  expect(page).to have_link("Create Fitness Profile")
 end
 
 When("I click the create fitness profile icon") do
-  find('a.badge.bg-warning.text-dark.p-3', text: 'Fitness').click
+  click_link("Create Fitness Profile")
 end
 
 Then('I should be able to select gender to match') do
@@ -82,7 +82,7 @@ Then('I should see the confirm message when the fitness profile is created succe
 end
 
 And('I have created my fitness profile') do
-  find('a.badge.bg-warning.text-dark.p-3', text: 'Fitness').click
+  click_link("Fitness")
 
   find("#genderButton").click
   check 'Male'
@@ -134,7 +134,7 @@ Then('I should see {string} as the selected gender preference') do |gender|
 end
 
 And("I click the create fitness profile") do
-  find('a.badge.bg-warning.text-dark.p-3', text: 'Fitness').click
+  click_link("Create Fitness Profile")
 end
 
 And('I select age range from {string} to {string}') do |min_age, max_age|

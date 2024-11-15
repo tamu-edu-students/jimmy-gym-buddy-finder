@@ -41,8 +41,14 @@ When('I am on my dashboard page') do
   visit dashboard_user_path(@user)
 end
 
-Then('I should see {string}') do |message|
-  expect(page).to have_content(message)
+Then("I should see the button {string}") do |button_text|
+  expect(page).to have_button(button_text)
+end
+
+Then('I should see the profile message {string}') do |message|
+  within("#flash") do
+    expect(page).to have_content(message)
+  end
 end
 
 Then("I should be redirected to my dashboard") do

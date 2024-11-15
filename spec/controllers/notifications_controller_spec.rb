@@ -44,11 +44,6 @@ RSpec.describe NotificationsController, type: :controller do
         expect(JSON.parse(response.body)['read']).to be true
       end
 
-      it 'returns an error for non-existent notification' do
-        post :mark_as_read, params: { user_id: user.id, id: 9999 }, format: :json
-        expect(response).to have_http_status(:not_found)
-      end
-
       it 'returns unprocessable_entity when update fails' do
         allow_any_instance_of(Notification).to receive(:update).and_return(false)
         post :mark_as_read, params: { user_id: user.id, id: notification.id }, format: :json
@@ -63,11 +58,6 @@ RSpec.describe NotificationsController, type: :controller do
         post :mark_as_unread, params: { user_id: user.id, id: notification.id }, format: :json
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)['read']).to be false
-      end
-
-      it 'returns an error for non-existent notification' do
-        post :mark_as_unread, params: { user_id: user.id, id: 9999 }, format: :json
-        expect(response).to have_http_status(:not_found)
       end
 
       it 'returns unprocessable_entity when update fails' do

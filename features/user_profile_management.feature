@@ -7,7 +7,7 @@ Feature: User Profile Management
     Given I am logged in
     When I am on my dashboard page
     Then I should be able to access my user profile
-    Then I should see my user profile
+    Then I should see the title user profile
     Then I should be able to edit my user profile
     Then I should be able to upload and change my profile photo
     Then I should be able to change my user name
