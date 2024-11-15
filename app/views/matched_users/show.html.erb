@@ -1,0 +1,90 @@
+<%# app/views/users/show.html.erb %>
+
+<h1 class="text-center mb-5 display-4">User Profile</h1>
+
+<!-- Profile Information Section -->
+<div class="container">
+  <div class="card shadow-lg mb-5 profile-card" style="max-width: 700px; margin: auto; border-radius: 15px;">
+    <div class="row g-0">
+      <!-- Profile Image Section -->
+      <div class="col-md-5 text-center p-4 d-flex justify-content-center align-items-center">
+        <% if @matched_user.photo.attached? %>
+          <%= image_tag @matched_user.photo, class: "img-fluid square-img border border-success", alt: "User Photo" %>
+        <% else %>
+          <%= image_tag "https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg", class: "img-fluid square-img border border-success", alt: "No Photo Available" %>
+        <% end %>
+      </div>
+
+      <!-- Profile Details Section -->
+      <div class="col-md-7">
+        <div class="card-body">
+          <h4 class="card-title mb-3"><strong><%= @matched_user.username %></strong></h4>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item bg-transparent text-dark"><i class="bi bi-calendar"></i> <strong>Age:</strong> <%= @matched_user.age %></li>
+            <li class="list-group-item bg-transparent text-dark"><i class="bi bi-gender-ambiguous"></i> <strong>Gender:</strong> <%= @matched_user.gender %></li>
+            <li class="list-group-item bg-transparent text-dark"><i class="bi bi-building"></i> <strong>School:</strong> <%= @matched_user.school %></li>
+            <li class="list-group-item bg-transparent text-dark"><i class="bi bi-book"></i> <strong>Major:</strong> <%= @matched_user.major %></li>
+            <li class="list-group-item bg-transparent text-dark"><i class="bi bi-person"></i> <strong>About Me:</strong> <%= @matched_user.about_me %></li>
+          </ul>
+
+          <div class="mt-4 text-center">
+            <!-- Block Button -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#customConfirmModal">
+              Block User
+            </button>
+          </div>
+
+          <%= button_to "Block User", 
+              block_from_profile_user_path(user_id: @user.id, prospective_user_id: @matched_user.id), 
+              method: :post, 
+              class: "d-none", 
+              id: "blockUserButton",
+              data: { turbo_cache: false } %>
+
+        </div><!-- End of Card Body -->
+      </div><!-- End of Col-md-7 -->
+    </div><!-- End of Row -->
+  </div><!-- End of Card -->
+</div><!-- End of Container -->
+
+<!-- In app/views/users/show.html.erb -->
+<%= render partial: 'shared/confirm_modal', locals: {
+  title: 'Confirm Action',
+  message: 'Are you sure you want to block this user?',
+  cancel_text: 'Cancel',
+  confirm_text: 'Yes, Block User'
+} %>
+
+<%= content_for :head do %>
+  <style>
+    .modal-backdrop {
+      --bs-backdrop-zindex: 0 !important;
+      z-index: 0 !important;
+    }
+
+    .modal-content {
+      z-index: 0 !important;
+    }
+  </style>
+<% end %>
+
+<%= content_for :javascript do %>
+  <script>
+    document.addEventListener('turbo:load', function() {
+      const confirmActionButton = document.getElementById('confirmAction');
+      const blockUserButton = document.getElementById('blockUserButton');
+      const customConfirmModal = document.getElementById('customConfirmModal');
+
+      if (confirmActionButton && blockUserButton) {
+        confirmActionButton.addEventListener('click', function() {
+          console.log('Confirm action clicked');
+          blockUserButton.click();
+          var modal = bootstrap.Modal.getInstance(customConfirmModal);
+          if (modal) {
+            modal.hide();
+          }
+        });
+      }
+    });
+  </script>
+<% end %>

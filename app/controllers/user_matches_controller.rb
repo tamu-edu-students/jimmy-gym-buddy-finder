@@ -13,6 +13,20 @@ class UserMatchesController < ApplicationController
     respond_to_request
   end
 
+  def matched_users
+    user_id = params[:user_id]
+    log_user_info(user_id)
+
+    @current_user = current_user
+    @matched_users = fetch_matched_users(user_id)
+
+    if request.format.json?
+      render json: @matched_users
+    else
+      @matched_users
+    end
+  end
+
   def match
     result = MatchingService.perform_action("match", current_user, prospective_user)
     MatchingService.check_reciprocal_match(current_user, prospective_user) if result[:status] == :ok
@@ -27,6 +41,11 @@ class UserMatchesController < ApplicationController
   def block
     result = MatchingService.perform_action("block", current_user, prospective_user)
     render json: result, status: result[:status]
+  end
+
+  def block_from_profile
+    result = MatchingService.perform_action("block", current_user, prospective_user)
+    redirect_to matched_users_path(@user), notice: "User has been blocked.", status: :see_other
   end
 
   private
@@ -52,6 +71,11 @@ class UserMatchesController < ApplicationController
     ordered_ids.map { |id| build_user_data(filtered_users, id) }.compact
   end
 
+  def fetch_matched_users(user_id)
+    matched_user_ids = UserMatch.where(user_id: user_id, status: "matched").pluck(:prospective_user_id)
+    User.where(id: matched_user_ids).select(:id, :username, :email, :age, :gender)
+  end
+
   def respond_to_request
     if request.format.json?
       render json: @prospective_users
@@ -64,14 +88,14 @@ class UserMatchesController < ApplicationController
     user = filtered_users.find { |u| u.id == id }
     return nil unless user
 
-    user_data = user.as_json(only: [:id, :username, :email, :age, :gender, :photo])
+    user_data = user.as_json(only: [ :id, :username, :email, :age, :gender, :photo ])
     add_fitness_profile_data(user_data, user)
     user_data
   end
 
   def add_fitness_profile_data(user_data, user)
     if user.fitness_profile
-      user_data["fitness_profile"] = user.fitness_profile.as_json(only: [:activities_with_experience, :gym_locations, :workout_schedule, :workout_types])
+      user_data["fitness_profile"] = user.fitness_profile.as_json(only: [ :activities_with_experience, :gym_locations, :workout_schedule, :workout_types ])
     end
   end
 

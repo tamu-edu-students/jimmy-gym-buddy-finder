@@ -1,0 +1,9 @@
+<div class="message mb-3" data-user-id="<%= message.user.id %>">
+  <div class="text-end"> <!-- All messages aligned to right -->
+    <div class="message-content d-inline-block p-2 rounded <%= message.user == current_user ? 'bg-primary text-white' : 'bg-light text-dark' %>">
+      <strong><%= message.user.username %>:</strong>
+      <%= message.content %>
+    </div>
+    <small class="text-muted d-block"><%= message.created_at.strftime("%H:%M") %></small>
+  </div>
+</div>

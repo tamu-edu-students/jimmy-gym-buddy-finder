@@ -17,5 +17,5 @@ Feature: Dashboard Navigation
   Scenario: View feature introductions and navigate to User Profile Management
     Given I am on the dashboard page
     When I enter the dashboard for the first time
-    Then I should see introductions for each feature displayed on the screen
+    Then I should see the text "Welcome to Jimmy"
     

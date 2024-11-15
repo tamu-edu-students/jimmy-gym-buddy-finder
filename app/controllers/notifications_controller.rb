@@ -1,5 +1,6 @@
 class NotificationsController < ApplicationController
     before_action :require_login
+    before_action :load_notifications
 
     def index
       notifications = user.notifications.order(created_at: :desc)
@@ -7,32 +8,34 @@ class NotificationsController < ApplicationController
     end
 
     def mark_as_read
-      begin
-        notification = user.notifications.find(params[:id])
-        if notification.update(read: true)
-          respond_to do |format|
-            format.json { render json: { message: "Notification marked as read.", status: :ok, read: true } }
+      notification = user.notifications.find(params[:id])
+
+      if notification.update(read: true)
+        respond_to do |format|
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.replace("notification_#{notification.id}", partial: "notifications/notification", locals: { notification: notification })
           end
-        else
-          render json: { message: "Failed to mark notification as read." }, status: :unprocessable_entity
+          format.html { redirect_to notifications_path, notice: "Notification updated." }
+          format.json { render json: { id: notification.id, read: true }, status: :ok }
         end
-      rescue ActiveRecord::RecordNotFound
-        render json: { message: "Notification not found." }, status: :not_found
+      else
+        render json: { message: "Failed to mark notification as read." }, status: :unprocessable_entity
       end
     end
 
     def mark_as_unread
-      begin
-        notification = user.notifications.find(params[:id])
-        if notification.update(read: false)
-          respond_to do |format|
-            format.json { render json: { message: "Notification marked as unread.", status: :ok, read: false } }
+      notification = user.notifications.find(params[:id])
+
+      if notification.update(read: false)
+        respond_to do |format|
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.replace("notification_#{notification.id}", partial: "notifications/notification", locals: { notification: notification })
           end
-        else
-          render json: { message: "Failed to mark notification as unread." }, status: :unprocessable_entity
+          format.html { redirect_to notifications_path, notice: "Notification updated." }
+          format.json { render json: { id: notification.id, read: false }, status: :ok }
         end
-      rescue ActiveRecord::RecordNotFound
-        render json: { message: "Notification not found." }, status: :not_found
+      else
+        render json: { message: "Failed to mark notification as unread." }, status: :unprocessable_entity
       end
     end
 end

@@ -39,9 +39,9 @@ RSpec.describe MatchingController, type: :controller do
     end
 
     it 'assigns @prospective_users' do
-      allow_any_instance_of(UserMatchesController).to receive(:prospective_users).and_return([prospective_user])
+      allow_any_instance_of(UserMatchesController).to receive(:prospective_users).and_return([ prospective_user ])
       get :profileswipe, params: { user_id: user.id }
-      expect(assigns(:prospective_users)).to eq([prospective_user])
+      expect(assigns(:prospective_users)).to eq([ prospective_user ])
     end
 
     it 'renders the profileswipe template' do
