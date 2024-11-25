@@ -45,9 +45,9 @@ Set up the database by running:
 
 5. **Setup Secrets** 
 	- To add environment variables securely in Rails credentials, use the following command:
-	```bash 
-	EDITOR="vim" rails credentials:edit
-	```
+		```bash 
+		EDITOR="vim" rails credentials:edit
+		```
 	- This command does the following:
 
 		-   Opens the encrypted `config/credentials.yml.enc` file for editing.
