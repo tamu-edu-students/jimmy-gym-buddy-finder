@@ -17,14 +17,12 @@ To get started with the project, follow these steps:
 	git clone <repository-url> 
 	cd <project-directory>
 	```
-2. **Install Dependencies** 
-Ensure you have Ruby and Bundler installed.
+2. **Install Dependencies.** Ensure you have Ruby and Bundler installed.
 	```bash 
 	gem install bundler 
 	bundle install
 	```
-3. **Setup Database** 
-Set up the database by running:
+3. **Setup Database.** Set up the database by running:
 	```bash 
 	rails db:migrate
 	```
@@ -54,8 +52,7 @@ Set up the database by running:
 		-   Allows you to add environment variables (e.g., API keys, secrets).
 	- Once saved, Rails encrypts the file using the **`config/master.key`**. This `master.key` is essential to decrypt the credentials file at runtime. The `config/master.key` is **automatically generated** when you run `rails credentials:edit` for the first time.
 	 
-6. **Verify Setup** 
-Start the Rails server:
+6. **Verify Setup.** Start the Rails server:
 	```bash 
 	rails server
 	```
@@ -68,12 +65,18 @@ The project includes two types of test suites: **RSpec** and **Cucumber**. Follo
 ## 1. RSpec Tests
 
 RSpec is used for unit and integration testing. 
-To run the RSpec tests: `bundle exec rspec`
+To run the RSpec tests: 
+	```bash
+	`bundle exec rspec`
+	```
 
 ## 2. Cucumber Scenarios
 
 Cucumber is used for behavior-driven development (BDD) and testing user scenarios. 
-To run the Cucumber tests: `bundle exec cucumber`
+To run the Cucumber tests: 
+	```bash
+	`bundle exec cucumber`
+	```
 
 # Deployment Documentation for Jimmy - Gym Buddy Finder App
 
