@@ -6,7 +6,51 @@
 
 * Code Climate URL - https://codeclimate.com/github/tamu-edu-students/jimmy-gym-buddy-finder
 
-   
+# Development and Testing Documentation Jimmy - Gym Buddy Finder App
+
+## Setup 
+To get started with the project, follow these steps: 
+1. **Clone the Repository** 
+	```bash 
+	git clone <repository-url> 
+	cd <project-directory>
+	```
+2. **Install Dependencies** 
+Ensure you have Ruby (version specified in `.ruby-version`) and Bundler installed.
+	```bash 
+	gem install bundler 
+	bundle install
+	```
+3. **Setup Database** 
+Set up the database by running:
+	```bash 
+	rails db:migrate
+	```
+4. **Setup Secrets** 
+Ensure the `config/master.key` file exists to decrypt `config/credentials.yml.enc`. If it's missing, you may need to regenerate the credentials:
+	```bash 
+	EDITOR="vim" rails credentials:edit
+	```
+5. **Verify Setup** 
+Start the Rails server:
+	```bash 
+	rails server
+	```
+Visit `http://localhost:3000` in your browser to confirm the app is running.
+
+# Running Tests
+
+The project includes two types of test suites: **RSpec** and **Cucumber**. Follow the steps below to run the tests.
+
+## 1. RSpec Tests
+
+RSpec is used for unit and integration testing. 
+To run the RSpec tests: `bundle exec rspec`
+
+## 2. Cucumber Scenarios
+
+Cucumber is used for behavior-driven development (BDD) and testing user scenarios. 
+To run the Cucumber tests: `bundle exec cucumber`
 
 # Deployment Documentation for Jimmy - Gym Buddy Finder App
 
@@ -22,7 +66,7 @@ Before starting the deployment process, ensure you have the following:
 
 - Local Rails development environment set up
 
-  
+Note: For CSCE-606 Project Verification, to skip Google Developer's Console setup for Omniauth and Amazon AWS S3 Bucket setup, please contact the team members and get the {master.key} beforehand.
 
 ## 1. Omniauth Authentication Setup
 
@@ -35,11 +79,11 @@ The app uses Omniauth for Google authentication. To configure Google OAuth:
 3. The required gems and corresponding configuration has been done already and can be found in `config/initializers/omniauth.rb`.
 
 4. The following environment variables are to setup in Rails credentials in order for omniauth to work:
-    ```yaml 
-    google: 
-        client_id: <google-client-id> 
-        client_secret: <google-client-secret>
-    ```	
+	```yaml 
+		google: 
+			client_id: <google-client-id> 
+			client_secret: <google-client-secret>
+	```	
 
   
 
@@ -97,9 +141,9 @@ To store profile images, you'll need to create an Amazon S3 bucket.
 	- Secret Access Key 
 2. The following environment variables are to setup in rails credentials in order for aws s3 bucket connection to happen: 
 	```yaml 
-    aws: 
-        access_key_id: <aws-access-id> 
-        secret_access_key: <aws-secret-key>
+		aws: 
+			access_key_id: <aws-access-id> 
+			secret_access_key: <aws-secret-key>
 	```		
 
 ## 6. Verify and Monitor Your Deployment
@@ -110,3 +154,16 @@ heroku logs --tail
 ```
 
 The **Jimmy - Gym Buddy Finder** app is now successfully deployed on Heroku with the necessary configurations for authentication, database, real-time chats, and image storage. Make sure to monitor and scale your app as needed using Heroku’s various add-ons and resources.
+
+
+# Contact Information
+
+| Name           | Email                  |
+|-----------------|------------------------|
+| Kushal Lahoti       | [kushal.1170234@tamu.edu](mailto:kushal.1170234@tamu.edu)  |
+| Yash Phatak     | [ysphatak@tamu.edu](mailto:ysphatak@tamu.edu) |
+| Mrunmay Deshmukh    | [mrunmayd@tamu.edu](mailto:mrunmayd@tamu.edu)   |
+| Barry Liu  | [barry89130663@tamu.edu](mailto:barry89130663@tamu.edu)  |`
+| Wei-Chien Cheng  | [wccheng@tamu.edu](mailto:wccheng@tamu.edu)   |
+| Chuan-Hsin Wang   | [chuanhsin0110@tamu.edu](mailto:chuanhsin0110@tamu.edu)     |
+| Kuan-Ru Huang    | [randy103104@tamu.edu](mailto:randy103104@tamu.edu)   |
