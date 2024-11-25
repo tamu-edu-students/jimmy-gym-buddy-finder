@@ -158,7 +158,7 @@ After deploying your app to Heroku, you need to configure the OAuth redirect URL
 2.  Add the URL to the Google Developer Console:
     -   Go to the **Google Cloud Console**.
     -   Navigate to **APIs & Services > Credentials**.
-    -   Select your **OAuth 2.0 Client IDs**.
+    -   Select your **OAuth 2.0 Client ID**.
     -   Under the **Authorized redirect URIs** section, add the following:
         `https://<your-heroku-app-name>.herokuapp.com/auth/google_oauth2/callback`
   
