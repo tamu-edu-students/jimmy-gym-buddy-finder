@@ -66,17 +66,17 @@ The project includes two types of test suites: **RSpec** and **Cucumber**. Follo
 
 RSpec is used for unit and integration testing. 
 To run the RSpec tests: 
-	```bash
-	bundle exec rspec
-	```
+```bash
+bundle exec rspec
+```
 
 ## 2. Cucumber Scenarios
 
 Cucumber is used for behavior-driven development (BDD) and testing user scenarios. 
 To run the Cucumber tests: 
-	```bash
-	bundle exec cucumber
-	```
+```bash
+bundle exec cucumber
+```
 
 # Deployment Documentation for Jimmy - Gym Buddy Finder App
 
