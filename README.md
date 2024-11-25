@@ -16,7 +16,7 @@ To get started with the project, follow these steps:
 	cd <project-directory>
 	```
 2. **Install Dependencies** 
-Ensure you have Ruby (version specified in `.ruby-version`) and Bundler installed.
+Ensure you have Ruby and Bundler installed.
 	```bash 
 	gem install bundler 
 	bundle install
@@ -80,7 +80,7 @@ The app uses Omniauth for Google authentication. To configure Google OAuth:
 
 4. The following environment variables are to setup in Rails credentials in order for omniauth to work:
 	```yaml 
-    google: 
+	google: 
         client_id: <google-client-id> 
         client_secret: <google-client-secret>
 	```	
