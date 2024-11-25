@@ -37,11 +37,11 @@ Set up the database by running:
 	 - Make sure to create a Google Developer Console project, set up OAuth credentials, and configure the redirect URI to match your Heroku app's domain.  
 	 - The required gems and corresponding configuration has been done already and can be found in `config/initializers/omniauth.rb`.
      - The following environment variables are to setup in Rails credentials in order for omniauth to work:
-	```yaml 
-	google: 
-		client_id: <google-client-id> 
-		client_secret: <google-client-secret>
-	```
+		```yaml 
+		google: 
+	      client_id: <google-client-id> 
+		  client_secret: <google-client-secret>
+		```
 
 5. **Setup Secrets** 
 	- To add environment variables securely in Rails credentials, use the following command:
@@ -99,8 +99,8 @@ To store profile images, you'll need to create an Amazon S3 bucket.
 2. The following environment variables are to setup in rails credentials in order for aws s3 bucket connection to happen: 
 	```yaml 
 	aws: 
-		access_key_id: <aws-access-id> 
-		secret_access_key: <aws-secret-key>
+	  access_key_id: <aws-access-id> 
+      secret_access_key: <aws-secret-key>
 	```		
 3. Follow the steps in [Setup Secrets](#Setup-Secrets) section to setup rails credentials for AWS secrets.
 
