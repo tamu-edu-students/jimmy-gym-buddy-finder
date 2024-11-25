@@ -80,9 +80,9 @@ The app uses Omniauth for Google authentication. To configure Google OAuth:
 
 4. The following environment variables are to setup in Rails credentials in order for omniauth to work:
 	```yaml 
-		google: 
-			client_id: <google-client-id> 
-			client_secret: <google-client-secret>
+    google: 
+        client_id: <google-client-id> 
+        client_secret: <google-client-secret>
 	```	
 
   
@@ -141,9 +141,9 @@ To store profile images, you'll need to create an Amazon S3 bucket.
 	- Secret Access Key 
 2. The following environment variables are to setup in rails credentials in order for aws s3 bucket connection to happen: 
 	```yaml 
-		aws: 
-			access_key_id: <aws-access-id> 
-			secret_access_key: <aws-secret-key>
+    aws: 
+        access_key_id: <aws-access-id> 
+        secret_access_key: <aws-secret-key>
 	```		
 
 ## 6. Verify and Monitor Your Deployment
