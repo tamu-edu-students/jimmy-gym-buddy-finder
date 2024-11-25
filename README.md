@@ -35,11 +35,11 @@ The app uses Omniauth for Google authentication. To configure Google OAuth:
 3. The required gems and corresponding configuration has been done already and can be found in `config/initializers/omniauth.rb`.
 
 4. The following environment variables are to setup in Rails credentials in order for omniauth to work:
-```yaml 
-google: 
-    client_id: <google-client-id> 
-    client_secret: <google-client-secret>
-```	
+    ```yaml 
+    google: 
+        client_id: <google-client-id> 
+        client_secret: <google-client-secret>
+    ```	
 
   
 
