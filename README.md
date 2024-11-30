@@ -6,8 +6,6 @@
 
 * Code Climate URL - https://codeclimate.com/github/tamu-edu-students/jimmy-gym-buddy-finder
 
-**Note**: For CSCE-606 Project Verification, to skip Google Developer's Console setup for Omniauth and Amazon AWS S3 Bucket setup, please contact the team members and get the {master.key} beforehand.
-
 # Development and Testing Documentation Jimmy - Gym Buddy Finder App
 
 ## Setup 
