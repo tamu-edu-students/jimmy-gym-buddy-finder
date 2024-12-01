@@ -15,11 +15,7 @@
 
 <% if FitnessProfile.where(user_id: @user.id).exists? %>
   <!-- User has a fitness profile -->
-<% else %>
-  <div class="alert alert-warning text-center w-100 mt-4">
-    Please create a fitness profile to view other users.
-  </div>
-<% end %>
+
   <div class="container d-flex flex-column align-items-center mt-4">
     <!-- Search Filter -->
     <div class="w-100 mb-3 d-flex justify-content-center">
@@ -37,8 +33,8 @@
         <% end %>
           <div class="card-body text-center">
             <h5 class="card-title"><%= user['username'] %></h5>
-            <p class="card-text">Age: <%= user['age'] %></p>
-            <p class="card-text">Activities: <%= user['fitness_profile']['activities_with_experience'].split('|').map { |a| a.split(':').first }.join(', ') %></p>
+            <p class="card-text"><b>Activities:</b> <%= user['fitness_profile']['activities_with_experience'].split('|').map { |a| a.split(':').first }.join(', ') %></p>
+            <p class="card-text"><b>Fitness Goals:</b> <%= user['fitness_profile']['workout_types'].split(',').join(', ') %></p>
           </div>
         </div>
       <% end %>
@@ -63,6 +59,14 @@
       </div>
     </div>
   </div>
+
+<% else %>
+  <div class="no-fitness-profile-warning" style="display: flex; justify-content: center; align-items: center;">
+    <div class="alert alert-custom-warn text-center w-50 mt-4">
+      Please create a fitness profile to find fitness buddies!
+    </div>
+  </div>
+<% end %>
 
   <!-- Custom Confirm Modal -->
   <%= render partial: 'shared/confirm_modal', locals: {
@@ -89,7 +93,7 @@
     function displayCurrentCard() {
       const container = document.querySelector('.profile-cards');
       const actionButtons = document.getElementById('action-buttons');
-      container.innerHTML = '<div class="alert alert-warning" style="display: none;">No profiles to display.</div>';
+      container.innerHTML = '<div class="alert alert-custom" style="display: none;">No profiles to display</div>';
       
       if (availableCards.length > 0) {
         const currentCard = availableCards[currentCardIndex];
@@ -279,6 +283,24 @@
 
     .modal-content {
       z-index: 0 !important;
+    }
+
+    .alert-custom {
+      background-color: #a3bb33;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .alert-custom-warn {
+      background-color: #DC3545;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: center;
+      margin-top: 20px;
     }
 
   </style>

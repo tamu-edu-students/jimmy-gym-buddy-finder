@@ -4,6 +4,7 @@ Feature: Profile Swiping
 
   Background:
     Given I am logged in as a user for profile swipe
+    And I have a fitness profile
 
   Scenario: View profile swipe page
     When I visit the profile swipe page
