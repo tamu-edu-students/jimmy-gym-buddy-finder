@@ -12,13 +12,15 @@
 To get started with the project, follow these steps: 
 1. **Clone the Repository** 
 	```bash 
-	git clone <repository-url> 
-	cd <project-directory>
+	git clone https://github.com/tamu-edu-students/jimmy-gym-buddy-finder.git
+	cd jimmy-gym-buddy-finder
 	```
-2. **Install Dependencies.** Ensure you have Ruby and Bundler installed.
-	```bash 
+2. **Install Dependencies.** Ensure you have rbenv, ruby and bundler installed.
+	```bash
+        sudo apt install rbenv
+        rbenv install 3.3.4
 	gem install bundler 
-	bundle install
+	bundle config set --local without 'production'
 	```
 3. **Setup Database.** Set up the database by running:
 	```bash 
