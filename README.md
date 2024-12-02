@@ -16,7 +16,7 @@ The app ensures a trustworthy and exclusive environment by requiring users to si
 
 * [Code Climate URL](https://codeclimate.com/github/tamu-edu-students/jimmy-gym-buddy-finder)
 
-# Development and Testing Documentation Jimmy - Gym Buddy Finder App
+## Development and Testing Documentation Jimmy - Gym Buddy Finder App
 
 ## Setup 
 To get started with the project, follow these steps: 
@@ -69,11 +69,11 @@ To get started with the project, follow these steps:
 	```
 Visit `http://localhost:3000` in your browser to confirm the app is running.
 
-# Running Tests
+## Running Tests
 
 The project includes two types of test suites: **RSpec** and **Cucumber**. Follow the steps below to run the tests.
 
-## 1. RSpec Tests
+### 1. RSpec Tests
 
 RSpec is used for unit and integration testing. 
 To run the RSpec tests: 
@@ -81,7 +81,7 @@ To run the RSpec tests:
 bundle exec rspec
 ```
 
-## 2. Cucumber Scenarios
+### 2. Cucumber Scenarios
 
 Cucumber is used for behavior-driven development (BDD) and testing user scenarios. 
 To run the Cucumber tests: 
@@ -89,11 +89,11 @@ To run the Cucumber tests:
 bundle exec cucumber
 ```
 
-# Deployment Documentation for Jimmy - Gym Buddy Finder App
+## Deployment Documentation for Jimmy - Gym Buddy Finder App
 
 This guide will walk you through the process of deploying the Jimmy - Gym Buddy Finder Ruby on Rails app on the Heroku platform. It includes steps for setting up database, real-time chat, and image storage.
 
-## Prerequisites
+### Prerequisites
 
 Before starting the deployment process, ensure you have the following:
 
@@ -103,7 +103,7 @@ Before starting the deployment process, ensure you have the following:
 
 - Local Rails development environment set up
 
-## 1. Amazon AWS S3 Bucket Setup for Storing Profile Images 
+### 1. Amazon AWS S3 Bucket Setup for Storing Profile Images 
 
 To store profile images, you'll need to create an Amazon S3 bucket. 
 
@@ -118,7 +118,7 @@ To store profile images, you'll need to create an Amazon S3 bucket.
 	```		
 3. Follow the steps in [Setup Secrets](#Setup-Secrets) section to setup rails credentials for AWS secrets.
 
-## 1. Heroku Application Setup
+### 2. Heroku Application Setup
 
 
 1. Create an account on [Heroku](https://signup.heroku.com/) and install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
@@ -161,7 +161,7 @@ The `master.key` is required to decrypt the `credentials.yml.enc` file during ru
 	```
 	This will push your local `main` branch to the Heroku remote repository, deploying your app.
 
-## 2. Add Deployment URL to Google Developer Console
+### 3. Add Deployment URL to Google Developer Console
 
 After deploying your app to Heroku, you need to configure the OAuth redirect URL in the Google Developer Console to enable Google OmniAuth authentication.
 
@@ -181,7 +181,7 @@ After deploying your app to Heroku, you need to configure the OAuth redirect URL
   
 	The deployed app will now use the configured redirect URL for Google OmniAuth authentication.
 
-## 2. PostgreSQL Setup on Heroku for Persistent Database.
+### 4. PostgreSQL Setup on Heroku for Persistent Database.
 
 We will use Heroku Postgres to set up the database for the app. 
 
@@ -197,7 +197,7 @@ We will use Heroku Postgres to set up the database for the app.
 	```
 
   
-## 3. Redis Setup on Heroku for Using Real-Time Chat feature.
+### 5. Redis Setup on Heroku for Using Real-Time Chat feature.
 
 Redis will be used for enabling real-time chats with the help of WebSockets. We will use the Heroku Key-Value Store add-on to set up Redis. 
 
@@ -213,7 +213,7 @@ Redis will be used for enabling real-time chats with the help of WebSockets. We 
 	- Update `config.action_cable.url` and `config.action_cable.allowed_request_origins` using the Heroku app URL.
 	- Commit the changes the push the code to heroku remote.
 
-## 5. Verify and Monitor Your Deployment
+### 6. Verify and Monitor Your Deployment
 
 To check your app's logs, use the following command:
 ```bash
@@ -222,7 +222,7 @@ heroku logs --tail --remote <remote-name>
 
 The **Jimmy - Gym Buddy Finder** app is now successfully deployed on Heroku with the necessary configurations for authentication, database, real-time chats, and image storage. Make sure to monitor and scale your app as needed using Heroku’s various add-ons and resources.
 
-# Contact Information
+## Contact Information
 
 | Name           | Email                  |
 |-----------------|------------------------|
