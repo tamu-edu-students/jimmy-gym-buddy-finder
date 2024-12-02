@@ -10,6 +10,8 @@ The app ensures a trustworthy and exclusive environment by requiring users to si
  
 * [Deployed application URL](https://jimmy-buddy-finder-f97708d96ef8.herokuapp.com/)
 
+* [Presentation & Demo Video](https://youtu.be/802vG74ZODY?si=opcEtnXKagDb4oNk) 
+
 * [Project Reports](https://github.com/tamu-edu-students/jimmy-gym-buddy-finder/tree/main/documentation/Fall2024)
 
 * [Team Working Agreement](https://github.com/tamu-edu-students/jimmy-gym-buddy-finder/blob/main/documentation/Fall2024/Team_Working_Agreement.md)
