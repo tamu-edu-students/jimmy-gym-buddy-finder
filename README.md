@@ -1,6 +1,6 @@
 
 
-# Jimmy-Gym-Buddy-Finder-App
+# Jimmy - Gym Buddy Finder Application
 
 ## Project Overview:
 
