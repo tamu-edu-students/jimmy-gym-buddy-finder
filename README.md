@@ -1,4 +1,5 @@
 
+
 # Jimmy-Gym-Buddy-Finder-App
 
  
@@ -17,10 +18,11 @@ To get started with the project, follow these steps:
 	```
 2. **Install Dependencies.** Ensure you have rbenv, ruby and bundler installed.
 	```bash
-        sudo apt install rbenv
-        rbenv install 3.3.4
-		gem install bundler 
-		bundle config set --local without 'production'
+    sudo apt install rbenv
+    rbenv install 3.3.4
+	gem install bundler 
+	bundle config set --local without 'production'
+	bundle install
 	```
 3. **Setup Database.** Set up the database by running:
 	```bash 
@@ -31,7 +33,7 @@ To get started with the project, follow these steps:
 
 	The app uses Omniauth for Google authentication. To configure Google OAuth:
 
-	 - Follow the Google OAuth setup documentation.
+	 - Follow the Google OAuth setup documentation for Rails app - [OAuth on Rails](https://github.com/tamu-edu-students/Google-Auth-Ruby-By-JD).
 	 - Make sure to create a Google Developer Console project, set up OAuth credentials, and configure the redirect URI to match your Heroku app's domain.  
 	 - The required gems and corresponding configuration has been done already and can be found in `config/initializers/omniauth.rb`.
      - The following environment variables are to setup in Rails credentials in order for omniauth to work:
@@ -42,7 +44,7 @@ To get started with the project, follow these steps:
 		```
 
 5. **Setup Secrets** 
-	- To add environment variables securely in Rails credentials, use the following command:
+	- To add any environment variables (Google Omniauth client_id and client_secret) securely in Rails credentials, use the following command:
 		```bash 
 		EDITOR="vim" rails credentials:edit
 		```
@@ -109,40 +111,46 @@ To store profile images, you'll need to create an Amazon S3 bucket.
 
 ## 1. Heroku Application Setup
 
- 
-1. Log in to your Heroku account using the CLI:
+
+1. Create an account on [Heroku](https://signup.heroku.com/) and install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
+2. Log in to your Heroku account using the CLI:
 
 	```bash
 	heroku login
 	```
-2. Create a new Heroku app:
+3. Create a new Heroku app:
 	
 	```bash
 	heroku create <app-name>
 	```
 	- This will create a new Heroku app on your Heroku account.
 	- It also generates a new Heroku Git remote linked to the app.
-3. Take generated remote URI and add it to git remote:
+4. Add Heroku as a Git remote:
+After creating the Heroku app, you will receive a **Git remote URL**. You will need to add this URL as a remote in your Git configuration.  
+To add it, run the following command:
 	```bash
 	git remote add <remote-name> <remote-uri>
 	```
-4. Check the added Git remotes:
+	-   Replace `<remote-url>` with the Git remote URL provided by Heroku (e.g., `https://git.heroku.com/<app-name>.git`).
+	-   The remote is named `heroku` by default, but you can change the name if needed.
+5. Check the added Git remotes:
+To check that the Heroku remote was added successfully, run the following command:
 	```bash
 	git remote -v
 	```
 	- This will list all remotes in your local repository.
 	- Ensure the `heroku` remote is pointing to the correct Heroku app repository.
-5. Set the Rails `master.key` on Heroku:
-	The `master.key` is required to decrypt the `credentials.yml.enc` file during runtime. Add it to Heroku using the following command:
+7. Set the Rails `master.key` on Heroku:
+The `master.key` is required to decrypt the `credentials.yml.enc` file during runtime. Typically, this key is stored in the `config/master.key` file in your local project. To set this key in Heroku’s environment, run:
 	```bash
 	heroku config:set RAILS_MASTER_KEY=$(cat config/master.key) --remote <remote-name>
 	```
 
-6. Push your local project to Heroku:
+8. Push your local project to Heroku:
 	```bash
 	git push <remote-name> main
 	```
-
+	This will push your local `main` branch to the Heroku remote repository, deploying your app.
 
 ## 2. Add Deployment URL to Google Developer Console
 
