@@ -19,8 +19,8 @@ To get started with the project, follow these steps:
 	```bash
         sudo apt install rbenv
         rbenv install 3.3.4
-	gem install bundler 
-	bundle config set --local without 'production'
+		gem install bundler 
+		bundle config set --local without 'production'
 	```
 3. **Setup Database.** Set up the database by running:
 	```bash 
