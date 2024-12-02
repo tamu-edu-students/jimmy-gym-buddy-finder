@@ -15,17 +15,8 @@
         </div>
 
         <div class="feature-grid">
-          <a href="<%= matching_profileswipe_path(user_id: @user.id) %>" class="feature-item">
-            <div class="feature-content">
-              <div class="feature-icon">
-                <i class="bi bi-people-fill"></i>
-              </div>
-              <h3>Find a Buddy</h3>
-              <p>Discover your perfect gym partner</p>
-            </div>
-          </a>
 
-          <% if @user.fitness_profile %>
+            <% if @user.fitness_profile %>
             <a href="<%= user_fitness_profile_path(@user, @user.fitness_profile) %>" data-turbo="false" class="feature-item">
               <div class="feature-content">
                 <div class="feature-icon">
@@ -46,6 +37,16 @@
               </div>
             </a>
           <% end %>
+
+          <a href="<%= matching_profileswipe_path(user_id: @user.id) %>" class="feature-item">
+            <div class="feature-content">
+              <div class="feature-icon">
+                <i class="bi bi-people-fill"></i>
+              </div>
+              <h3>Find a Buddy</h3>
+              <p>Discover your perfect gym partner</p>
+            </div>
+          </a>
 
           <a href="<%= matched_users_path(@user) %>" class="feature-item">
             <div class="feature-content">

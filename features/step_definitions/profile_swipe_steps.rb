@@ -10,6 +10,10 @@ Given("I am logged in as a user for profile swipe") do
     page.set_rack_session(user_id: @user.id)
   end
 
+Given("I have a fitness profile") do
+    FactoryBot.create(:fitness_profile, user: @user)
+  end
+
 # In features/step_definitions/profile_swipe_steps.rb
 
 When("I visit the profile swipe page") do

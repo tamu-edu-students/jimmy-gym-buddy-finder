@@ -73,7 +73,12 @@ class UserMatchesController < ApplicationController
 
   def fetch_matched_users(user_id)
     matched_user_ids = UserMatch.where(user_id: user_id, status: "matched").pluck(:prospective_user_id)
-    User.where(id: matched_user_ids).select(:id, :username, :email, :age, :gender)
+    prospective_user_ids = UserMatch.where(prospective_user_id: user_id, status: "matched").pluck(:user_id)
+    
+    # Get the intersection of both lists to find bidirectional matches
+    bidirectional_matched_ids = matched_user_ids & prospective_user_ids
+    
+    User.where(id: bidirectional_matched_ids).select(:id, :username, :email, :age, :gender)
   end
 
   def respond_to_request

@@ -35,3 +35,5 @@ test_view/
 /config/master.key
 
 /coverage
+
+/config/credentials.yml.enc
