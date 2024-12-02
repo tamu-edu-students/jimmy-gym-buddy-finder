@@ -2,10 +2,19 @@
 
 # Jimmy-Gym-Buddy-Finder-App
 
- 
-* Deployed application URL - https://jimmy-buddy-finder-f97708d96ef8.herokuapp.com/
+## Project Overview:
 
-* Code Climate URL - https://codeclimate.com/github/tamu-edu-students/jimmy-gym-buddy-finder
+Jimmy - The Gym Buddy Finder App is designed to address the challenges college students face in finding motivated and compatible workout partners. Many students struggle to maintain a consistent fitness routine due to a lack of accountability and companionship. Jimmy connects students who share similar workout interests and fitness goals, making it easier to find gym partners, join sports teams, and participate in group activities. By providing a user-friendly platform where students can create profiles, indicate their workout preferences, and browse potential partners within the campus community, Jimmy fosters a supportive fitness environment.
+
+The app ensures a trustworthy and exclusive environment by requiring users to sign up with a university email. Key functionalities include profile creation, fitness preference matching, messaging capabilities, and notification systems to coordinate workouts and interactions. Jimmy not only facilitates individual connections but also supports sports teams and fitness clubs in recruiting members, thereby enhancing student engagement and promoting overall well-being on campus.  Throughout the development process, we focused on creating a secure, intuitive, and engaging platform that meets the needs of college students seeking workout partners. By considering user feedback and continuously refining features, Jimmy aims to foster a supportive fitness community within college campuses.
+ 
+* [Deployed application URL](https://jimmy-buddy-finder-f97708d96ef8.herokuapp.com/)
+
+* [Project Reports](https://github.com/tamu-edu-students/jimmy-gym-buddy-finder/tree/main/documentation/Fall2024)
+
+* [Team Working Agreement](https://github.com/tamu-edu-students/jimmy-gym-buddy-finder/blob/main/documentation/Fall2024/Team_Working_Agreement.md)
+
+* [Code Climate URL](https://codeclimate.com/github/tamu-edu-students/jimmy-gym-buddy-finder)
 
 # Development and Testing Documentation Jimmy - Gym Buddy Finder App
 
